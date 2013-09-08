@@ -1,10 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM configuration file
-" 
-" Author: Tomas Avé
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set how many lines of history VIM has to remember
@@ -39,6 +33,8 @@ imap jj <Esc>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Always show current position
 set ruler
+" Display current time in ruler info bar
+set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
 " Set offset lines when moving cursor
 set so=7
@@ -115,6 +111,9 @@ set wrap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Show full path of current file
+set statusline=%F
+" Always show status line
 set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
