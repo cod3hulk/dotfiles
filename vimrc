@@ -1,6 +1,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable pathogen to load plugin from ~/.vim/bundle directory
+execute pathogen#infect()
+
 " Set how many lines of history VIM has to remember
 set history=700
 
