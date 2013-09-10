@@ -12,13 +12,18 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-fugitive'
+Bundle 'ervandew/supertab'
+
+" ctrlp config
+let g:ctrlp_map='<leader>f'
+let g:ctrlp_max_height=30
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_reversed=0
 
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
-
-" Enable pathogen to load plugin from ~/.vim/bundle directory
-" execute pathogen#infect()
 
 " Set how many lines of history VIM has to remember
 set history=700
@@ -127,7 +132,7 @@ set wrap
 " Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Show full path of current file
-set statusline=%F
+set statusline=%F%m%r%h%w\ %{fugitive#statusline()}\ [%l,%c]\ [%L,%p%%]
 " Always show status line
 set laststatus=2
 
