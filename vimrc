@@ -1,18 +1,30 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable vundle support
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+" Bundles
+Bundle 'gmarik/vundle'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-ruby/vim-ruby'
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
 " Enable pathogen to load plugin from ~/.vim/bundle directory
-execute pathogen#infect()
+" execute pathogen#infect()
 
 " Set how many lines of history VIM has to remember
 set history=700
 
 " Set relative line number
 set relativenumber
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
