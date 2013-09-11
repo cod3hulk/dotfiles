@@ -1,0 +1,4 @@
+#This file contains general configuration like default exports
+
+#Set vim as default editor
+export EDITOR=vim
