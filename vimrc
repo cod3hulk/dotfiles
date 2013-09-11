@@ -21,6 +21,12 @@ let g:ctrlp_max_height=30
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
 
+let g:ctrlp_custom_ignore = {
+\ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)$',
+\ 'file': '\v\.(exe|so|dll|jar|class|war)$',
+\ }
+
+
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -63,7 +69,7 @@ set so=7
 set wildmenu
 
 " Ignore compiled files from wildmenu
-set wildignore=*.class
+set wildignore=*/target/*
 
 " Height of the command bar
 set cmdheight=2
