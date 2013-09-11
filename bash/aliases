@@ -22,6 +22,8 @@ alias ga="git add"
 
 # General aliases
 alias reload="source ~/.bash_profile"
+alias ll="ls -l --color=auto"
+alias la="ll -a"
 
 # config files aliases
 alias aliases="vim ~/.bash/aliases"

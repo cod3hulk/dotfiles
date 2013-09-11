@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cwd=$(pwd)
-config_files="vimrc vim bash_profile bash"
-
-for file in $config_files; do
-    echo "Creating symlink [.$file] to $file in home directory"
-    ln -sf $cwd/$file ~/.$file
+FILES="vimrc vim bash_profile bash"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo $DIR
+for file in $FILES; do
+    echo "Creating symlink [~/.$file] to $DIR/$file" 
+    ln -sf $DIR/$file ~/.$file
 done
