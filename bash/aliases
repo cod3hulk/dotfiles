@@ -1,0 +1,29 @@
+# This file contains aliases which are loaded by the bash_profile
+# SVN related aliases
+alias su="svn up"
+alias sc="svn ci"
+alias sm="svn merge"
+alias st="svn status"
+alias sr="svn revert -R ."
+alias si="svn info"
+alias sw="svn switch"
+
+# MVN related aliases
+alias mci="mvn clean install"
+
+# Git related aliases
+alias gs="git status"
+alias gpush="git push"
+alias gpull="git pull"
+alias gcl="git clone"
+alias gc="git commit"
+alias gd="git diff"
+alias ga="git add"
+
+# General aliases
+alias reload="source ~/.bash_profile"
+
+# config files aliases
+alias aliases="vim ~/.bash/aliases"
+alias vimrc="vim ~/.vimrc"
+

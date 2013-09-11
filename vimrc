@@ -51,8 +51,14 @@ nmap <leader>w :update<cr>
 " Fast quitting
 nmap <leader>q :q<cr>
 
+" Fast saving and quitting
+nmap <leader>x :x<cr>
+
 " Fast visual mode
 imap jj <Esc> 
+
+" Paste yanked text to global clipboard
+set clipboard=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM user interface
