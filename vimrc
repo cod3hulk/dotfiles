@@ -14,6 +14,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-fugitive'
 Bundle 'ervandew/supertab'
+Bundle 'tpope/vim-endwise'
 
 " ctrlp config
 let g:ctrlp_map='<leader>f'

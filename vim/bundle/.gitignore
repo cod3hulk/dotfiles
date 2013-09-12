@@ -2,3 +2,4 @@ ctrlp.vim
 supertab
 vim-fugitive
 vim-ruby
+vim-endwise
