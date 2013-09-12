@@ -26,6 +26,8 @@ alias vi="vim"
 alias reload="source ~/.bash_profile"
 alias ll="ls -l --color=auto"
 alias la="ll -a"
+alias dfind="find . -type d -name"
+alias ffind="find . -type f -name"
 
 # config files aliases
 alias aliases="vim ~/.bash/aliases"
