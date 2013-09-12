@@ -2,3 +2,6 @@
 
 #Set vim as default editor
 export EDITOR=vim
+
+# spelling mistake corretion
+shopt -s cdspell
