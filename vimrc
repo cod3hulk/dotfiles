@@ -58,6 +58,15 @@ nmap <leader>x :x<cr>
 " Fast visual mode
 imap jj <Esc> 
 
+" Search history of commands
+nmap <leader>h q:?
+
+" Open next search result
+nmap <leader>n :cn<cr>
+
+" Open next search result
+nmap <leader>p :cp<cr>
+
 " Paste yanked text to global clipboard
 set clipboard=unnamed
 
