@@ -1,15 +1,19 @@
 # This file contains aliases which are loaded by the bash_profile
 # SVN related aliases
-alias su="svn up"
-alias sc="svn ci"
-alias sm="svn merge"
-alias st="svn status"
-alias sr="svn revert -R ."
-alias si="svn info"
-alias sw="svn switch"
+alias sup="svn up"
+alias sci="svn ci"
+alias smerge="svn merge"
+alias sst="svn status"
+alias srevert="svn revert -R ."
+alias sinfo="svn info"
+alias sswitch="svn switch"
+alias sdiff="svn diff"
+alias sco="svn co"
+alias smv="svn mv"
 
 # MVN related aliases
 alias mci="mvn clean install"
+alias mcp="mvn clean package"
 
 # Git related aliases
 alias gs="git status"
