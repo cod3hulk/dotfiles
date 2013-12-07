@@ -10,8 +10,9 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
-" Bundle 'tpope/vim-fugitive'
 Bundle 'ervandew/supertab'
+Bundle 'thoughtbot/vim-rspec'
+" Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-endwise'
 
 filetype plugin indent on
@@ -177,3 +178,6 @@ nmap <leader>r :!ruby %<cr>
 
 " execute ri for the the word under the cursor
 nmap <leader>h :!ri <cword><cr>
+
+" executing rspec files
+map <leader>t :call RunCurrentSpecFile()<cr>
