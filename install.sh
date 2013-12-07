@@ -2,8 +2,12 @@
 
 FILES="vimrc vim bash_profile bash"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo $DIR
 for file in $FILES; do
-    echo "Creating symlink [~/.$file] to $DIR/$file" 
+    echo "Creating symlink [~/.$file] to [$DIR/$file]" 
+    if [ -d ~/.$file ] && [ -h ~/.$file ]
+    then
+        unlink ~/.$file
+    fi
     ln -sf $DIR/$file ~/.$file
 done
+
