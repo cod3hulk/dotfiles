@@ -74,12 +74,12 @@ set showmatch
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set color theme
+" set background=dark
+" colorscheme solarized
+
 " Enable syntax highlighting
 syntax enable
-
-" Set color theme
-set background=dark
-colorscheme solarized
 
 " Set default encoding
 set encoding=utf-8
