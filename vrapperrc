@@ -1,0 +1,15 @@
+# config file for Vrapper eclipse plugin
+
+# --- key mappings
+nmap ,w :w<cr>
+nmap ,q :q<cr>
+imap jj <esc>
+nmap <cr> :nohlsearch<cr>
+
+# -- general configuration
+set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+set scrolloff=15
+set cam 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES="vimrc vim bash_profile bash tmux.conf"
+FILES="vimrc vim bash_profile bash tmux.conf vrapperrc"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 for file in $FILES; do
     echo "Creating symlink [~/.$file] to [$DIR/$file]" 
