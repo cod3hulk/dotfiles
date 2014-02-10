@@ -12,6 +12,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'ervandew/supertab'
 Bundle 'thoughtbot/vim-rspec'
+Bundle 'tpope/vim-surround'
 " Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-endwise'
 
@@ -76,7 +77,7 @@ set showmatch
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set color theme
 " set background=dark
-" colorscheme solarized
+colorscheme molokai
 
 " Enable syntax highlighting
 syntax enable
@@ -122,7 +123,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " remove higlight for search results
-nmap <cr> :nohlsearch<cr>
+nmap <leader>c :nohlsearch<cr>
 
 " Fast saving
 nmap <leader>w :update<cr>

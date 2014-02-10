@@ -3,5 +3,17 @@
 #Set vim as default editor
 export EDITOR=vim
 
+# stop bash history from niccluding either duplicate lines, or lines beginning wiht a space
+export HISTCONTROL=ignoreboth
+
 # spelling mistake corretion
 shopt -s cdspell
+
+#allow files beginning with a dot to be returned in filename expansion
+shopt -s dotglob
+
+# add autocomplete for known hosts
+if [ -e ~/.ssh/known_hosts ]; then
+    complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
+fi
+

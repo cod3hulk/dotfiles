@@ -1,8 +1,13 @@
 # config file for Vrapper eclipse plugin
 
+# -- eclipse actions
+eclipseuiaction goto-file org.muermann.gotofile.actions.GotoFileE30Command
+
 # --- key mappings
 nmap ,w :w<cr>
 nmap ,q :q<cr>
+nmap ,x :x<cr>
+nmap ,f :goto-file<cr>
 imap jj <esc>
 nmap <cr> :nohlsearch<cr>
 
@@ -13,3 +18,5 @@ set smartcase
 set incsearch
 set scrolloff=15
 set cam 
+set ai
+

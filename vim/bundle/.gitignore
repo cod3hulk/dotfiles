@@ -4,3 +4,4 @@ vim-fugitive
 vim-ruby
 vim-endwise
 vim-rspec
+vim-surround
