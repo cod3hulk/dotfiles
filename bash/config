@@ -17,3 +17,17 @@ if [ -e ~/.ssh/known_hosts ]; then
     complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
 fi
 
+# startup tmux by default, for new shells
+if [ -z "$TMUX" ] && [ -x /usr/bin/tmux ]; then
+    exec tmux new -n home
+fi
+
+# declare ssh alias for renaming tmux windows to connecting host
+if [ -x /usr/bin/tmux ] && [ -x /usr/bin/ssh ]; then
+    ssh() {
+        tmux rename-window -t${TMUX_PANE} "$*"
+        command ssh "$@"
+        exit
+    }
+fi
+

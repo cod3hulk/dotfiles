@@ -122,6 +122,9 @@ set wrap
 let mapleader = ","
 let g:mapleader = ","
 
+" always clear screen when executing a command
+map :! :!clear;
+
 " remove higlight for search results
 nmap <leader>c :nohlsearch<cr>
 
@@ -175,10 +178,16 @@ let g:SuperTabDefaultCompletionType = "context"
 " ruby related stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " execute current ruby script
-nmap <leader>r :!ruby %<cr>
+autocmd FileType ruby nmap <leader>r :!ruby %<cr>
 
 " execute ri for the the word under the cursor
-nmap <leader>h :!ri <cword><cr>
+autocmd FileType ruby nmap <leader>h :!ri <cword><cr>
 
 " executing rspec files
-map <leader>t :call RunCurrentSpecFile()<cr>
+autocmd FileType ruby map <leader>t :call RunCurrentSpecFile()<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" shell script related stuff 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType sh nmap <leader>r :w<cr> :!%:p<cr>
+
