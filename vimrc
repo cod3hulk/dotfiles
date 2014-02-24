@@ -10,9 +10,14 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'ervandew/supertab'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-surround'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+Bundle 'altercation/vim-colors-solarized'
+" Bundle 'ervandew/supertab'
 " Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-endwise'
 
@@ -72,12 +77,37 @@ set magic
 " Show matching brackets
 set showmatch
 
+" disable search wrap around the end of file
+set nows
+
+" disable menu elements for gvim
+if has("gui_running")
+    " remove menu bar
+    set guioptions-=m  
+
+    " remove toolbar
+    set guioptions-=T  
+
+    " remove right-hand scroll bar
+    set guioptions-=r  
+
+    " remove left-hand scroll bar
+    set guioptions-=L  
+endif
+
+" maximize gvim window.
+if has("gui_running")
+    set lines=999 columns=999
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set color theme
-" set background=dark
-colorscheme molokai
+" Set color theme for gvim only
+if has("gui_running")
+    set background=dark
+    colorscheme solarized
+endif
 
 " Enable syntax highlighting
 syntax enable
@@ -126,7 +156,7 @@ let g:mapleader = ","
 map :! :!clear;
 
 " remove higlight for search results
-nmap <leader>c :nohlsearch<cr>
+nmap <cr> :nohlsearch<cr>
 
 " Fast saving
 nmap <leader>w :update<cr>
@@ -172,7 +202,7 @@ let g:ctrlp_custom_ignore = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " supertab config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabDefaultCompletionType = "context"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ruby related stuff 

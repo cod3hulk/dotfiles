@@ -1,6 +1,6 @@
 # User dependent .bash_profile file
 
-# source the users bash aliases if it exists
+# source the users bash config if it exists
 if [ -f "${HOME}/.bash/config" ] ; then
   source "${HOME}/.bash/config"
 fi
