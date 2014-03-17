@@ -26,6 +26,8 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+
 " Set how many lines of history VIM has to remember
 set history=700
 
@@ -107,6 +109,9 @@ endif
 if has("gui_running")
     set background=dark
     colorscheme solarized
+else
+    set background=dark
+    colorscheme molokai
 endif
 
 " Enable syntax highlighting

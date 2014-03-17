@@ -1,13 +1,21 @@
 # config file for Vrapper eclipse plugin
 
 # -- eclipse actions
-eclipseuiaction goto-file org.muermann.gotofile.actions.GotoFileE30Command
+eclipseuiaction goto-file org.eclipse.ui.navigate.openResource
+eclipseaction backward-history org.eclipse.ui.navigate.backwardHistory
+eclipseaction forward-history org.eclipse.ui.navigate.forwardHistory
+eclipseaction previous-member org.eclipse.jdt.ui.edit.text.java.goto.previous.member
+eclipseaction next-member org.eclipse.jdt.ui.edit.text.java.goto.next.member
 
 # --- key mappings
 nmap ,w :w<cr>
 nmap ,q :q<cr>
 nmap ,x :x<cr>
-nmap ,f :goto-file<cr>
+nmap ,r :goto-file<cr>
+nmap <A-j> :next-member<cr>
+nmap <A-k> :previous-member<cr>
+nmap ,b :backward-history<cr>
+nmap ,f :forward-history<cr>
 imap jj <esc>
 nmap <cr> :nohlsearch<cr>
 
@@ -19,4 +27,4 @@ set incsearch
 set scrolloff=15
 set cam 
 set ai
-
+set clipboard=unnamed
