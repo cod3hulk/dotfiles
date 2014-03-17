@@ -1,0 +1,10 @@
+[merge]
+	tool = vimdiff
+	prompt = false
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+[mergetool]
+	keepBackup = false
+	keepTemporaries = false
