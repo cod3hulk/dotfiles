@@ -9,14 +9,15 @@ call vundle#rc()
 " Bundles
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'tpope/vim-surround'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
+" Bundle 'vim-ruby/vim-ruby'
+" Bundle 'thoughtbot/vim-rspec'
+" Bundle 'tpope/vim-surround'
+" Bundle 'MarcWeber/vim-addon-mw-utils'
+" Bundle 'tomtom/tlib_vim'
+" Bundle 'garbas/vim-snipmate'
+" Bundle 'honza/vim-snippets'
 " Bundle 'ervandew/supertab'
 " Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-endwise'
@@ -26,7 +27,6 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256
 
 " Set how many lines of history VIM has to remember
 set history=700
@@ -42,9 +42,6 @@ set clipboard=unnamed
 
 " Always show current position
 set ruler
-
-" Display current time in ruler info bar
-set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
 " Set offset lines when moving cursor
 set so=10
@@ -82,7 +79,7 @@ set showmatch
 " disable search wrap around the end of file
 set nows
 
-" disable menu elements for gvim
+" gvim settings
 if has("gui_running")
     " remove menu bar
     set guioptions-=m  
@@ -95,10 +92,8 @@ if has("gui_running")
 
     " remove left-hand scroll bar
     set guioptions-=L  
-endif
 
-" maximize gvim window.
-if has("gui_running")
+    " maximize gvim window.
     set lines=999 columns=999
 endif
 
@@ -107,11 +102,21 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set color theme for gvim only
 if has("gui_running")
-    set background=dark
-    colorscheme solarized
+   colorscheme molokai
 else
-    set background=dark
-    colorscheme molokai
+   colorscheme molokai
+   set background=dark
+endif
+
+" Set font size
+if has("gui_running")
+    if has("gui_gtk2")
+        set guifont=Inconsolata\ 12
+    elseif has("gui_macvim")
+        set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+        set guifont=Consolas:h11:cANSI
+    endif
 endif
 
 " Enable syntax highlighting
@@ -158,7 +163,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " always clear screen when executing a command
-map :! :!clear;
+" map :! :!clear;
 
 " remove higlight for search results
 nmap <cr> :nohlsearch<cr>
@@ -176,16 +181,17 @@ nmap <leader>x :x<cr>
 imap jj <Esc>
 
 " Move a line of text using Shift+[jk]
-nmap <S-j> mz:m+<cr>`z
-nmap <S-k> mz:m-2<cr>`z
-vmap <S-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <S-k> :m'<-2<cr>`>my`<mzgv`yo`z
+"nmap <S-j> mz:m+<cr>`z
+"nmap <S-k> mz:m-2<cr>`z
+"vmap <S-j> :m'>+<cr>`<my`>mzgv`yo`z
+"vmap <S-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Show full path of current file
-" set statusline=%F%m%r%h%w\ %{fugitive#statusline()}\ [%l,%c]\ [%L,%p%%]
+set statusline=%F%m%r%h%w\ %{fugitive#statusline()}\ [%l,%c]\ [%L,%p%%]
+" set statusline =%3*%y%*                "file type
 
 " Always show status line
 set laststatus=2
@@ -225,4 +231,15 @@ autocmd FileType ruby map <leader>t :call RunCurrentSpecFile()<cr>
 " shell script related stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType sh nmap <leader>r :w<cr> :!%:p<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" gradle stuff 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType groovy nmap <leader>r :w<cr> :!gradle<cr>
+au BufRead,BufNewFile *.gradle set filetype=groovy
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" javascript stuff 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType javascript nmap <leader>r :w<cr> :!node %<cr>
 
