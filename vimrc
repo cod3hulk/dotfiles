@@ -9,15 +9,17 @@ call vundle#rc()
 " Bundles
 Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
+" Bundles for colors
 Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
+" Bundles for Snippets
+Bundle 'tomtom/tlib_vim'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
 " Bundle 'vim-ruby/vim-ruby'
 " Bundle 'thoughtbot/vim-rspec'
 " Bundle 'tpope/vim-surround'
-" Bundle 'MarcWeber/vim-addon-mw-utils'
-" Bundle 'tomtom/tlib_vim'
-" Bundle 'garbas/vim-snipmate'
-" Bundle 'honza/vim-snippets'
 " Bundle 'ervandew/supertab'
 " Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-endwise'
