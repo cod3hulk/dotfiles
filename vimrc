@@ -8,18 +8,22 @@ call vundle#rc()
 
 " Bundles
 Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
+Bundle 'bling/vim-airline'
 " Bundles for colors
 Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
-" Bundles for Snippets
+" Bundles for snippets
 Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
-
+" Bundles for navigation
+Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'tpope/vim-surround'
+" Bundles for editing support
+Bundle 'tpope/vim-surround'
+" Bundle for statusline
+Bundle 'bling/vim-airline'
 
 " Currently disabled due to win/linux/mac compatibility problems
 " Bundle 'vim-ruby/vim-ruby'
@@ -29,6 +33,7 @@ Bundle 'scrooloose/nerdtree'
 " Bundle 'tpope/vim-endwise'
 
 filetype plugin indent on
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general config 
@@ -182,14 +187,18 @@ nmap <leader>q :q<cr>
 " Fast saving and quitting
 nmap <leader>x :x<cr>
 
+" Toggle NERDTree
+nmap <leader>nt :NERDTreeToggle<cr>
+
 " Fast visual mode
 imap jj <Esc>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Show full path of current file
-set statusline=%F%m%r%h%w\ [type=%Y][format=%{&ff}]%=[%04l,%04v][%L,%p%%]
+" set statusline=%F%m%r%h%w\ [type=%Y][format=%{&ff}]%=[%04l,%04v][%L,%p%%]
 
 " Always show status line
 set laststatus=2
