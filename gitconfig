@@ -8,3 +8,9 @@
 [mergetool]
 	keepBackup = false
 	keepTemporaries = false
+[push]
+	default = current
+[pull]
+	rebase = true
+[core]
+	autocrlf = false

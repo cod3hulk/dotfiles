@@ -17,18 +17,24 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
+
+Bundle 'scrooloose/nerdtree'
+"Bundle 'tpope/vim-surround'
+
+" Currently disabled due to win/linux/mac compatibility problems
 " Bundle 'vim-ruby/vim-ruby'
 " Bundle 'thoughtbot/vim-rspec'
-" Bundle 'tpope/vim-surround'
 " Bundle 'ervandew/supertab'
 " Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-endwise'
 
 filetype plugin indent on
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set default encoding
+set encoding=utf-8
 
 " Set how many lines of history VIM has to remember
 set history=700
@@ -104,10 +110,10 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set color theme for gvim only
 if has("gui_running")
-   colorscheme molokai
+    colorscheme molokai
 else
-   colorscheme molokai
-   set background=dark
+    colorscheme molokai
+    set background=dark
 endif
 
 " Set font size
@@ -123,9 +129,6 @@ endif
 
 " Enable syntax highlighting
 syntax enable
-
-" Set default encoding
-set encoding=utf-8
 
 " Set file format handling
 set ffs=unix,dos,mac
@@ -182,18 +185,11 @@ nmap <leader>x :x<cr>
 " Fast visual mode
 imap jj <Esc>
 
-" Move a line of text using Shift+[jk]
-"nmap <S-j> mz:m+<cr>`z
-"nmap <S-k> mz:m-2<cr>`z
-"vmap <S-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <S-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Show full path of current file
-set statusline=%F%m%r%h%w\ %{fugitive#statusline()}\ [%l,%c]\ [%L,%p%%]
-" set statusline =%3*%y%*                "file type
+set statusline=%F%m%r%h%w\ [type=%Y][format=%{&ff}]%=[%04l,%04v][%L,%p%%]
 
 " Always show status line
 set laststatus=2
