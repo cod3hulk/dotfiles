@@ -8,7 +8,6 @@ call vundle#rc()
 
 " Bundles
 Bundle 'gmarik/vundle'
-Bundle 'bling/vim-airline'
 " Bundles for colors
 Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
@@ -25,11 +24,12 @@ Bundle 'tpope/vim-surround'
 " Bundle for statusline
 Bundle 'bling/vim-airline'
 
+" Bundles for version control
+Bundle 'tpope/vim-fugitive'
 " Currently disabled due to win/linux/mac compatibility problems
 " Bundle 'vim-ruby/vim-ruby'
 " Bundle 'thoughtbot/vim-rspec'
 " Bundle 'ervandew/supertab'
-" Bundle 'tpope/vim-fugitive'
 " Bundle 'tpope/vim-endwise'
 
 filetype plugin indent on
