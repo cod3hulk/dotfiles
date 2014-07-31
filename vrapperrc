@@ -6,6 +6,7 @@ eclipseaction backward-history org.eclipse.ui.navigate.backwardHistory
 eclipseaction forward-history org.eclipse.ui.navigate.forwardHistory
 eclipseaction previous-member org.eclipse.jdt.ui.edit.text.java.goto.previous.member
 eclipseaction next-member org.eclipse.jdt.ui.edit.text.java.goto.next.member
+eclipseaction run-tests org.moreunit.runtestaction
 
 # --- key mappings
 nmap ,w :w<cr>
@@ -16,6 +17,7 @@ nmap <A-j> :next-member<cr>
 nmap <A-k> :previous-member<cr>
 nmap ,b :backward-history<cr>
 nmap ,f :forward-history<cr>
+nmap ,j :run-tests<cr>
 imap jj <esc>
 nmap <cr> :nohlsearch<cr>
 

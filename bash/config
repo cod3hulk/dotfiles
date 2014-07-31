@@ -1,6 +1,6 @@
-#This file contains general configuration like default exports
+# This file contains general configuration like default exports
 
-#Set vim as default editor
+# Set vim as default editor
 export EDITOR=vim
 
 # stop bash history from niccluding either duplicate lines, or lines beginning wiht a space
@@ -9,6 +9,12 @@ export HISTCONTROL=ignoreboth
 # spelling mistake corretion
 shopt -s cdspell
 
-#allow files beginning with a dot to be returned in filename expansion
+# allow files beginning with a dot to be returned in filename expansion
 shopt -s dotglob
 
+# git related stuff
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+# set command prompt
+export PROMPT_COMMAND='__git_ps1 "\e[0;34;40m\u@\h\e[m:\e[0;33;40m\w\e[m" "\\\$ "'

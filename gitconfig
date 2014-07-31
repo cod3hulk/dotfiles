@@ -1,16 +1,37 @@
 [merge]
-	tool = vimdiff
-	prompt = false
+    tool = vimdiff
+    prompt = false
 [alias]
-	st = status
-	ci = commit
-	co = checkout
+    st = status
+    ci = commit -av
+    co = checkout
+    clog = "!sh -c 'git log -i --grep=$1 --name-only --pretty=format: | sort | uniq' -"
+    graph = "log --graph --pretty=format:'%Cred%Creset-%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+    daily = "log --since '1 day ago' --oneline --author tave"
+    today = "log --since '6am' --oneline --author tave"
 [mergetool]
-	keepBackup = false
-	keepTemporaries = false
+    keepBackup = false
+    keepTemporaries = false
 [push]
-	default = current
+    default = current
 [pull]
-	rebase = true
+    rebase = true
 [core]
-	autocrlf = false
+    autocrlf = false
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
