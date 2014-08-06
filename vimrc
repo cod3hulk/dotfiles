@@ -213,9 +213,10 @@ let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
 map <leader>f :CtrlP<CR>
 map <leader>r :CtrlPBufTag<CR>
+let g:ctrlp_max_files=0
 
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)$',
+            \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)|build$',
             \ 'file': '\v\.(exe|so|dll|class)$',
             \ }
 
