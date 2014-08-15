@@ -26,7 +26,7 @@ if [ -f "${HOME}/dotfiles/git-completion/git-completion.sh" ] ; then
 fi
 
 # source brew completion
-if [ -f `brew --prefix`/etc/bash_completion ]; then
+if [ -f brew ]; then
     . `brew --prefix`/etc/bash_completion
 fi
 
