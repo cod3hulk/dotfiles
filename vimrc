@@ -23,7 +23,8 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-surround'
 " Bundle for statusline
 Bundle 'bling/vim-airline'
-
+" Bundle for fast navigation
+Bundle 'Lokaltog/vim-easymotion'
 " Bundles for version control
 Bundle 'tpope/vim-fugitive'
 " Currently disabled due to win/linux/mac compatibility problems
@@ -38,6 +39,9 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set autowrite
+set autowrite
+
 " Set default encoding
 set encoding=utf-8
 
@@ -124,7 +128,7 @@ endif
 " Set font size
 if has("gui_running")
     if has("gui_gtk2")
-        set guifont=Inconsolata\ 12
+        set guifont=Inconsolata\ 11
     elseif has("gui_macvim")
         set guifont=Menlo\ Regular:h14
     elseif has("gui_win32")
@@ -172,9 +176,6 @@ set wrap
 let mapleader = ","
 let g:mapleader = ","
 
-" always clear screen when executing a command
-" map :! :!clear;
-
 " remove higlight for search results
 nmap <cr> :nohlsearch<cr>
 
@@ -193,13 +194,12 @@ nmap <leader>nt :NERDTreeToggle<cr>
 " Fast visual mode
 imap jj <Esc>
 
+" make command
+map <leader>r :make<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Show full path of current file
-" set statusline=%F%m%r%h%w\ [type=%Y][format=%{&ff}]%=[%04l,%04v][%L,%p%%]
-
 " Always show status line
 set laststatus=2
 
@@ -207,26 +207,24 @@ set laststatus=2
 " ctrlp config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctrlp config
-let g:ctrlp_map='<leader>f'
+let g:ctrlp_map=''
 let g:ctrlp_max_height=30
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
+map <leader>f :CtrlP<CR>
+map <leader>F :CtrlPBufTag<CR>
 
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)$',
             \ 'file': '\v\.(exe|so|dll|class)$',
             \ }
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" supertab config 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:SuperTabDefaultCompletionType = "context"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ruby related stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " execute current ruby script
-autocmd FileType ruby nmap <leader>r :!ruby %<cr>
+autocmd FileType ruby set makeprg=ruby\ %
 
 " execute ri for the the word under the cursor
 autocmd FileType ruby nmap <leader>h :!ri <cword><cr>
@@ -237,16 +235,10 @@ autocmd FileType ruby map <leader>t :call RunCurrentSpecFile()<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " shell script related stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType sh nmap <leader>r :w<cr> :!%:p<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" gradle stuff 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType groovy nmap <leader>r :w<cr> :!gradle<cr>
-au BufRead,BufNewFile *.gradle set filetype=groovy
+autocmd FileType sh set makeprg=%:p
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " javascript stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType javascript nmap <leader>r :w<cr> :!node %<cr>
+autocmd FileType javascript set makeprg=node\ %
 
