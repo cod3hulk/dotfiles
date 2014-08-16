@@ -26,7 +26,7 @@ Bundle 'bling/vim-airline'
 " Bundle for fast navigation
 Bundle 'Lokaltog/vim-easymotion'
 " Bundles for version control
-Bundle 'tpope/vim-fugitive'
+" Bundle 'tpope/vim-fugitive'
 " Currently disabled due to win/linux/mac compatibility problems
 " Bundle 'vim-ruby/vim-ruby'
 " Bundle 'thoughtbot/vim-rspec'
@@ -195,7 +195,7 @@ nmap <leader>nt :NERDTreeToggle<cr>
 imap jj <Esc>
 
 " make command
-map <leader>r :make<cr>
+map <leader>b :make<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
@@ -212,7 +212,7 @@ let g:ctrlp_max_height=30
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
 map <leader>f :CtrlP<CR>
-map <leader>F :CtrlPBufTag<CR>
+map <leader>r :CtrlPBufTag<CR>
 
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)$',
@@ -224,7 +224,7 @@ let g:ctrlp_custom_ignore = {
 " ruby related stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " execute current ruby script
-autocmd FileType ruby set makeprg=ruby\ %
+autocmd FileType ruby set makeprg=ruby\ -cw\ %
 
 " execute ri for the the word under the cursor
 autocmd FileType ruby nmap <leader>h :!ri <cword><cr>
