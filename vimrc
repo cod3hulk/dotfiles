@@ -218,7 +218,7 @@ let g:ctrlp_max_files=0
 
 " ctrlp ignores
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)|build$',
+            \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)$',
             \ 'file': '\v\.(exe|so|dll|class)$',
             \ }
 
