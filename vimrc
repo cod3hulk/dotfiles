@@ -213,13 +213,22 @@ let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
 map <leader>f :CtrlP<CR>
 map <leader>r :CtrlPBufTag<CR>
+map <leader>e :CtrlPBuffer<CR>
 let g:ctrlp_max_files=0
 
+" ctrlp ignores
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)|build$',
             \ 'file': '\v\.(exe|so|dll|class)$',
             \ }
 
+" ctrlp cache directory
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+
+" ctrlp use silver_searcher for fuzzy searchh
+if executable('ag')
+      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ruby related stuff 
