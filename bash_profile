@@ -21,12 +21,14 @@ if [ -f "${HOME}/dotfiles/git-completion/git-prompt.sh" ] ; then
 fi
 
 # source git completion
-if [ -f "${HOME}/dotfiles/git-completion/git-completion.sh" ] ; then
-    source "${HOME}/dotfiles/git-completion/git-completion.sh"
+if [ -f "${HOME}/dotfiles/git-completion/git-completion.bash" ] ; then
+    source "${HOME}/dotfiles/git-completion/git-completion.bash"
 fi
 
 # source brew completion
-if [ -f brew ]; then
+if [ -f "/usr/local/bin/brew" ]; then
     . `brew --prefix`/etc/bash_completion
 fi
 
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
