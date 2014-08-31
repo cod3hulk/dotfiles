@@ -49,7 +49,7 @@ set encoding=utf-8
 set history=700
 
 " Set relative line number
-set relativenumber
+set number
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -73,7 +73,7 @@ set wildignore=*/target/*
 set wildmode=longest,list
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " Ignore case when searching
 set ignorecase
