@@ -12,7 +12,7 @@ print_banner() {
 }
 
 print_usage() {
-    echo "Usage: ./$(basename $0) [-i install | -u update | -h help]"
+    echo "Usage: $(basename $0) [-i install | -u update | -h help]"
 }
 
 log() {
@@ -24,8 +24,6 @@ install_brew() {
         log "Installing homebrew..."
         ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)";
         log "hombrew installed."
-    else
-        log "homebrew already installed."
     fi
     verify_brew
 }
@@ -34,9 +32,7 @@ install_tmux() {
     if ! command -v tmux >/dev/null; then
         log "Installing tmux..."
         brew install tmux;
-        log "tmux installed."
-    else
-        log "tmux already installed."
+        log "tmux installed"
     fi
 }
 
@@ -51,9 +47,47 @@ verify_brew() {
         log "homebrew installation verifyed."
     fi
 }
+
+install_zsh() {
+    if [[ ! -x /usr/local/bin/zsh ]]; then
+        log "Installing zsh..."
+        brew install zsh >/dev/null;
+        log "zsh installed"
+    fi
+}
+
+install_git() {
+    if [[ ! -x /usr/local/bin/git ]]; then
+        log "Installing git..."
+        brew install git >/dev/null;
+        log "git installed"
+    fi
+}
+
+install_git() {
+    if [[ ! -x /usr/local/bin/git ]]; then
+        log "Installing git..."
+        brew install git >/dev/null;
+        log "git installed"
+    fi
+}
+
+install_ohmyzsh() {
+    if [[ ! -d ~/.oh-my-zsh ]]; then
+        log "Installing oh-my-zsh..."
+        curl -L http://install.ohmyz.sh | sh;
+        log "oh-my-zsh installed"
+    fi
+}
+
 install() {
+    log "Installing..."
     install_brew
+    install_zsh
+    install_ohmyzsh
+    install_git
     install_tmux
+    log "Installation finished"
 }
 
 print_banner
@@ -71,3 +105,4 @@ while [[ $# -gt 0  ]]; do
     esac
     shift
 done
+
