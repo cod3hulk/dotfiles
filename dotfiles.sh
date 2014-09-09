@@ -24,6 +24,10 @@ install_brew() {
         log "Installing homebrew..."
         ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)";
         log "hombrew installed."
+    else
+        log "Update brew..."
+        brew update >/dev/null;
+        log "brew updated"
     fi
     verify_brew
 }
@@ -33,6 +37,10 @@ install_tmux() {
         log "Installing tmux..."
         brew install tmux;
         log "tmux installed"
+    else
+        log "Update tmux..."
+        brew upgrade zsh >/dev/null;
+        log "tmux updated"
     fi
 }
 
@@ -53,6 +61,10 @@ install_zsh() {
         log "Installing zsh..."
         brew install zsh >/dev/null;
         log "zsh installed"
+    else
+        log "Update zsh..."
+        brew upgrade zsh >/dev/null;
+        log "zsh updated"
     fi
 }
 
@@ -61,14 +73,10 @@ install_git() {
         log "Installing git..."
         brew install git >/dev/null;
         log "git installed"
-    fi
-}
-
-install_git() {
-    if [[ ! -x /usr/local/bin/git ]]; then
-        log "Installing git..."
-        brew install git >/dev/null;
-        log "git installed"
+    else
+        log "Updating git..."
+        brew upgrade git >/dev/null;
+        log "git updated"
     fi
 }
 

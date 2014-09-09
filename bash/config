@@ -7,14 +7,14 @@ export EDITOR=vim
 export HISTCONTROL=ignoreboth
 
 # spelling mistake corretion
-shopt -s cdspell
+#shopt -s cdspell
 
 # allow files beginning with a dot to be returned in filename expansion
-shopt -s dotglob
+#shopt -s dotglob
 
 # git related stuff
-export GIT_PS1_SHOWCOLORHINTS=1
-export GIT_PS1_SHOWDIRTYSTATE=1
+#export GIT_PS1_SHOWCOLORHINTS=1
+#export GIT_PS1_SHOWDIRTYSTATE=1
 
 # set command prompt
-export PROMPT_COMMAND='__git_ps1 "\e[0;34;40m\u@\h\e[m:\e[0;33;40m\w\e[m" "\\\$ "'
+#export PROMPT_COMMAND='__git_ps1 "\e[0;34;40m\u@\h\e[m:\e[0;33;40m\w\e[m" "\\\$ "'
