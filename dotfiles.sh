@@ -19,40 +19,11 @@ log() {
     echo "==> $1";
 }
 
-install_brew() {
-    if ! command -v brew >/dev/null; then
-        log "Installing homebrew..."
-        ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)";
-        log "hombrew installed."
-    else
-        log "Update brew..."
-        brew update >/dev/null;
-        log "brew updated"
-    fi
-    verify_brew
-}
-
 install_tmux() {
     if ! command -v tmux >/dev/null; then
         log "Installing tmux..."
         brew install tmux;
         log "tmux installed"
-    else
-        log "Update tmux..."
-        brew upgrade zsh >/dev/null;
-        log "tmux updated"
-    fi
-}
-
-verify_brew() {
-    log "Verfiy homebrew installation..."
-    brew doctor >/dev/null;
-    RC=$?
-    if [[ $RC != 0 ]]; then
-        log "configure brew and rerun the script."
-        exit $RC
-    else
-        log "homebrew installation verifyed."
     fi
 }
 
@@ -61,10 +32,6 @@ install_zsh() {
         log "Installing zsh..."
         brew install zsh >/dev/null;
         log "zsh installed"
-    else
-        log "Update zsh..."
-        brew upgrade zsh >/dev/null;
-        log "zsh updated"
     fi
 }
 
@@ -73,26 +40,13 @@ install_git() {
         log "Installing git..."
         brew install git >/dev/null;
         log "git installed"
-    else
-        log "Updating git..."
-        brew upgrade git >/dev/null;
-        log "git updated"
     fi
 }
 
-install_ohmyzsh() {
-    if [[ ! -d ~/.oh-my-zsh ]]; then
-        log "Installing oh-my-zsh..."
-        curl -L http://install.ohmyz.sh | sh;
-        log "oh-my-zsh installed"
-    fi
-}
 
 install() {
     log "Installing..."
-    install_brew
     install_zsh
-    install_ohmyzsh
     install_git
     install_tmux
     log "Installation finished"
