@@ -215,6 +215,7 @@ map <leader>f :CtrlP<CR>
 map <leader>r :CtrlPBufTag<CR>
 map <leader>e :CtrlPBuffer<CR>
 let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
 
 " ctrlp ignores
 let g:ctrlp_custom_ignore = {
