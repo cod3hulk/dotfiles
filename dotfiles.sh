@@ -19,6 +19,14 @@ log() {
     echo "==> $1";
 }
 
+install_slate() {
+    if [[ ! -d /Applications/Slate.app ]]; then
+        log "Installing slate..."
+        curl http://www.ninjamonkeysoftware.com/slate/versions/slate-latest.tar.gz | tar -xz -C /Applications
+        log "slate installed"
+    fi
+}
+
 install_tmux() {
     if ! command -v tmux >/dev/null; then
         log "Installing tmux..."

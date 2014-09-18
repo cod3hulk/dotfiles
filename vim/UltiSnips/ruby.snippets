@@ -1,0 +1,33 @@
+# ruby snippets
+
+snippet class "class Name ... end" b
+class ${1:Name}
+	${0:#TODO}
+end
+endsnippet
+
+snippet def "def Name(Args) ... end" b
+def ${1:Name}${2:(${3:Args})}
+	${0:#TODO}
+end
+endsnippet
+
+snippet init "def initialize(Args) ... end" b
+def initialize${1:(${2:Args})}
+	${0:#TODO}
+end
+endsnippet
+
+snippet if "if Condition ... end" b
+if ${1:Condition}
+	${0:#TODO}
+end
+endsnippet
+
+snippet ife "if Condition ... else ... end" b
+if ${1:Condition}
+	${2:#TODO}
+else
+	${0:#TODO}
+end
+endsnippet

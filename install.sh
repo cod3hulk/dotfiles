@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES="vimrc vim tmux.conf vrapperrc gitconfig"
+FILES="vimrc vim tmux.conf vrapperrc gitconfig slate.js"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 for file in $FILES; do
     echo "Creating symlink [~/.$file] to [$DIR/$file]" 

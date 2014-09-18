@@ -12,10 +12,9 @@ Bundle 'gmarik/vundle'
 Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
 " Bundles for snippets
-Bundle 'tomtom/tlib_vim'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+Bundle 'SirVer/ultisnips'
+" Autocomplete
+Bundle 'Valloric/YouCompleteMe'
 " Bundles for navigation
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
@@ -25,13 +24,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'bling/vim-airline'
 " Bundle for fast navigation
 Bundle 'Lokaltog/vim-easymotion'
-" Bundles for version control
-" Bundle 'tpope/vim-fugitive'
-" Currently disabled due to win/linux/mac compatibility problems
-" Bundle 'vim-ruby/vim-ruby'
-" Bundle 'thoughtbot/vim-rspec'
-" Bundle 'ervandew/supertab'
-" Bundle 'tpope/vim-endwise'
+" Syntax checking
+Bundle 'scrooloose/syntastic'
 
 filetype plugin indent on
 
@@ -39,6 +33,9 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set autowrite
+set noswapfile
+
 " set autowrite
 set autowrite
 
@@ -228,7 +225,8 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 " ctrlp use silver_searcher for fuzzy searchh
 if executable('ag')
-      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    set grepprg=ag\ --nogroup\ --nocolor
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -253,3 +251,13 @@ autocmd FileType sh set makeprg=%:p
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType javascript set makeprg=node\ %
 
+" youcomplete configuration
+let g:ycm_key_list_select_completion = ['<C-j>']
+let g:ycm_key_list_previous_completion = ['<C-k>']
+
+" better key bindings for UltiSnipsExpandTrigger
+"let g:UltiSnipsListSnippets="<leader-l>"
+let g:UltiSnipsListSnippetsDirectory=["UltiSnips"]
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
