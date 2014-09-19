@@ -18,7 +18,7 @@
     rebase = true
 [core]
     autocrlf = false
-	editor = /usr/bin/vim
+	editor = $(which vim)
 [color]
     branch = auto
     diff = auto
