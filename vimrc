@@ -17,15 +17,18 @@ Bundle 'SirVer/ultisnips'
 Bundle 'Valloric/YouCompleteMe'
 " Bundles for navigation
 Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
 " Bundles for editing support
 Bundle 'tpope/vim-surround'
+Bundle 'jiangmiao/auto-pairs'
 " Bundle for statusline
 Bundle 'bling/vim-airline'
 " Bundle for fast navigation
 Bundle 'Lokaltog/vim-easymotion'
 " Syntax checking
 Bundle 'scrooloose/syntastic'
+" Simple execution of ruby spec files
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'tpope/vim-endwise'
 
 filetype plugin indent on
 
@@ -262,3 +265,10 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+" RSpec.vim rspec command
+let g:rspec_command = "!clear;rspec --color {spec}"

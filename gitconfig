@@ -36,3 +36,6 @@
     added = yellow
     changed = green
     untracked = cyan
+[user]
+	name = Tomas Ave
+	email = tomave82@gmail.com

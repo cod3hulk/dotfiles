@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+INSTALLED_FORMULAS=$(brew list -1)
+
 print_banner() {
     echo '      .___      __    _____.__.__                  '
     echo '    __| _/_____/  |__/ ____\__|  |   ____   ______ '
@@ -28,7 +30,7 @@ install_slate() {
 }
 
 install_tmux() {
-    if ! command -v tmux >/dev/null; then
+    if [[ ! $INSTALLED_FORMULAS =~ tmux ]]; then
         log "Installing tmux..."
         brew install tmux;
         log "tmux installed"
@@ -36,7 +38,7 @@ install_tmux() {
 }
 
 install_zsh() {
-    if [[ ! -x /usr/local/bin/zsh ]]; then
+    if [[ ! $INSTALLED_FORMULAS =~ zsh ]]; then
         log "Installing zsh..."
         brew install zsh >/dev/null;
         log "zsh installed"
@@ -44,10 +46,18 @@ install_zsh() {
 }
 
 install_git() {
-    if [[ ! -x /usr/local/bin/git ]]; then
+    if [[ ! $INSTALLED_FORMULAS =~ git ]]; then
         log "Installing git..."
         brew install git >/dev/null;
         log "git installed"
+    fi
+}
+
+install_cask() {
+    if [[ ! $INSTALLED_FORMULAS =~ brew-cask ]]; then
+        log "Installing cas..."
+        brew install caskroom/cask/brew-cask;
+        log "cas installed"
     fi
 }
 
@@ -57,6 +67,7 @@ install() {
     install_zsh
     install_git
     install_tmux
+    install_cask
     log "Installation finished"
 }
 
