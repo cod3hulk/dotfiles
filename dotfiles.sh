@@ -57,6 +57,7 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'alfred' 'alfred'
     install_brew_cask_formula 'java' 'java'
     install_brew_cask_formula 'slate' 'slate'
+    install_brew_cask_formula 'iterm2' 'iterm2'
     install_brew_cask_formula 'intellij-idea-ce' 'intellij-idea-ce'
     install_brew_cask_formula 'google-chrome' 'google-chrome'
     install_brew_cask_formula 'virtualbox' 'virtualbox'
