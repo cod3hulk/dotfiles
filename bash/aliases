@@ -1,9 +1,0 @@
-# General aliases
-alias vi="vim"
-alias reload="source ~/.bash_profile"
-alias ll="ls -laG"
-
-# config files aliases
-alias aliases="vim ~/.bash/aliases"
-alias vimrc="vim ~/.vimrc"
-

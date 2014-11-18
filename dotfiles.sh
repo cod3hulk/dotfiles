@@ -1,9 +1,6 @@
 #!/bin/sh
 set -e
 
-INSTALLED_FORMULAS=$(brew list -1)
-INSTALLED_CASK_FORMULAS=$(brew cask list -1)
-
 print_banner() {
     echo '      .___      __    _____.__.__                  '
     echo '    __| _/_____/  |__/ ____\__|  |   ____   ______ '
@@ -22,100 +19,56 @@ log() {
     echo "==> $1";
 }
 
-install_chrome() {
-    if [[ ! $INSTALLED_CASK_FORMULAS =~ google-chrome ]]; then
-        log "Installing chrome..."
-        brew cask install google-chrome;
-        log "chrome installed"
+install_brew_formula() {
+    if [[ ! $INSTALLED_FORMULAS =~ $1 ]]; then
+        log "Installing $1..."
+        brew install $2;
+        log "$1 installed"
     fi
 }
 
-install_intellij() {
-    if [[ ! $INSTALLED_CASK_FORMULAS =~ intellij-idea-ce ]]; then
-        log "Installing IntelliJ..."
-        brew cask install intellij-idea-ce;
-        log "IntelliJ installed"
+install_brew_cask_formula() {
+    if [[ ! $INSTALLED_CASK_FORMULAS =~ $1 ]]; then
+        log "Installing $1..."
+        brew cask install $2;
+        log "$1 installed"
     fi
 }
 
-install_alfred() {
-    if [[ ! $INSTALLED_CASK_FORMULAS =~ alfred ]]; then
-        log "Installing alfred..."
-        brew cask install alfred;
-        log "alfred installed"
-    fi
+install_brew_formulas() {
+    INSTALLED_FORMULAS=$(brew list -1)
+    install_brew_formula 'git' 'git'
+    install_brew_formula 'zsh' 'zsh'
+    install_brew_formula 'tmux' 'tmux'
+    install_brew_formula 'reattach-to-user-namespace' 'reattach-to-user-namespace'
+    install_brew_formula 'cask' 'caskroom/cask/brew-cask'
+    install_brew_formula 'jenv' 'jenv'
+    install_brew_formula 'rbenv' 'rbenv'
+    install_brew_formula 'vim' 'vim'
+    install_brew_formula 'gradle' 'gradle'
+    install_brew_formula 'maven' 'maven'
+    install_brew_formula 'docker' 'docker'
+    install_brew_formula 'ruby' 'ruby'
+    install_brew_formula 'the_silver_searcher' 'the_silver_searcher'
 }
 
-install_slate() {
-    if [[ ! $INSTALLED_CASK_FORMULAS =~ slate ]]; then
-        log "Installing slate..."
-        brew cask install slate;
-        log "slate installed"
-    fi
+install_brew_cask_formulas() {
+    INSTALLED_CASK_FORMULAS=$(brew cask list -1)
+    install_brew_cask_formula 'alfred' 'alfred'
+    install_brew_cask_formula 'java' 'java'
+    install_brew_cask_formula 'slate' 'slate'
+    install_brew_cask_formula 'intellij-idea-ce' 'intellij-idea-ce'
+    install_brew_cask_formula 'google-chrome' 'google-chrome'
+    install_brew_cask_formula 'virtualbox' 'virtualbox'
+    install_brew_cask_formula 'boot2docker' 'boot2docker'
 }
-
-install_tmux() {
-    if [[ ! $INSTALLED_FORMULAS =~ tmux ]]; then
-        log "Installing tmux..."
-        brew install tmux;
-        log "tmux installed"
-    fi
-}
-
-install_zsh() {
-    if [[ ! $INSTALLED_FORMULAS =~ zsh ]]; then
-        log "Installing zsh..."
-        brew install zsh;
-        log "zsh installed"
-    fi
-}
-
-install_git() {
-    if [[ ! $INSTALLED_FORMULAS =~ git ]]; then
-        log "Installing git..."
-        brew install git;
-        log "git installed"
-    fi
-}
-
-install_jenv() {
-    if [[ ! $INSTALLED_FORMULAS =~ jenv ]]; then
-        log "Installing jenv..."
-        brew install jenv;
-        log "jenv installed"
-    fi
-}
-
-install_rbenv() {
-    if [[ ! $INSTALLED_FORMULAS =~ rbenv ]]; then
-        log "Installing rbenv..."
-        brew install rbenv;
-        log "rbenv installed"
-    fi
-}
-
-install_cask() {
-    if [[ ! $INSTALLED_FORMULAS =~ brew-cask ]]; then
-        log "Installing cas..."
-        brew install caskroom/cask/brew-cask;
-        log "cas installed"
-    fi
-}
-
 
 install() {
     log "Installing..."
-    # brew backages
-    install_git
-    install_zsh
-    install_tmux
-    install_cask
-    install_jenv
-    # brew cask packages
-    install_alfred
-    install_slate
-    install_intellij
-    install_chrome
+    # brew formulas
+    install_brew_formulas
+    # brew cask formulas
+    install_brew_cask_formulas
     log "Installation finished"
 }
 
@@ -129,8 +82,8 @@ fi
 while [[ $# -gt 0  ]]; do
     case "$1" in
         -i|install) install;;
-        -u|update) echo "Update...";;
-        *) print_usage;;
+    -u|update) echo "Update...";;
+*) print_usage;;
     esac
     shift
 done
