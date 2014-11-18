@@ -63,13 +63,67 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'boot2docker' 'boot2docker'
 }
 
+install_prezto() {
+    if [ ! -d $HOME/.zprezto ]; then
+        log "Installing prezto..."
+        git clone --recursive https://github.com/tomave/prezto.git "${HOME}/.zprezto"
+        create_symlinks "${HOME}/.zprezto/runcoms/z*"
+        log "change shell to zsh using:"
+        log "chsh -s /bin/zsh"
+        log "prezto installed"
+    fi
+}
+
+create_symlinks() {
+    for dot_file in $1; do
+        BASE_NAME=$(basename $dot_file)
+        SYMLINK="${HOME}/.${BASE_NAME}"
+        if [ -d ${SYMLINK} ] && [ -h ${SYMLINK} ]
+        then
+            unlink ${SYMLINK}
+        fi
+        ln -sf "$dot_file" ${SYMLINK}
+    done
+}
+
 install() {
     log "Installing..."
-    # brew formulas
-    install_brew_formulas
-    # brew cask formulas
-    install_brew_cask_formulas
-    log "Installation finished"
+    if hash brew 2>/dev/null; then
+        install_brew_formulas
+        install_brew_cask_formulas
+        install_prezto
+        create_symlinks "${HOME}/dotfiles/config/*"
+        log "Installation finished"
+    else
+        log "brew not found. Please intall brew first using:"
+        log 'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+        log "Installation abborted"
+    fi
+}
+
+update() {
+    log "Updating..."
+
+    # check if everything is installed
+    install
+
+    # update dotfiles
+    cd "${HOME}/dotfiles"
+    git pull && git submodule update --init --recursive
+
+    # update brew
+    brew update;
+    brew upgrade;
+
+    # update prezto
+    cd "${HOME}/.zprezto"
+    git pull && git submodule update --init --recursive
+    create_symlinks "${HOME}/.zprezto/runcoms/z*"
+
+    # update symlinks
+    create_symlinks "${HOME}/dotfiles/config/*"
+
+    log "Update finished"
 }
 
 print_banner
@@ -82,7 +136,7 @@ fi
 while [[ $# -gt 0  ]]; do
     case "$1" in
         -i|install) install;;
-    -u|update) echo "Update...";;
+    -u|update) update;;
 *) print_usage;;
     esac
     shift
