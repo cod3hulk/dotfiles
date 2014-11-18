@@ -39,3 +39,5 @@
 [user]
 	name = Tomas Ave
 	email = tomave82@gmail.com
+[credential]
+	helper = cache
