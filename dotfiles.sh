@@ -117,6 +117,7 @@ update() {
     brew update;
     brew upgrade;
     brew cleanup;
+    brew cask cleanup;
 
     # update prezto
     cd "${HOME}/.zprezto"
