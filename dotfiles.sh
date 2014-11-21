@@ -50,7 +50,7 @@ install_brew_formulas() {
     install_brew_formula 'docker' 'docker'
     install_brew_formula 'ruby' 'ruby'
     install_brew_formula 'the_silver_searcher' 'the_silver_searcher'
-    install_brew_formula 'npm' 'npm'
+    install_brew_formula 'node' 'npm'
 }
 
 install_brew_cask_formulas() {
