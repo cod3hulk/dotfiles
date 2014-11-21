@@ -7,7 +7,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 " Bundles
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 " Bundles for colors
 Bundle 'tomasr/molokai'
 Bundle 'altercation/vim-colors-solarized'
@@ -26,8 +26,8 @@ Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/vim-easymotion'
 " Syntax checking
 Bundle 'scrooloose/syntastic'
-" Simple execution of ruby spec files
-Bundle 'thoughtbot/vim-rspec'
+" Simple execution of ruby test files
+Bundle 'skalnik/vim-vroom'
 Bundle 'tpope/vim-endwise'
 
 filetype plugin indent on
@@ -212,7 +212,7 @@ let g:ctrlp_macth_window='bottom,order:btt,min:1,max:10'
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
 map <leader>f :CtrlP<CR>
-map <leader>r :CtrlPBufTag<CR>
+map <leader>o :CtrlPBufTag<CR>
 map <leader>e :CtrlPBuffer<CR>
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
@@ -242,7 +242,7 @@ autocmd FileType ruby set makeprg=ruby\ -cw\ %
 autocmd FileType ruby nmap <leader>h :!ri <cword><cr>
 
 " executing rspec files
-autocmd FileType ruby map <leader>t :call RunCurrentSpecFile()<cr>
+"autocmd FileType ruby map <leader>t :call RunCurrentSpecFile()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " shell script related stuff 
@@ -259,16 +259,9 @@ let g:ycm_key_list_select_completion = ['<C-j>']
 let g:ycm_key_list_previous_completion = ['<C-k>']
 
 " better key bindings for UltiSnipsExpandTrigger
-"let g:UltiSnipsListSnippets="<leader-l>"
 let g:UltiSnipsListSnippetsDirectory=["UltiSnips"]
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-" RSpec.vim rspec command
-let g:rspec_command = "!clear;rspec --color {spec}"
+let g:vroom_use_colors = 0
