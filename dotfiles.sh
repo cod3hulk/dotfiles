@@ -44,11 +44,11 @@ install_brew_formulas() {
     install_brew_formula 'cask' 'caskroom/cask/brew-cask'
     install_brew_formula 'jenv' 'jenv'
     install_brew_formula 'rbenv' 'rbenv'
+    install_brew_formula 'ruby-build' 'ruby-build'
     install_brew_formula 'vim' 'vim'
     install_brew_formula 'gradle' 'gradle'
     install_brew_formula 'maven' 'maven'
     install_brew_formula 'docker' 'docker'
-    install_brew_formula 'ruby' 'ruby'
     install_brew_formula 'the_silver_searcher' 'the_silver_searcher'
     install_brew_formula 'node' 'npm'
 }
