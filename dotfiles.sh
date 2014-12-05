@@ -108,7 +108,7 @@ update() {
     log "Updating..."
 
     # cleanup old versions
-    brew cleanup --force -s && rm -rf $(brew --cache)
+    brew cleanup --force -s && sudo rm -rf $(brew --cache)
 
     # check if everything is installed
     install
