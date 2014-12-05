@@ -63,6 +63,7 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'google-chrome' 'google-chrome'
     install_brew_cask_formula 'virtualbox' 'virtualbox'
     install_brew_cask_formula 'boot2docker' 'boot2docker'
+    install_brew_cask_formula 'visualvm' 'visualvm'
 }
 
 install_prezto() {
