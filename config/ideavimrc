@@ -1,0 +1,3 @@
+source ~/.vimrc
+nmap ,,w :action AceJumpAction<cr>
+nmap ,x :action VimFileSaveClose<cr>
