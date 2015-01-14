@@ -62,6 +62,7 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'iterm2' 'iterm2'
     install_brew_cask_formula 'intellij-idea' 'intellij-idea'
     install_brew_cask_formula 'google-chrome' 'google-chrome'
+    install_brew_cask_formula 'google-drive' 'google-drive'
     install_brew_cask_formula 'virtualbox' 'virtualbox'
     install_brew_cask_formula 'boot2docker' 'boot2docker'
     install_brew_cask_formula 'visualvm' 'visualvm'
