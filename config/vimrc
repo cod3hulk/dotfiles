@@ -19,7 +19,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 " Bundles for editing support
 Bundle 'tpope/vim-surround'
-Bundle 'jiangmiao/auto-pairs'
+"Bundle 'jiangmiao/auto-pairs'
 " Bundle for statusline
 Bundle 'bling/vim-airline'
 " Bundle for fast navigation

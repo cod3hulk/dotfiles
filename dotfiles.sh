@@ -52,6 +52,7 @@ install_brew_formulas() {
     install_brew_formula 'the_silver_searcher' 'the_silver_searcher'
     install_brew_formula 'node' 'npm'
     install_brew_formula 'scala' 'scala'
+    install_brew_formula 'coreutils' 'coreutils'
 }
 
 install_brew_cask_formulas() {
