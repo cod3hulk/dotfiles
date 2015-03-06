@@ -9,6 +9,8 @@
     graph = "log --graph --pretty=format:'%Cred%Creset-%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
     daily = "log --since '1 day ago' --oneline --author tave"
     today = "log --since '6am' --oneline --author tave"
+    restore = "!git checkout $(git rev-list -n 1 HEAD -- $1)^ -- $1"
+	d = difftool
 [mergetool]
     keepBackup = false
     keepTemporaries = false
@@ -38,3 +40,7 @@
     untracked = cyan
 [credential]
 	helper = cache
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
