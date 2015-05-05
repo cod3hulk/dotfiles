@@ -19,7 +19,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 " Bundles for editing support
 Bundle 'tpope/vim-surround'
-"Bundle 'jiangmiao/auto-pairs'
+Bundle 'jiangmiao/auto-pairs'
 " Bundle for statusline
 Bundle 'bling/vim-airline'
 " Bundle for fast navigation
@@ -29,14 +29,10 @@ Bundle 'scrooloose/syntastic'
 " Simple execution of ruby test files
 Bundle 'skalnik/vim-vroom'
 Bundle 'tpope/vim-endwise'
+Bundle 'fatih/vim-go'
 
 filetype plugin indent on
 
-augroup ruby_config
-    autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
-    autocmd FileType ruby,eruby,yaml setlocal path+=lib
-    autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
-augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,7 +208,6 @@ set laststatus=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctrlp config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ctrlp config
 let g:ctrlp_map=''
 let g:ctrlp_macth_window='bottom,order:btt,min:1,max:10'
 let g:ctrlp_working_path_mode=0
@@ -239,34 +234,43 @@ if executable('ag')
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ruby related stuff 
+" file type specific configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" execute current ruby script
-autocmd FileType ruby set makeprg=ruby\ -cw\ %
+augroup ruby_config
+    autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+    autocmd FileType ruby,eruby,yaml setlocal path+=lib
+    autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
+    " execute current ruby script
+    autocmd FileType ruby set makeprg=ruby\ -cw\ %
+    " execute ri for the the word under the cursor
+    autocmd FileType ruby nmap <leader>h :!ri <cword><cr>
+augroup END
 
-" execute ri for the the word under the cursor
-autocmd FileType ruby nmap <leader>h :!ri <cword><cr>
+augroup go_config
+    au Filetype go nnoremap <leader>r :GoRun %<CR>
+augroup END
 
-" executing rspec files
-"autocmd FileType ruby map <leader>t :call RunCurrentSpecFile()<cr>
+augroup bash_config
+    autocmd FileType sh set makeprg=%:p
+augroup END
+
+augroup javascript_config
+    autocmd FileType javascript set makeprg=node\ %
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" shell script related stuff 
+" youcomplete  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType sh set makeprg=%:p
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" javascript stuff 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType javascript set makeprg=node\ %
-
-" youcomplete configuration
 let g:ycm_key_list_select_completion = ['<C-j>']
 let g:ycm_key_list_previous_completion = ['<C-k>']
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UltiSnips
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsListSnippetsDirectory=["UltiSnips"]
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsListSnippets = "<C-l>"
 
