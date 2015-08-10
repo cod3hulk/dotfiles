@@ -39,8 +39,10 @@
     changed = green
     untracked = cyan
 [credential]
-	helper = cache
+	helper = osxkeychain
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
+[gui]
+	recentrepo = /Users/tave/workspace/immonet

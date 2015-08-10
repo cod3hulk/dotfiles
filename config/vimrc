@@ -121,10 +121,10 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set color theme for gvim only
 if has("gui_running")
-    colorscheme solarized
+    colorscheme molokai
 else
-    colorscheme solarized
-    set background=light
+    colorscheme molokai
+    set background=dark
 endif
 
 " Set font size
