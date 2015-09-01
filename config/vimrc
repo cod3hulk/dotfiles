@@ -261,16 +261,16 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " youcomplete  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_key_list_select_completion = ['<C-j>']
-let g:ycm_key_list_previous_completion = ['<C-k>']
+let g:ycm_key_list_select_completion = ['<tab>']
+let g:ycm_key_list_previous_completion = ['<s-tab>']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " UltiSnips
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsListSnippetsDirectory=["UltiSnips"]
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsListSnippets = "<C-l>"
+"let g:UltiSnipsListSnippetsDirectory=["UltiSnips"]
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"let g:UltiSnipsListSnippets = "<C-l>"
 
