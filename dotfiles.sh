@@ -59,6 +59,7 @@ install_brew_cask_formulas() {
     INSTALLED_CASK_FORMULAS=$(brew cask list -1)
     install_brew_cask_formula 'alfred' 'alfred'
     install_brew_cask_formula 'adium' 'adium'
+    install_brew_cask_formula 'keepingyouawake' 'keepingyouawake'
     install_brew_cask_formula 'java' 'java'
     install_brew_cask_formula 'slate' 'slate'
     install_brew_cask_formula 'iterm2' 'iterm2'
