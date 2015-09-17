@@ -1,0 +1,8 @@
+# Custom aliases
+
+alias vi=/usr/local/bin/vim
+alias ws='cd /Users/tave/workspace'
+alias vimrc='vi /Users/tave/.vimrc'
+alias dotfiles-up='~/dotfiles/dotfiles.sh update'
+alias tmuxk='tmux kill-session -t'
+
