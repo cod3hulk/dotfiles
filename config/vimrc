@@ -15,6 +15,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'SirVer/ultisnips'
 " Autocomplete
 Bundle 'Valloric/YouCompleteMe'
+Plugin 'ervandew/supertab'
 " Bundles for navigation
 Bundle 'kien/ctrlp.vim'
 " Bundles for editing support
@@ -101,6 +102,9 @@ set showmatch
 
 " disable search wrap around the end of file
 set nows
+
+" hide scratch preview
+set completeopt-=preview
 
 " gvim settings
 if has("gui_running")
@@ -251,7 +255,8 @@ augroup ruby_config
 augroup END
 
 augroup go_config
-    au Filetype go nnoremap <leader>r :GoRun %<CR>
+    au Filetype go nnoremap <leader>r :GoRun<CR>
+    au Filetype go nnoremap <leader>t :GoTest<CR>
 augroup END
 
 augroup bash_config
@@ -265,8 +270,13 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " youcomplete  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_key_list_select_completion = ['<tab>']
-let g:ycm_key_list_previous_completion = ['<s-tab>']
+let g:ycm_key_list_select_completion = ['<C-n>']
+let g:ycm_key_list_previous_completion = ['<C-p>']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SuperTab  
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline  
@@ -276,10 +286,7 @@ let g:airline_section_b = '%{getcwd()}'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " UltiSnips
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" better key bindings for UltiSnipsExpandTrigger
-"let g:UltiSnipsListSnippetsDirectory=["UltiSnips"]
-"let g:UltiSnipsExpandTrigger = "<tab>"
-"let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-"let g:UltiSnipsListSnippets = "<C-l>"
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
