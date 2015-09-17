@@ -1,8 +1,24 @@
-# Custom aliases
-
+###########################################################
+# vi
+###########################################################
 alias vi=/usr/local/bin/vim
-alias ws='cd /Users/tave/workspace'
-alias vimrc='vi /Users/tave/.vimrc'
+alias vimrc='vi ~/.vimrc'
+
+###########################################################
+# navigation
+###########################################################
+alias ws='cd ~/workspace'
 alias dotfiles-up='~/dotfiles/dotfiles.sh update'
+alias dotfiles='cd ~/dotfiles'
+alias prezto='cd ~/.zprezto'
+
+###########################################################
+# aliases
+###########################################################
+alias aliases='vi ~/.aliases'
+
+###########################################################
+# tmux
+###########################################################
 alias tmuxk='tmux kill-session -t'
 
