@@ -20,7 +20,7 @@ Plugin 'ervandew/supertab'
 Bundle 'kien/ctrlp.vim'
 " Bundles for editing support
 Bundle 'tpope/vim-surround'
-Bundle 'jiangmiao/auto-pairs'
+Bundle 'Raimondi/delimitMate'
 " Bundle for statusline
 Bundle 'bling/vim-airline'
 " Bundle for fast navigation
@@ -104,7 +104,7 @@ set showmatch
 set nows
 
 " hide scratch preview
-set completeopt-=preview
+" set completeopt-=preview
 
 " gvim settings
 if has("gui_running")
@@ -290,3 +290,4 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+let g:AutoPairsFlyMode = 1

@@ -54,6 +54,7 @@ install_brew_formulas() {
     install_brew_formula 'scala' 'scala'
     install_brew_formula 'go' 'go'
     install_brew_formula 'coreutils' 'coreutils'
+    install_brew_formula 'httpie' 'httpie'
 }
 
 install_brew_cask_formulas() {
