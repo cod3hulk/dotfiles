@@ -51,6 +51,7 @@ install_brew_formulas() {
     install_brew_formula 'docker' 'docker'
     install_brew_formula 'the_silver_searcher' 'the_silver_searcher'
     install_brew_formula 'node' 'npm'
+    install_brew_formula 'nvm' 'nvm'
     install_brew_formula 'scala' 'scala'
     install_brew_formula 'go' 'go'
     install_brew_formula 'coreutils' 'coreutils'
