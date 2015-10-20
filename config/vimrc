@@ -39,7 +39,7 @@ Plug 'rking/ag.vim'
 Plug 'tpope/vim-fugitive'
 
 " Support for js
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript' }
+Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 
 " Support for golang
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -112,9 +112,6 @@ set showmatch
 
 " disable search wrap around the end of file
 set nows
-
-" hide scratch preview
-" set completeopt-=preview
 
 " gvim settings
 if has("gui_running")
@@ -197,7 +194,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " remove higlight for search results
-" nmap <cr> :nohlsearch<cr>
+nmap <cr> :nohlsearch<cr>
 
 " Fast saving
 nmap <leader>w :update<cr>
@@ -207,9 +204,6 @@ nmap <leader>q :q<cr>
 
 " Fast saving and quitting
 nmap <leader>x :x<cr>
-
-" Toggle NERDTree
-nmap <leader>nt :NERDTreeToggle<cr>
 
 " Fast visual mode
 imap jj <Esc>
