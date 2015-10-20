@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle config 
+" Vundle config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 filetype off
@@ -15,7 +15,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'SirVer/ultisnips'
 " Autocomplete
 Bundle 'Valloric/YouCompleteMe'
-Plugin 'ervandew/supertab'
+Bundle 'ervandew/supertab'
 " Bundles for navigation
 Bundle 'kien/ctrlp.vim'
 " Bundles for editing support
@@ -29,19 +29,20 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 " Simple execution of ruby test files
 Bundle 'skalnik/vim-vroom'
-" Automatic closing
-Bundle 'tpope/vim-endwise'
 " Support for golang
 Bundle 'fatih/vim-go'
 " Support for silver-searcher
 Bundle 'rking/ag.vim'
 " Support for git
 Bundle 'tpope/vim-fugitive'
+" Tern-based JS editing support
+Bundle 'marijnh/tern_for_vim'
+
 
 filetype plugin indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" general config 
+" general config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set autowrite
 set noswapfile
@@ -109,16 +110,16 @@ set nows
 " gvim settings
 if has("gui_running")
     " remove menu bar
-    set guioptions-=m  
+    set guioptions-=m
 
     " remove toolbar
-    set guioptions-=T  
+    set guioptions-=T
 
     " remove right-hand scroll bar
-    set guioptions-=r  
+    set guioptions-=r
 
     " remove left-hand scroll bar
-    set guioptions-=L  
+    set guioptions-=L
 
     " maximize gvim window.
     set lines=999 columns=999
@@ -131,8 +132,8 @@ endif
 if has("gui_running")
     colorscheme molokai
 else
+    let g:molokai_original=0
     colorscheme molokai
-    set background=dark
 endif
 
 " Set font size
@@ -187,7 +188,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " remove higlight for search results
-nmap <cr> :nohlsearch<cr>
+" nmap <cr> :nohlsearch<cr>
 
 " Fast saving
 nmap <leader>w :update<cr>
@@ -214,7 +215,7 @@ map <leader>b :make<cr>
 set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ctrlp config 
+" ctrlp config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_map=''
 let g:ctrlp_macth_window='bottom,order:btt,min:1,max:10'
@@ -268,18 +269,20 @@ augroup javascript_config
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" youcomplete  
+" youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ycm_key_list_select_completion = ['<C-n>']
 let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SuperTab  
+" SuperTab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" airline  
+" airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_section_b = '%{getcwd()}'
 
@@ -290,4 +293,10 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:AutoPairsFlyMode = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" delimitMate
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_smart_quotes = 1
+
