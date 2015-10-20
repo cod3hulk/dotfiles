@@ -8,6 +8,7 @@ Plug 'tomasr/molokai'
 
 " Bundles for snippets
 Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Autocomplete
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
