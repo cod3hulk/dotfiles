@@ -12,7 +12,6 @@ Plug 'honza/vim-snippets'
 
 " Autocomplete
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'ervandew/supertab'
 
 " Bundles for navigation
 Plug 'kien/ctrlp.vim'
@@ -288,20 +287,21 @@ augroup END
 
 augroup javascript_config
     autocmd FileType javascript set makeprg=node\ %
+    autocmd FileType javascript setlocal ai sw=2 sts=2 et
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_key_list_select_completion = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:ycm_key_list_select_completion = ['<C-j>']
+let g:ycm_key_list_previous_completion = ['<C-k>']
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SuperTab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:SuperTabDefaultCompletionType = '<C-n>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
