@@ -45,6 +45,12 @@ Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 " Support for golang
 Plug 'fatih/vim-go', { 'for': 'go' }
 
+" Support for the UNIX shell commands
+Plug 'tpope/vim-eunuch'
+
+" Support for editing markdown files
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'do': 'npm -g install instant-markdown-d' }
+
 call plug#end()
 
 set nocompatible
