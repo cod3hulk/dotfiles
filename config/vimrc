@@ -42,6 +42,9 @@ Plug 'tpope/vim-fugitive'
 " Support for js
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 
+" Support for autoclosing tags
+Plug 'vim-scripts/HTML-AutoCloseTag'
+
 " Support for golang
 Plug 'fatih/vim-go', { 'for': 'go' }
 
@@ -56,6 +59,9 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 
 " Support for gradle
 Plug 'tfnico/vim-gradle'
+
+" Support for plist
+" Plug 'darfink/vim-plist'
 
 call plug#end()
 
@@ -316,3 +322,4 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_smart_quotes = 1
 
+au FileType xhtml,xml so ~/.vim/plugged/HTML-AutoCloseTag/ftplugin/html_autoclosetag.vim

@@ -8,8 +8,8 @@ alias vimrc='vi ~/.vimrc'
 # navigation
 ###########################################################
 alias ws='cd ~/workspace'
-alias updf='~/dotfiles/dotfiles.sh update'
-alias eddf='cd ~/dotfiles'
+alias dfup='~/dotfiles/dotfiles.sh update'
+alias dfed='cd ~/dotfiles'
 alias prezto='cd ~/.zprezto'
 
 ###########################################################
