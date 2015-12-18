@@ -5,5 +5,5 @@ nmap ,r :action Run<cr>
 nmap ,R :action ChooseRunConfiguration<cr>
 nmap ,f :action VimForward<cr>
 nmap ,b :action VimBack<cr>
-nmap ,,e :action FileStructurePopup<cr>
+nmap ,e :action FileStructurePopup<cr>
 nmap gR :action RenameElement<cr>
