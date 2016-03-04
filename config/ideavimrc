@@ -1,9 +1,16 @@
 source ~/.vimrc
 nmap ,,w :action AceJumpAction<cr>
 nmap ,x :action VimFileSaveClose<cr>
+nmap ,q :action CloseContent<cr>
 nmap ,r :action Run<cr>
-nmap ,R :action ChooseRunConfiguration<cr>
+nmap ,R :action RunClass<cr>
 nmap ,f :action VimForward<cr>
 nmap ,b :action VimBack<cr>
 nmap ,e :action FileStructurePopup<cr>
 nmap gR :action RenameElement<cr>
+nmap g; :action JumpToLastChange<cr>
+nmap g, :action JumpToNextChange<cr>
+nmap ,m :action HideAllWindows<cr>
+nmap ,qo :action CloseAllEditorsButActive<cr>
+nmap <c-]> :action MethodDown<cr>
+nmap <c-[> :action MethodUp<cr>

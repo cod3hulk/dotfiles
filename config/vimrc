@@ -62,6 +62,9 @@ Plug 'tfnico/vim-gradle'
 " Support for plist
 " Plug 'darfink/vim-plist'
 
+" Support for csv
+Plug 'chrisbra/csv.vim'
+
 call plug#end()
 
 set nocompatible
@@ -228,6 +231,8 @@ imap jj <Esc>
 
 " make command
 map <leader>b :make<cr>
+
+set pastetoggle=<F2>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
