@@ -85,6 +85,20 @@ install_prezto() {
     fi
 }
 
+install_launch_agents() {
+    LAUNCH_AGENTS="${HOME}/dotfiles/LaunchAgents/*";
+    for launch_agent in $LAUNCH_AGENTS; do
+        BASE_NAME=$(basename $launch_agent)
+        SYMLINK="${HOME}/Library/LaunchAgents/${BASE_NAME}"
+        if [ -d ${SYMLINK} ] && [ -h ${SYMLINK} ]
+        then
+            unlink ${SYMLINK}
+        fi
+        ln -sf "$launch_agent" ${SYMLINK}
+    done
+}
+
+
 create_symlinks() {
     for dot_file in $1; do
         BASE_NAME=$(basename $dot_file)
@@ -103,6 +117,7 @@ install() {
         install_brew_formulas
         install_brew_cask_formulas
         install_prezto
+        install_launch_agents
         create_symlinks "${HOME}/dotfiles/config/*"
         log "Installation finished"
     else
