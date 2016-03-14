@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<root>
+    <item>
+        <name>F19 to F19</name>
+        <appendix>(F19 to Hyper (ctrl+shift+cmd+opt) + F19 Only, send escape)</appendix>
+        <identifier>private.f192f19_escape</identifier>
+        <autogen>
+            --KeyOverlaidModifier--
+            KeyCode::F19,
+            KeyCode::COMMAND_L,
+            ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::ESCAPE
+        </autogen>
+    </item>
+
+    <item>
+        <name>Hyper+K to up</name> <identifier>hyper_k</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::K, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::CURSOR_UP
+        </autogen>
+    </item>
+
+    <item>
+        <name>Hyper+J to down</name> 
+        <identifier>hyper_j</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::J, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::CURSOR_DOWN
+        </autogen>
+    </item>
+
+    <item>
+        <name>Hyper+H to left</name> 
+        <identifier>hyper_h</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::H, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::CURSOR_LEFT
+        </autogen>
+    </item>
+
+    <item>
+        <name>Hyper+L to right</name> 
+        <identifier>hyper_l</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::L, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::CURSOR_RIGHT
+        </autogen>
+    </item>
+</root>
