@@ -1,63 +1,111 @@
 <?xml version="1.0"?>
 <root>
 
-    <replacementdef>
-        <replacementname>HYPER_KEY</replacementname>
-        <replacementvalue>
-            KeyCode::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-        </replacementvalue>
-    </replacementdef>
+	<replacementdef>
+		<replacementname>HYPER_KEY</replacementname>
+		<replacementvalue>
+			KeyCode::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+		</replacementvalue>
+	</replacementdef>
 
-    <item>
-        <name>F19 to F19</name>
-        <appendix>(F19 to Hyper (ctrl+shift+cmd+opt) + F19 Only, send escape)</appendix>
-        <identifier>private.f192f19_escape</identifier>
-        <autogen>
-            --KeyOverlaidModifier--
-            KeyCode::F19,
-            {{ HYPER_KEY }}
-            KeyCode::ESCAPE
-        </autogen>
-    </item>
+	<item>
+		<name>F19 to F19</name>
+		<appendix>(F19 to Hyper (ctrl+shift+cmd+opt) + F19 Only, send escape)</appendix>
+		<identifier>private.f192f19_escape</identifier>
+		<autogen>
+			--KeyOverlaidModifier--
+			KeyCode::F19,
+			{{ HYPER_KEY }}
+			KeyCode::ESCAPE
+		</autogen>
+	</item>
 
-    <item>
-        <name>Hyper+K to up</name> 
-        <identifier>hyper_k</identifier>
+	<item>
+		<name>VIM like arrow keys for Pok4r with HYPER</name>
+		<appendix>HYPER + J = Down</appendix>
+		<appendix>HYPER + K = Up</appendix>
+		<appendix>HYPER + H = Left</appendix>
+		<appendix>HYPER + L = Right</appendix>
+		<identifier>private.hypervim</identifier>
+		<autogen>
+			__KeyToKey__
+			KeyCode::K, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			KeyCode::CURSOR_UP
+		</autogen>
         <autogen>
-            __KeyToKey__
-            KeyCode::K, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-            KeyCode::CURSOR_UP
-        </autogen>
-    </item>
+			__KeyToKey__
+			KeyCode::J, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			KeyCode::CURSOR_DOWN
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::H, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			KeyCode::CURSOR_LEFT
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::L, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			KeyCode::CURSOR_RIGHT
+		</autogen>
+	</item>
 
-    <item>
-        <name>Hyper+J to down</name> 
-        <identifier>hyper_j</identifier>
-        <autogen>
-            __KeyToKey__
-            KeyCode::J, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-            KeyCode::CURSOR_DOWN
-        </autogen>
-    </item>
+	<item>
+		<name>Media Keys for Pok3r with HYPER</name>
+		<appendix>HYPER + ' = Volume Up</appendix>
+		<appendix>HYPER + ; = Volume Down</appendix>
+		<appendix>HYPER + P = Play/Pause</appendix>
+		<appendix>HYPER + ] = Next Track</appendix>
+		<appendix>HYPER + [ = Previous Track</appendix>
+		<appendix>HYPER + . = Mute</appendix>
+		<identifier>private.hypermediakeys</identifier>
+		<autogen>
+			__KeyToConsumer__
+			KeyCode::P, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			ConsumerKeyCode::MUSIC_PLAY
+		</autogen>
+		<autogen>
+			__KeyToConsumer__
+			KeyCode::BRACKET_LEFT, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			ConsumerKeyCode::MUSIC_PREV
+		</autogen>
+		<autogen>
+			__KeyToConsumer__
+			KeyCode::BRACKET_RIGHT, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			ConsumerKeyCode::MUSIC_NEXT
+		</autogen>
+		<autogen>
+			__KeyToConsumer__
+			KeyCode::SEMICOLON, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			ConsumerKeyCode::VOLUME_DOWN
+		</autogen>
+		<autogen>
+			__KeyToConsumer__
+			KeyCode::QUOTE, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			ConsumerKeyCode::VOLUME_UP
+		</autogen>
+		<autogen>
+			__KeyToConsumer__
+			KeyCode::DOT, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+			ConsumerKeyCode::VOLUME_MUTE
+		</autogen>
+	</item>
 
-    <item>
-        <name>Hyper+H to left</name> 
-        <identifier>hyper_h</identifier>
-        <autogen>
-            __KeyToKey__
-            KeyCode::H, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-            KeyCode::CURSOR_LEFT
-        </autogen>
-    </item>
+	<item>
+		<name>Function keys with HYPER</name>
+		<appendix>HYPER + 2 = F2</appendix>
+		<appendix>HYPER + 9 = F9</appendix>
+		<identifier>private.hyperfunctionkeys</identifier>
+		<autogen>
+			__KeyToKey__
+			KeyCode::9, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F9
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::2, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F2
+		</autogen>
+	</item>
 
-    <item>
-        <name>Hyper+L to right</name> 
-        <identifier>hyper_l</identifier>
-        <autogen>
-            __KeyToKey__
-            KeyCode::L, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-            KeyCode::CURSOR_RIGHT
-        </autogen>
-    </item>
 
 </root>
