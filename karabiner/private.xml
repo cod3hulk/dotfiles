@@ -1,5 +1,13 @@
 <?xml version="1.0"?>
 <root>
+
+    <replacementdef>
+        <replacementname>HYPER_KEY</replacementname>
+        <replacementvalue>
+            KeyCode::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+        </replacementvalue>
+    </replacementdef>
+
     <item>
         <name>F19 to F19</name>
         <appendix>(F19 to Hyper (ctrl+shift+cmd+opt) + F19 Only, send escape)</appendix>
@@ -7,14 +15,14 @@
         <autogen>
             --KeyOverlaidModifier--
             KeyCode::F19,
-            KeyCode::COMMAND_L,
-            ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            {{ HYPER_KEY }}
             KeyCode::ESCAPE
         </autogen>
     </item>
 
     <item>
-        <name>Hyper+K to up</name> <identifier>hyper_k</identifier>
+        <name>Hyper+K to up</name> 
+        <identifier>hyper_k</identifier>
         <autogen>
             __KeyToKey__
             KeyCode::K, ModifierFlag::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
@@ -51,4 +59,5 @@
             KeyCode::CURSOR_RIGHT
         </autogen>
     </item>
+
 </root>
