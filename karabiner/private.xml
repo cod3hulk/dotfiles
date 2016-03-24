@@ -93,12 +93,18 @@
 	<item>
 		<name>Function keys with HYPER</name>
 		<appendix>HYPER + 2 = F2</appendix>
+		<appendix>HYPER + 6 = F6</appendix>
 		<appendix>HYPER + 9 = F9</appendix>
 		<identifier>private.hyperfunctionkeys</identifier>
 		<autogen>
 			__KeyToKey__
 			KeyCode::9, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
             KeyCode::F9
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::6, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F6
 		</autogen>
 		<autogen>
 			__KeyToKey__

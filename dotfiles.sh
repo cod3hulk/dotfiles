@@ -56,6 +56,11 @@ install_brew_formulas() {
     install_brew_formula 'go' 'go'
     install_brew_formula 'coreutils' 'coreutils'
     install_brew_formula 'httpie' 'httpie'
+    install_brew_formula 'tig' 'tig'
+    install_brew_formula 'fortune' 'fortune'
+    install_brew_formula 'lolcat' 'lolcat'
+    install_brew_formula 'cowsay' 'cowsay'
+    install_brew_formula 'htop' 'htop'
 }
 
 install_brew_cask_formulas() {

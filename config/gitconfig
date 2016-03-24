@@ -11,9 +11,11 @@
     today = "log --since '6am' --oneline --author tave"
     restore = "!git checkout $(git rev-list -n 1 HEAD -- $1)^ -- $1"
 	d = difftool
-	create-pull-request = !sh -c 'stash pull-request $0 $@'
+	create-pull-request = !bitbucket pull-request
 	open = !bitbucket open
 	pullrequest = !bitbucket pull-request
+	clean = git fetch && git branch -D $(git branch --merged)
+	clean-branch = !git fetch && git branch -D $(git branch --merged)
 [mergetool]
     keepBackup = false
     keepTemporaries = false

@@ -24,3 +24,8 @@ alias aliases='vi ~/.aliases'
 alias tmuxk='tmux kill-session -t'
 alias mux='tmuxinator'
 
+###########################################################
+# custom
+###########################################################
+alias weather=curl wttr.in/Hamburg
+
