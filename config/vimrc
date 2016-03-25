@@ -60,9 +60,6 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 " Support for gradle
 Plug 'tfnico/vim-gradle'
 
-" Support for plist
-" Plug 'darfink/vim-plist'
-
 " Support for csv
 Plug 'chrisbra/csv.vim'
 
@@ -158,9 +155,11 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set color theme for gvim only
 if has("gui_running")
+    let g:molokai_original = 1
     colorscheme molokai
 else
-    let g:molokai_original=0
+    set t_Co=256
+    let g:molokai_original = 1
     colorscheme molokai
 endif
 

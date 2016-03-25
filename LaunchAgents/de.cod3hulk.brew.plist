@@ -14,5 +14,9 @@
         <true/>
         <key>LaunchOnlyOnce</key>
         <true/>
+        <key>StandardErrorPath</key>
+        <string>/Users/tave/tmp/log</string>
+        <key>StandardOutPath</key>
+        <string>/Users/tave/tmp/log</string>
     </dict>
 </plist>

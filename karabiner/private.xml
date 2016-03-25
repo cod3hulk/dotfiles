@@ -91,15 +91,32 @@
 	</item>
 
 	<item>
-		<name>Function keys with HYPER</name>
-		<appendix>HYPER + 2 = F2</appendix>
-		<appendix>HYPER + 6 = F6</appendix>
-		<appendix>HYPER + 9 = F9</appendix>
+		<name>Numbers as function keys with HYPER</name>
 		<identifier>private.hyperfunctionkeys</identifier>
 		<autogen>
 			__KeyToKey__
-			KeyCode::9, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-            KeyCode::F9
+			KeyCode::1, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F1
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::2, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F2
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::3, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F3
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::4, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F4
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::5, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F5
 		</autogen>
 		<autogen>
 			__KeyToKey__
@@ -108,10 +125,34 @@
 		</autogen>
 		<autogen>
 			__KeyToKey__
-			KeyCode::2, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
-            KeyCode::F2
+			KeyCode::7, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F7
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::8, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F8
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::9, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F9
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::10, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F10
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::11, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F11
+		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::12, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F12
 		</autogen>
 	</item>
-
 
 </root>
