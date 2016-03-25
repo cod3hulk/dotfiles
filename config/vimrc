@@ -21,7 +21,7 @@ Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 
 " Bundle for statusline
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Bundle for fast navigation
