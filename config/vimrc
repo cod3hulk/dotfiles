@@ -159,8 +159,9 @@ if has("gui_running")
     colorscheme molokai
 else
     set t_Co=256
-    let g:molokai_original = 1
+    set background=dark
     colorscheme molokai
+    let g:molokai_original = 1
 endif
 
 " Set font size
