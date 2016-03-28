@@ -138,6 +138,11 @@
 			KeyCode::9, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
             KeyCode::F9
 		</autogen>
+		<autogen>
+			__KeyToKey__
+			KeyCode::0, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::F10
+		</autogen>
 	</item>
 
 </root>
