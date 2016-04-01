@@ -85,7 +85,7 @@ set encoding=utf-8
 set history=700
 
 " Set relative line number
-set number
+set relativenumber
 
 " Set to auto read when a file is changed from the outside
 set autoread
