@@ -16,6 +16,7 @@
 	pullrequest = !bitbucket pull-request
 	clean = git fetch && git branch -D $(git branch --merged)
 	clean-branch = !git fetch && git branch -D $(git branch --merged)
+	bugfix = feature -a bugfix
 [mergetool]
     keepBackup = false
     keepTemporaries = false

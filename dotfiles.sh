@@ -61,6 +61,7 @@ install_brew_formulas() {
     install_brew_formula 'cowsay' 'cowsay'
     install_brew_formula 'htop' 'htop'
     install_brew_formula 'autojump' 'autojump'
+    install_brew_formula 'git-extras' 'git-extras'
     gem install lolcat
 }
 
