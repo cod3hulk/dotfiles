@@ -63,6 +63,11 @@ Plug 'tfnico/vim-gradle'
 " Support for csv
 Plug 'chrisbra/csv.vim'
 
+" Support for drawing ascii graphics
+Plug 'vim-scripts/DrawIt'
+
+Plug 'tpope/vim-unimpaired'
+
 call plug#end()
 
 set nocompatible
@@ -294,6 +299,7 @@ augroup END
 augroup javascript_config
     autocmd FileType javascript set makeprg=node\ %
     autocmd FileType javascript setlocal ai sw=2 sts=2 et
+    com! FormatJSON %!python -m json.tool
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
