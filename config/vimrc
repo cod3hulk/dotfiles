@@ -68,6 +68,9 @@ Plug 'vim-scripts/DrawIt'
 
 Plug 'tpope/vim-unimpaired'
 
+" IDE like file nav
+Plug 'scrooloose/nerdtree'
+
 call plug#end()
 
 set nocompatible
@@ -238,7 +241,20 @@ imap jj <Esc>
 " make command
 map <leader>b :make<cr>
 
+" Toggle NERDTree
+map <leader>t :NERDTreeToggle<cr>
+
+" Toggle paste Mode
 set pastetoggle=<F2>
+
+" Faster window resizing
+if bufwinnr(1)
+    map + <C-W>+
+    map - <C-W>-
+    map * <c-w><
+    map \ <c-w>>
+endif
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status line
@@ -302,6 +318,10 @@ augroup javascript_config
     com! FormatJSON %!python -m json.tool
 augroup END
 
+augroup html_config
+    autocmd FileType html let b:syntastic_mode="passive"
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -333,5 +353,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_smart_quotes = 1
+
 
 au FileType xhtml,xml so ~/.vim/plugged/HTML-AutoCloseTag/ftplugin/html_autoclosetag.vim
