@@ -71,6 +71,8 @@ Plug 'tpope/vim-unimpaired'
 " IDE like file nav
 Plug 'scrooloose/nerdtree'
 
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
 call plug#end()
 
 set nocompatible
@@ -354,5 +356,9 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_smart_quotes = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>t :NERDTreeToggle<cr>
 
 au FileType xhtml,xml so ~/.vim/plugged/HTML-AutoCloseTag/ftplugin/html_autoclosetag.vim
