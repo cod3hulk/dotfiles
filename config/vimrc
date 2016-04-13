@@ -71,7 +71,11 @@ Plug 'tpope/vim-unimpaired'
 " IDE like file nav
 Plug 'scrooloose/nerdtree'
 
+" Fix vim tmux focus problem
 Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" Easy uncomment/comment
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
@@ -248,14 +252,6 @@ map <leader>t :NERDTreeToggle<cr>
 
 " Toggle paste Mode
 set pastetoggle=<F2>
-
-" Faster window resizing
-if bufwinnr(1)
-    map + <C-W>+
-    map - <C-W>-
-    map * <c-w><
-    map \ <c-w>>
-endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
