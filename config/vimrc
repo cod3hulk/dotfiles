@@ -144,7 +144,7 @@ set magic
 set showmatch
 
 " disable search wrap around the end of file
-set nows
+"set nows
 
 " gvim settings
 if has("gui_running")

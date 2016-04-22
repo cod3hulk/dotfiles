@@ -15,3 +15,4 @@ nmap ,qo :action CloseAllEditorsButActive<cr>
 nmap ,Q :action CloseProject<cr>
 nmap <c-]> :action MethodDown<cr>
 nmap <c-[> :action MethodUp<cr>
+set surround
