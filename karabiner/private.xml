@@ -145,4 +145,24 @@
         </autogen>
     </item>
 
+    <item>
+        <name>shift+esc to ~</name>
+        <identifier>private.shift_esc_to_tilde</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::ESCAPE, ModifierFlag::SHIFT_R,
+            KeyCode::BACKQUOTE, VK_SHIFT
+        </autogen>
+    </item>
+
+    <item>
+        <name>HYPER+backspace to delete</name>
+        <identifier>private.hyper_backspace_to_del</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::DELETE, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::FORWARD_DELETE
+        </autogen>
+    </item>
+
 </root>

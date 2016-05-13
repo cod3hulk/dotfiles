@@ -72,7 +72,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdtree'
 
 " Fix vim tmux focus problem
-Plug 'tmux-plugins/vim-tmux-focus-events'
+"Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Easy uncomment/comment
 Plug 'scrooloose/nerdcommenter'
