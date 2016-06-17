@@ -21,7 +21,7 @@ keys.push(Phoenix.bind('h', hyper, function() {
   var frame = screen.visibleFrameInRectangle();
   var size = {
     width: frame.width/2, 
-    height: frame.heigt
+    height: frame.height
   };
   var pos = {
     x: frame.x,
@@ -35,7 +35,7 @@ keys.push(Phoenix.bind('h', hyper, function() {
     var frame = prev_screen.visibleFrameInRectangle();
     size = {
       width: Math.round(frame.width/2), 
-      height: frame.heigt
+      height: frame.height
     };
     pos = {
       x: frame.x + Math.round(frame.width/2),
@@ -57,7 +57,7 @@ keys.push(Phoenix.bind('l', hyper, function() {
   var frame = screen.visibleFrameInRectangle();
   var size = {
     width: Math.round(frame.width/2), 
-    height: frame.heigt
+    height: frame.height
   };
   var pos = {
     x: frame.x + Math.round(frame.width/2),
@@ -71,7 +71,7 @@ keys.push(Phoenix.bind('l', hyper, function() {
     var frame = next_screen.visibleFrameInRectangle();
     size = {
       width: frame.width/2, 
-      height: frame.heigt
+      height: frame.height
     };
     pos = {
       x: frame.x,
@@ -88,6 +88,13 @@ keys.push(Phoenix.bind('l', hyper, function() {
 keys.push(Phoenix.bind('k', hyper, function() {
   var window = Window.focusedWindow();
   if (!window) return;
+  var width = window.frame().width;
+  var height = window.frame().height;
   window.maximize();
+  if (window.frame().width == width && window.frame().height == height) {
+    var screen = window.screen().next();
+    window.setTopLeft(screen.visibleFrameInRectangle());
+    window.maximize();
+  };
 }));
 
