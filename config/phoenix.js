@@ -20,7 +20,7 @@ keys.push(Phoenix.bind('h', hyper, function() {
   var screen = window.screen();
   var frame = screen.visibleFrameInRectangle();
   var size = {
-    width: frame.width/2, 
+    width: Math.floor(frame.width/2), 
     height: frame.height
   };
   var pos = {
@@ -30,7 +30,9 @@ keys.push(Phoenix.bind('h', hyper, function() {
 
   // recompute size and position for next screen
   var curr_pos = window.topLeft();
-  if (curr_pos.x == pos.x && curr_pos.y == pos.y) {
+  var diff = Math.abs((window.size().width) - size.width);
+  var delta = 5;
+  if (curr_pos.x == pos.x && curr_pos.y == pos.y && diff < delta ) {
     var prev_screen = screen.previous();
     var frame = prev_screen.visibleFrameInRectangle();
     size = {
@@ -91,7 +93,10 @@ keys.push(Phoenix.bind('k', hyper, function() {
   var width = window.frame().width;
   var height = window.frame().height;
   window.maximize();
-  if (window.frame().width == width && window.frame().height == height) {
+  var delta = 10;
+  var diff_width = Math.abs(window.size().width - width)
+  var diff_height = Math.abs(window.size().height - height);
+  if (diff_width < delta && diff_height < delta) {
     var screen = window.screen().next();
     window.setTopLeft(screen.visibleFrameInRectangle());
     window.maximize();
