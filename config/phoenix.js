@@ -14,8 +14,8 @@ function debug(message) {
 
 
 // move window left
-keys.push(Phoenix.bind('h', hyper, function() {
-  var window = Window.focusedWindow();
+keys.push(new Key('h', hyper, function() {
+  var window = Window.focused();
   if (!window) return;
   var screen = window.screen();
   var frame = screen.visibleFrameInRectangle();
@@ -50,8 +50,8 @@ keys.push(Phoenix.bind('h', hyper, function() {
 }));
 
 // move window right
-keys.push(Phoenix.bind('l', hyper, function() {
-  var window = Window.focusedWindow();
+keys.push(new Key('l', hyper, function() {
+  var window = Window.focused();
   if (!window) return;
 
   // compute size and position
@@ -87,8 +87,8 @@ keys.push(Phoenix.bind('l', hyper, function() {
 }));
 
 // maximize window
-keys.push(Phoenix.bind('k', hyper, function() {
-  var window = Window.focusedWindow();
+keys.push(new Key('k', hyper, function() {
+  var window = Window.focused();
   if (!window) return;
   var width = window.frame().width;
   var height = window.frame().height;
