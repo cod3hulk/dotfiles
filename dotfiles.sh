@@ -79,6 +79,7 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'visualvm' 'visualvm'
     install_brew_cask_formula 'karabiner' 'karabiner'
     install_brew_cask_formula 'seil' 'seil'
+    install_brew_cask_formula 'whatsapp' 'whatsapp'
 }
 
 install_prezto() {
