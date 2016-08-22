@@ -41,7 +41,6 @@ install_brew_formulas() {
     install_brew_formula 'zsh' 'zsh'
     install_brew_formula 'tmux' 'tmux'
     install_brew_formula 'reattach-to-user-namespace' 'reattach-to-user-namespace'
-    install_brew_formula 'cask' 'caskroom/cask/brew-cask'
     install_brew_formula 'jenv' 'jenv'
     install_brew_formula 'rbenv' 'rbenv'
     install_brew_formula 'ruby-build' 'ruby-build'
@@ -81,6 +80,8 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'seil' 'seil'
     install_brew_cask_formula 'whatsapp' 'whatsapp'
     install_brew_cask_formula 'atom' 'atom'
+    install_brew_cask_formula 'spotify' 'spotify'
+    install_brew_cask_formula 'slack' 'slack'
 }
 
 install_prezto() {
