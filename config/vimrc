@@ -52,7 +52,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'tpope/vim-eunuch'
 
 " Support for editing markdown files
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'do': 'npm -g install instant-markdown-d' }
+"Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'do': 'npm -g install instant-markdown-d' }
 
 " Support fo scala
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
