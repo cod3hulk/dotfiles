@@ -156,6 +156,16 @@
     </item>
 
     <item>
+        <name>option+esc to `</name>
+        <identifier>private.option_esc_to_backtick</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::ESCAPE, ModifierFlag::OPTION_R,
+            KeyCode::BACKQUOTE
+        </autogen>
+    </item>
+
+    <item>
         <name>HYPER+backspace to delete</name>
         <identifier>private.hyper_backspace_to_del</identifier>
         <autogen>
