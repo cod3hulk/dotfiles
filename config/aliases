@@ -7,8 +7,6 @@ alias vimrc='vi ~/.vimrc'
 ###########################################################
 # navigation
 ###########################################################
-alias dev='cd /Volumes/development'
-alias ws='cd ~/workspace'
 alias dfup='~/dotfiles/dotfiles.sh update'
 alias dfed='cd ~/dotfiles'
 alias prezto='cd ~/.zprezto'
