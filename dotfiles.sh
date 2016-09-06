@@ -82,6 +82,9 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'atom' 'atom'
     install_brew_cask_formula 'spotify' 'spotify'
     install_brew_cask_formula 'slack' 'slack'
+    install_brew_cask_formula 'dropbox' 'dropbox'
+    install_brew_cask_formula '1password' '1password'
+    install_brew_cask_formula 'airmail-beta' 'airmail-beta'
 }
 
 install_prezto() {
@@ -182,4 +185,3 @@ while [[ $# -gt 0  ]]; do
     esac
     shift
 done
-
