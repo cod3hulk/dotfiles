@@ -56,7 +56,7 @@
         <appendix>HYPER + P = Play/Pause</appendix>
         <appendix>HYPER + ] = Next Track</appendix>
         <appendix>HYPER + [ = Previous Track</appendix>
-        <appendix>HYPER + . = Mute</appendix>
+        <appendix>HYPER + M = Mute</appendix>
         <identifier>private.hypermediakeys</identifier>
         <autogen>
             __KeyToConsumer__
@@ -85,7 +85,7 @@
         </autogen>
         <autogen>
             __KeyToConsumer__
-            KeyCode::DOT, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::M, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
             ConsumerKeyCode::VOLUME_MUTE
         </autogen>
     </item>

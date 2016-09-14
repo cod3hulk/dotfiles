@@ -23,7 +23,15 @@ alias tmuxk='tmux kill-session -t'
 alias mux='tmuxinator'
 
 ###########################################################
+# maven
+###########################################################
+alias mci='mvn clean install'
+alias mct='mvn clean test'
+alias mcc='mvn clean compile'
+
+
+###########################################################
 # custom
 ###########################################################
-alias weather=curl wttr.in/Hamburg
+alias weather='curl wttr.in/Hamburg'
 
