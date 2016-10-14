@@ -1,0 +1,9 @@
+[submodule "dracula/iterm"]
+	path = dracula/iterm
+	url = https://github.com/dracula/iterm.git
+[submodule "dracula/alfred"]
+	path = dracula/alfred
+	url = https://github.com/dracula/alfred
+[submodule "dracula/jetbrains"]
+	path = dracula/jetbrains
+	url = https://github.com/dracula/jetbrains.git
