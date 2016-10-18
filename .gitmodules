@@ -6,4 +6,4 @@
 	url = https://github.com/dracula/alfred
 [submodule "dracula/jetbrains"]
 	path = dracula/jetbrains
-	url = https://github.com/dracula/jetbrains.git
+	url = https://github.com/cod3hulk/dracula-theme.git
