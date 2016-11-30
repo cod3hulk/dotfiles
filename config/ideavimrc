@@ -11,7 +11,7 @@ nmap gR :action RenameElement<cr>
 nmap g; :action JumpToLastChange<cr>
 nmap g, :action JumpToNextChange<cr>
 nmap ,m :action HideAllWindows<cr>
-nmap ,o :action CloseAllEditorsButActive<cr>
+nmap qo :action CloseAllEditorsButActive<cr>
 nmap ,Q :action CloseProject<cr>
 nmap <c-]> :action MethodDown<cr>
 nmap <c-[> :action MethodUp<cr>

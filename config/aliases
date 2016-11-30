@@ -25,9 +25,11 @@ alias mux='tmuxinator'
 ###########################################################
 # maven
 ###########################################################
-alias mci='mvn clean install'
-alias mct='mvn clean test'
-alias mcc='mvn clean compile'
+alias mc='mvn clean'
+alias mi='mvn install'
+alias mt='mvn test'
+alias mco='mvn compile'
+alias mp='mvn package'
 
 
 ###########################################################

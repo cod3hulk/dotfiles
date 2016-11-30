@@ -12,8 +12,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Autocomplete
-let $PYTHONHOME="/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5"
-let g:ycm_server_python_interpreter="/usr/local/bin/python3"
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 " Bundles for navigation
