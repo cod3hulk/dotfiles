@@ -2,7 +2,6 @@
 -Xms2G
 -Xmx6G
 -Xss16m
--XX:+UseConcMarkSweepGC
 -XX:+CMSParallelRemarkEnabled
 -XX:ConcGCThreads=4
 -XX:ReservedCodeCacheSize=256m
@@ -10,6 +9,7 @@
 -XX:+TieredCompilation
 -XX:+UseCompressedOops
 -XX:SoftRefLRUPolicyMSPerMB=50
+-XX:+UseG1GC
 -Dsun.io.useCanonCaches=false
 -Djava.net.preferIPv4Stack=true
 -Djsse.enableSNIExtension=false
