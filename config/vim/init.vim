@@ -37,6 +37,16 @@ colorscheme dracula
 set splitbelow
 set splitright
 
+" Using spaces instead of tabs
+set expandtab
+
+" Enable smart tabs
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings

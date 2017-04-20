@@ -36,4 +36,4 @@ alias mp='mvn package'
 # custom
 ###########################################################
 alias weather='curl wttr.in/Hamburg'
-
+alias clr='clear'

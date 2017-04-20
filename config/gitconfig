@@ -10,13 +10,13 @@
     daily = "log --since '1 day ago' --oneline --author t.ave"
     today = "log --since '6am' --oneline --author tave"
     restore = "!git checkout $(git rev-list -n 1 HEAD -- $1)^ -- $1"
-	d = difftool
-	create-pull-request = !bitbucket pull-request
-	open = !bitbucket open
-	pullrequest = !bitbucket pull-request
-	clean = git fetch && git branch -D $(git branch --merged)
-	clean-branch = !git fetch && git branch -D $(git branch --merged)
-	bugfix = feature -a bugfix
+    d = difftool
+    create-pull-request = !bitbucket pull-request
+    open = !bitbucket open
+    pullrequest = !bitbucket pull-request
+    clean = git fetch && git branch -D $(git branch --merged)
+    clean-branch = !git fetch && git branch -D $(git branch --merged)
+    bugfix = feature -a bugfix
 [mergetool]
     keepBackup = false
     keepTemporaries = false
@@ -26,7 +26,7 @@
     rebase = true
 [core]
     autocrlf = false
-	editor = mvim -f
+    editor = nvim
 [color]
     branch = auto
     diff = auto
@@ -45,8 +45,8 @@
     changed = green
     untracked = cyan
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [difftool]
-	prompt = false
+    prompt = false
