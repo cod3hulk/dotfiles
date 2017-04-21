@@ -78,7 +78,7 @@ nmap <leader>x :x<cr>
 "nnoremap <C-H> <C-W><C-H>
 
 if has('nvim')
-	nmap <BS> <C-W>h
+    nmap <BS> :TmuxNavigateLeft<cr>
 endif
 
 
