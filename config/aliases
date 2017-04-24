@@ -2,14 +2,14 @@
 # vi
 ###########################################################
 alias vi=/usr/local/bin/vim
-alias vimrc='vi ~/.vimrc'
+alias vimconfig='vi ~/.vimrc'
 
 ###########################################################
 # navigation
 ###########################################################
-alias dfup='~/dotfiles/dotfiles.sh update'
-alias dfed='cd ~/dotfiles'
+alias dotfiles='cd ~/dotfiles'
 alias prezto='cd ~/.zprezto'
+alias dj='cd $(dirs -v | sed "s/^[0-9]\s*//g" | fzf)'
 
 ###########################################################
 # aliases
@@ -21,6 +21,7 @@ alias aliases='vi ~/.aliases'
 ###########################################################
 alias tmuxk='tmux kill-session -t'
 alias mux='tmuxinator'
+alias tmuxconfig='nvim ~/.tmux.conf'
 
 ###########################################################
 # maven
@@ -31,9 +32,13 @@ alias mt='mvn test'
 alias mco='mvn compile'
 alias mp='mvn package'
 
-
 ###########################################################
 # custom
 ###########################################################
 alias weather='curl wttr.in/Hamburg'
 alias clr='clear'
+
+###########################################################
+# git
+###########################################################
+alias gcob='gco $(git branch -r | cut -d "/" -f2- | fzf)'
