@@ -9,12 +9,14 @@ alias viconf='vi ~/.vimrc'
 ###########################################################
 alias dotfiles='cd ~/dotfiles'
 alias prezto='cd ~/.zprezto'
-alias dj='cd $(dirs -v | sed "s/^[0-9]\s*//g" | fzf)'
+function jd() {
+    eval cd $(dirs -v | cut -d '	' -f2- | fzf);
+}
 
 ###########################################################
 # aliases
 ###########################################################
-alias aliases='vi ~/.aliases'
+alias aliases='nvim ~/.aliases'
 
 ###########################################################
 # tmux

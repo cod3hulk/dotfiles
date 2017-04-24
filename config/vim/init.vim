@@ -13,6 +13,9 @@ Plug 'vim-airline/vim-airline-themes'
 " Vim Tmux Navigation
 Plug 'christoomey/vim-tmux-navigator'
 
+" Code formatting
+Plug 'sbdchd/neoformat'
+
 " Initialize plugin system
 call plug#end()
 
