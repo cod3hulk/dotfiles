@@ -2,7 +2,7 @@
 # vi
 ###########################################################
 alias vi=/usr/local/bin/vim
-alias vimconfig='vi ~/.vimrc'
+alias viconf='vi ~/.vimrc'
 
 ###########################################################
 # navigation
@@ -21,7 +21,7 @@ alias aliases='vi ~/.aliases'
 ###########################################################
 alias tmuxk='tmux kill-session -t'
 alias mux='tmuxinator'
-alias tmuxconfig='nvim ~/.tmux.conf'
+alias tmuxconf='nvim ~/.tmux.conf'
 
 ###########################################################
 # maven
