@@ -16,6 +16,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " Code formatting
 Plug 'sbdchd/neoformat'
 
+" Autocomplete
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
 " Initialize plugin system
 call plug#end()
 
@@ -112,4 +115,9 @@ if executable('ag')
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 	set grepprg=ag\ --nogroup\ --nocolor
 endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" youcomplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set completeopt-=preview
 
