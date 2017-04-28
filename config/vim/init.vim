@@ -19,6 +19,13 @@ Plug 'sbdchd/neoformat'
 " Autocomplete
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
+" Support for UNIX shell commands
+Plug 'tpope/vim-eunuch'
+
+" Markdown support
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
 " Initialize plugin system
 call plug#end()
 
