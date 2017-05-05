@@ -26,6 +26,9 @@ Plug 'tpope/vim-eunuch'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
+" Surround words
+Plug 'tpope/vim-surround'
+
 " Initialize plugin system
 call plug#end()
 
