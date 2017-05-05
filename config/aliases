@@ -49,4 +49,4 @@ alias gcob='gco $(git branch -r | cut -d "/" -f2- | fzf)'
 # python
 ###########################################################
 alias venv='virtualenv venv && source venv/bin/activate'
-
+alias initpy='touch __init__.py'
