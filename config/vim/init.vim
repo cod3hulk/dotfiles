@@ -29,6 +29,14 @@ Plug 'plasticboy/vim-markdown'
 " Surround words
 Plug 'tpope/vim-surround'
 
+" Easy uncomment/comment
+Plug 'scrooloose/nerdcommenter'
+
+" Pythno support
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+
+
 " Initialize plugin system
 call plug#end()
 
@@ -36,7 +44,6 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Enable line numbers
 set number
 
@@ -67,7 +74,6 @@ set tabstop=4
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Leader mapping
 let mapleader = ","
 let g:mapleader = ","
@@ -86,12 +92,6 @@ nmap <leader>q :q<cr>
 
 " Fast saving and quitting
 nmap <leader>x :x<cr>
-
-" Easier split navigations
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
 
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
@@ -130,4 +130,13 @@ endif
 " youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set completeopt-=preview
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autocommands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" source .vimrc on save
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
