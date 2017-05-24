@@ -135,8 +135,16 @@ set completeopt-=preview
 " autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " source .vimrc on save
-augroup reload_vimrc " {
+augroup reload_vimrc
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
+augroup END
+
+augroup python_conf
+    " add breakpoint
+    autocmd FileType python nmap <leader>b Oimport ipdb; ipdb.set_trace()<esc>
+    " delete all breakpoints
+    autocmd FileType python command DelBreaks execute "g/import ipdb; ipdb.set_trace()/d"
+augroup END
+
 
