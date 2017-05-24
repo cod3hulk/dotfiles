@@ -50,3 +50,5 @@
     tool = vimdiff
 [difftool]
     prompt = false
+[user]
+	name = Tomas Avé
