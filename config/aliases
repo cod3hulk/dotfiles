@@ -51,3 +51,40 @@ alias gcob='gco $(git branch -r | cut -d "/" -f2- | fzf)'
 alias venv='virtualenv venv && source venv/bin/activate'
 alias venv3='python3 -m venv venv && source venv/bin/activate'
 alias initpy='touch __init__.py'
+
+###########################################################
+# functions
+###########################################################
+function idea() {
+	IDEA=`ls -1d /Applications/IntelliJ\ * | tail -n1`
+    open_with_app "$IDEA" "$1"
+}
+
+function open_with_app() {
+	# were we given a file?
+	if [ -f "$1" ]; then
+		#  echo "opening '$1'"
+		open -a "$IDEA" "$1"
+	else
+		# does our working dir have an .idea directory?
+		if [ -d ".idea" ]; then
+			#      echo "opening via the .idea dir"
+			open -a "$IDEA" .
+
+		# is there an IDEA project file?
+		elif [ -f *.ipr ]; then
+			#      echo "opening via the project file"
+			open -a "$IDEA" `ls -1d *.ipr | head -n1`
+
+		# Is there a pom.xml?
+		elif [ -f pom.xml ]; then
+			#      echo "importing from pom"
+			open -a "$IDEA" "pom.xml"
+
+		# can't do anything smart; just open IDEA
+		else
+			#      echo 'cbf'
+			open "$IDEA"
+		fi
+	fi
+}
