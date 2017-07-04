@@ -51,4 +51,9 @@
 [difftool]
     prompt = false
 [user]
-	name = Tomas Avé
+    name = Tomas Avé
+    email = cod3hulk@gmail.com
+[init]
+	templatedir = ~/.git-templates
+[includeIf "gitdir:/Volumes/development/"]
+    path = .gitconfig-work

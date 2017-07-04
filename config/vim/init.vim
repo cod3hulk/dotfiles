@@ -23,8 +23,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'tpope/vim-eunuch'
 
 " Markdown support
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular', { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 " Surround words
 Plug 'tpope/vim-surround'
@@ -36,6 +36,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 
+" CSV support
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 
 " Initialize plugin system
 call plug#end()
@@ -70,6 +72,8 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
+" disable folding
+set nofoldenable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -113,17 +117,17 @@ let g:ctrlp_max_depth=40
 
 " ctrlp ignores
 let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)$',
-			\ 'file': '\v\.(exe|so|dll|class)$',
-			\ }
+            \ 'dir':  '\v[\/]\.(git|hg|svn|settings|project)$',
+            \ 'file': '\v\.(exe|so|dll|class)$',
+            \ }
 
 " ctrlp cache directory
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 " ctrlp use silver_searcher for fuzzy searchh
 if executable('ag')
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    set grepprg=ag\ --nogroup\ --nocolor
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
