@@ -39,6 +39,9 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 " CSV support
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 
+" GO Support
+Plug 'fatih/vim-go', { 'for': 'go' }
+
 " Initialize plugin system
 call plug#end()
 
