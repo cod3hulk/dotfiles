@@ -55,13 +55,15 @@ alias initpy='touch __init__.py'
 ###########################################################
 # functions
 ###########################################################
-function idea() {
+function id() {
+    DIR=${1:-.}
 	IDEA=`ls -1d /Applications/IntelliJ\ * | tail -n1`
-    open_with_app "$IDEA" "$1"
+    open_with_app "$DIR"
 }
 
 function open_with_app() {
 	# were we given a file?
+    echo "$1"
 	if [ -f "$1" ]; then
 		#  echo "opening '$1'"
 		open -a "$IDEA" "$1"

@@ -154,4 +154,8 @@ augroup python_conf
     autocmd FileType python command DelBreaks execute "g/import ipdb; ipdb.set_trace()/d"
 augroup END
 
+augroup markdown_conf
+    " enable spell check
+    autocmd FileType markdown setlocal spell spelllang=en_us
+augroup END
 
