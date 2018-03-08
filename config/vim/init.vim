@@ -2,6 +2,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Color themes
 Plug 'dracula/vim'
+Plug 'Haron-Prime/evening_vim'
 
 " Fuzzy search
 Plug 'ctrlpvim/ctrlp.vim'
@@ -159,3 +160,6 @@ augroup markdown_conf
     autocmd FileType markdown setlocal spell spelllang=en_us
 augroup END
 
+if &diff
+    colorscheme evening
+endif
