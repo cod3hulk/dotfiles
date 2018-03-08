@@ -55,7 +55,7 @@ alias initpy='touch __init__.py'
 ###########################################################
 # functions
 ###########################################################
-function id() {
+function ij() {
     DIR=${1:-.}
 	IDEA=`ls -1d /Applications/IntelliJ\ * | tail -n1`
     open_with_app "$DIR"
