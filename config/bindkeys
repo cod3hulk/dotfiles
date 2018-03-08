@@ -1,0 +1,9 @@
+# vi 
+bindkey -M viins 'jj' vi-cmd-mode
+
+# history
+bindkey "^R" history-incremental-search-backward
+
+# clrs
+bindkey '^[l' clear-screen
+
