@@ -70,7 +70,6 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'adium' 'adium'
     install_brew_cask_formula 'keepingyouawake' 'keepingyouawake'
     install_brew_cask_formula 'java' 'java'
-    install_brew_cask_formula 'phoenix' 'phoenix'
     install_brew_cask_formula 'iterm2' 'iterm2'
     install_brew_cask_formula 'intellij-idea' 'intellij-idea'
     install_brew_cask_formula 'google-chrome' 'google-chrome'
@@ -80,12 +79,10 @@ install_brew_cask_formulas() {
     install_brew_cask_formula 'karabiner' 'karabiner'
     install_brew_cask_formula 'seil' 'seil'
     install_brew_cask_formula 'whatsapp' 'whatsapp'
-    install_brew_cask_formula 'atom' 'atom'
     install_brew_cask_formula 'spotify' 'spotify'
     install_brew_cask_formula 'slack' 'slack'
     install_brew_cask_formula 'dropbox' 'dropbox'
     install_brew_cask_formula '1password' '1password'
-    install_brew_cask_formula 'airmail-beta' 'airmail-beta'
 }
 
 install_prezto() {
@@ -129,7 +126,7 @@ install() {
     log "Installing..."
     if hash brew 2>/dev/null; then
         install_brew_formulas
-        install_brew_cask_formulas
+        #install_brew_cask_formulas
         install_prezto
         install_launch_agents
         create_symlinks "${HOME}/dotfiles/config/*"
