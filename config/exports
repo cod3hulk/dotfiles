@@ -1,5 +1,13 @@
-###########################################################
 # nvm
-###########################################################
 #export NVM_DIR=~/.nvm
 #source $(brew --prefix nvm)/nvm.sh
+
+# gradle
+#export GRADLE_OPTS="-Dorg.gradle.daemon=true -Dorg.gradle.parralel-threads=4 -Dorg.gradle.jvmargs='-Xmx4096m -XX:MaxPermSize=4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -Djava.awt.headless=true'"
+
+# brew
+BREW_HOME="$HOME/usr/local/bin"
+export PATH="$BREW_HOME:$PATH"
+
+# go
+export GOPATH="$(brew --prefix go)"
