@@ -11,9 +11,3 @@ export PATH="$BREW_HOME:$PATH"
 
 # go
 export GOPATH="$(brew --prefix go)"
-
-# aws
-export AWS_SHARED_CREDENTIALS_FILE=/Users/t.ave/.aws/credentials
-export AWS_DEFAULT_PROFILE=default
-export AWS_DEFAULT_REGION=eu-west-1
-
