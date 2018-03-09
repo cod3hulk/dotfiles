@@ -7,3 +7,6 @@
 [submodule "dracula/jetbrains"]
 	path = dracula/jetbrains
 	url = https://github.com/cod3hulk/dracula-theme.git
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot
