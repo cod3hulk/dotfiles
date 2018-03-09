@@ -2,7 +2,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Color themes
 Plug 'dracula/vim'
-Plug 'Haron-Prime/evening_vim'
 
 " Fuzzy search
 Plug 'ctrlpvim/ctrlp.vim'
