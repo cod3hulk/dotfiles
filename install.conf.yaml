@@ -8,4 +8,5 @@
       stderr: true
 - clean: ['~', '~/.config']
 - link:
-    ~/.tmux.conf: ./tmux/tmux.conf
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.config/nvim/init.vim: nvim/init.vim
