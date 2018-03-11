@@ -1,0 +1,29 @@
+# zplug
+[ -z "$TMUX"  ] && { tmux attach 2>/dev/null || tmux new-session 2>/dev/null && exit;}
+
+ZSH_THEME="dracula"
+
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+# plugins
+zstyle ':prezto:module:prompt' theme 'kylewest'
+zstyle ':prezto:module:editor' key-bindings 'vi'
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug 'dracula/zsh', as:theme
+zplug "modules/prompt", from:prezto
+zplug "modules/editor", from:prezto
+
+# Then, source plugins and add commands to $PATH
+#zplug load --verbose
+zplug load --verbose
+
+alias la='ls -laG'
