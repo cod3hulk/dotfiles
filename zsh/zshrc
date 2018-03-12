@@ -1,6 +1,3 @@
-# zplug
-[ -z "$TMUX"  ] && { tmux attach 2>/dev/null || tmux new-session 2>/dev/null && exit;}
-
 ZSH_THEME="dracula"
 
 export ZPLUG_HOME=/usr/local/opt/zplug
@@ -39,6 +36,11 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg
 # Then, source plugins and add commands to $PATH
 #zplug load --verbose
 zplug load
+
+# tmux
+if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/tmux/init.zsh"  ]]; then
+    source "${ZDOTDIR:-$HOME}/dotfiles/tmux/init.zsh"
+fi
 
 # fzf
 if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/fzf/init.zsh"  ]]; then
