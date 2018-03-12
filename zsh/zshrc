@@ -40,3 +40,12 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg
 #zplug load --verbose
 zplug load
 
+# fzf
+if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/fzf/init.zsh"  ]]; then
+    source "${ZDOTDIR:-$HOME}/dotfiles/fzf/init.zsh"
+fi
+
+# autojump
+if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/autojump/init.zsh"  ]]; then
+    source "${ZDOTDIR:-$HOME}/dotfiles/autojump/init.zsh"
+fi
