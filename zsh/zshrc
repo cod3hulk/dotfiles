@@ -3,11 +3,6 @@ ZSH_THEME="dracula"
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-# plugins
-zstyle ':prezto:module:prompt' theme 'kylewest'
-zstyle ':prezto:module:editor' key-bindings 'vi'
-zstyle ':prezto:*:*' color 'yes'
-
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -20,22 +15,29 @@ zplug 'dracula/zsh', as:theme
 zplug "modules/prompt", from:prezto
 zplug "modules/editor", from:prezto
 zplug "modules/completion", from:prezto
+zplug 'modules/utility', from:prezto
+zplug 'modules/git', from:prezto
 
 #zplug 'modules/environment', from:prezto
 #zplug 'modules/history', from:prezto
 #zplug 'modules/history-substring-search', from:prezto
 #zplug 'modules/directory', from:prezto
 #zplug 'modules/spectrum', from:prezto
-zplug 'modules/utility', from:prezto
-zplug 'modules/git', from:prezto
 
 export LSCOLORS='exfxcxdxbxGxDxabagacad'
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
+
+# plugins
+zstyle ':prezto:module:prompt' theme 'kylewest'
+zstyle ':prezto:module:editor' key-bindings 'vi'
+zstyle ':prezto:*:*' color 'yes'
 
 
 # Then, source plugins and add commands to $PATH
 #zplug load --verbose
 zplug load
+
+bindkey -M viins 'jj' vi-cmd-mode
 
 # tmux
 if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/tmux/init.zsh"  ]]; then
@@ -51,3 +53,43 @@ fi
 if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/autojump/init.zsh"  ]]; then
     source "${ZDOTDIR:-$HOME}/dotfiles/autojump/init.zsh"
 fi
+
+###########################################################
+# functions
+###########################################################
+function ij() {
+    DIR=${1:-.}
+	IDEA=`ls -1d /Applications/IntelliJ\ * | tail -n1`
+    open_with_app "$DIR"
+}
+
+function open_with_app() {
+	# were we given a file?
+    echo "$1"
+	if [ -f "$1" ]; then
+		#  echo "opening '$1'"
+		open -a "$IDEA" "$1"
+	else
+		# does our working dir have an .idea directory?
+		if [ -d ".idea" ]; then
+			#      echo "opening via the .idea dir"
+			open -a "$IDEA" .
+
+		# is there an IDEA project file?
+		elif [ -f *.ipr ]; then
+			#      echo "opening via the project file"
+			open -a "$IDEA" `ls -1d *.ipr | head -n1`
+
+		# Is there a pom.xml?
+		elif [ -f pom.xml ]; then
+			#      echo "importing from pom"
+			open -a "$IDEA" "pom.xml"
+
+		# can't do anything smart; just open IDEA
+		else
+			#      echo 'cbf'
+			open "$IDEA"
+		fi
+	fi
+}
+
