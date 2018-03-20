@@ -78,6 +78,9 @@ set tabstop=4
 " disable folding
 set nofoldenable
 
+" enable incremental search
+set incsearch
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -159,6 +162,8 @@ augroup markdown_conf
     autocmd FileType markdown setlocal spell spelllang=en_us
 augroup END
 
-if &diff
-    colorscheme evening
-endif
+" TODO better diff colors
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
