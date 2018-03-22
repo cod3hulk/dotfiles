@@ -16,14 +16,15 @@ exports.deactivate = function (oni) {
     console.log("config deactivated");
 };
 exports.configuration = {
-    //add custom config here, such as
-    "ui.colorscheme": "nord",
+    "ui.colorscheme": "dracula",
     //"oni.useDefaultConfig": true,
     //"oni.bookmarks": ["~/Documents"],
     "oni.loadInitVim": true,
-    //"editor.fontSize": "14px",
-    //"editor.fontFamily": "Monaco",
+    "editor.fontSize": "14px",
+    "editor.fontFamily": "Monaco",
     // UI customizations
     "ui.animations.enabled": true,
-    "ui.fontSmoothing": "auto"
+    "ui.fontSmoothing": "auto",
+    "oni.hideMenu": true,
+    "statusbar.enabled": true
 };
