@@ -12,3 +12,5 @@
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.ideavimrc: intellij/ideavimrc
     ~/.zshrc: zsh/zshrc
+    ~/.oni/config.js: oni/config.js
+    ~/.oni/config.tsx: oni/config.tsx
