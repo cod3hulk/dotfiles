@@ -10,6 +10,7 @@ if ! zgen saved; then
     zgen prezto prompt theme 'kylewest'
     zgen prezto '*:*' color 'yes'
     zgen prezto 'tmux:auto-start' local 'yes'
+    zgen prezto 'autosuggestions:color' found 'fg=241'
 
     # plugins
     zgen prezto
@@ -21,6 +22,7 @@ if ! zgen saved; then
     zgen prezto directory
     zgen prezto tmux
     zgen prezto history
+    zgen prezto autosuggestions
 
     zgen load djui/alias-tips
     zgen load dracula/zsh
