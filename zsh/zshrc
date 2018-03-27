@@ -22,6 +22,7 @@ if ! zgen saved; then
     zgen prezto directory
     zgen prezto tmux
     zgen prezto history
+    zgen prezto syntax-highlighting
     zgen prezto autosuggestions
 
     zgen load djui/alias-tips
