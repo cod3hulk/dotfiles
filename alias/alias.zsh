@@ -10,3 +10,10 @@ alias gcp='git create-pull-request'
 
 # edit alias
 alias ea="vi ${HOME}/dotfiles/alias/alias.zsh"
+
+# mvn
+alias mc='mvn clean'
+alias mct='mc test'
+alias mci='mc install'
+alias mt='mvn test'
+alias mi='mvn install'
