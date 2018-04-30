@@ -8,7 +8,7 @@ if ! zgen saved; then
     zgen prezto editor key-bindings 'vi'
     zgen prezto prompt theme 'kylewest'
     zgen prezto '*:*' color 'yes'
-    zgen prezto 'tmux:auto-start' local 'yes'
+    zgen prezto 'tmux:auto-start' local 'no'
     zgen prezto 'autosuggestions:color' found 'fg=241'
 
     # plugins
@@ -36,7 +36,10 @@ ZSH_THEME="dracula"
 bindkey -M viins 'jj' vi-cmd-mode
 
 export ZSH_PLUGINS_ALIAS_TIPS_EXPAND=0
-export ZSH_PLUGINS_ALIAS_TIPS_FORCE=1
+export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
+
+ZSH_TMUX_AUTOSTART=false
+[[ $TMUX == "" ]] && tmux new-session -A -s sesh
 
 # alias
 if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/alias/alias.zsh"  ]]; then

@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/tave/.hammerspoon/Spoons/Vim.spoon'
+let g:netrw_dirhist_2='/Users/tave/.hammerspoon/Spoons'
+let g:netrw_dirhist_3='/Users/tave/.hammerspoon/Spoons/Vim.spoon'
+let g:netrw_dirhist_4='/Users/tave/.hammerspoon'
+let g:netrw_dirhist_5='/Users/tave/.zprezto/modules/completion/external'
+let g:netrw_dirhist_6='/Users/tave/development/kotlin-playground'
+let g:netrw_dirhist_7='/Users/tave/.tmux'

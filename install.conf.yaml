@@ -11,6 +11,7 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.ideavimrc: intellij/ideavimrc
-    ~/.zshrc: zsh/zshrc
+    ~/.zshrc: zsh/zshrc.zsh
     ~/.oni/config.js: oni/config.js
     ~/.oni/config.tsx: oni/config.tsx
+    ~/.spacemacs: spacemacs/spacemacs.el
