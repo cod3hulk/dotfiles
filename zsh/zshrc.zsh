@@ -33,7 +33,7 @@ fi
 
 ZSH_THEME="dracula"
 
-bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M viins 'fd' vi-cmd-mode
 
 export ZSH_PLUGINS_ALIAS_TIPS_EXPAND=0
 export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
