@@ -17,3 +17,7 @@ alias mct='mc test'
 alias mci='mc install'
 alias mt='mvn test'
 alias mi='mvn install'
+
+# emacs
+alias e='emacsclient -t -a ""'
+alias ec='emacsclient -c -n -a ""'
