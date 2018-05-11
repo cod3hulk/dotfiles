@@ -89,7 +89,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Fast visual mode
-imap jk <Esc>
+imap fd <Esc>
 
 " remove higlight for search results
 nmap <cr> :nohlsearch<cr>
