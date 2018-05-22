@@ -15,4 +15,11 @@ nmap qo :action CloseAllEditorsButActive<cr>
 nmap ,Q :action CloseProject<cr>
 nmap <c-]> :action MethodDown<cr>
 nmap <c-[> :action MethodUp<cr>
+
+" spacemacs like mappings
+nmap <SPACE>fe :action FileStructurePopup<cr>
+nmap <SPACE>bm :action CloseAllEditorsButActive<cr>
+nmap <SPACE>ff :action SearchEverywhere<cr>
+
+" plugins
 set surround
