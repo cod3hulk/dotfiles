@@ -21,6 +21,7 @@ nmap <SPACE>fe :action FileStructurePopup<cr>
 nmap <SPACE>bm :action CloseAllEditorsButActive<cr>
 nmap <SPACE>ff :action SearchEverywhere<cr>
 nmap <SPACE>fr :action RecentFiles<cr>
+nmap <SPACE>qq :action CloseProject<cr>
 
 " plugins
 set surround
