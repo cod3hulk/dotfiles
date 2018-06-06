@@ -42,10 +42,12 @@ values."
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
+     ;; l---------------------------------------------------------------
      helm
      yaml
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-complete-with-key-sequence-delay 0.0
+                      )
      emacs-lisp
      git
      markdown
