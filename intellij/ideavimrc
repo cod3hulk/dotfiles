@@ -17,11 +17,12 @@ nmap <c-]> :action MethodDown<cr>
 nmap <c-[> :action MethodUp<cr>
 
 " spacemacs like mappings
-nmap <SPACE>fe :action FileStructurePopup<cr>
+nmap <SPACE>ji :action FileStructurePopup<cr>
 nmap <SPACE>bm :action CloseAllEditorsButActive<cr>
 nmap <SPACE>ff :action SearchEverywhere<cr>
 nmap <SPACE>fr :action RecentFiles<cr>
 nmap <SPACE>qq :action CloseProject<cr>
+nmap <SPACE>jj :action emacsIDEAs.AceJump<cr>
 
 " plugins
 set surround
