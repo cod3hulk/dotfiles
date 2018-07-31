@@ -26,16 +26,17 @@ function open_with_app() {
     else
         # does our working dir have an .idea directory?
         if [ -d ".idea" ]; then
+            echo foo
             #      echo "opening via the .idea dir"
             open -a "$IDEA" .
 
         # is there an IDEA project file?
-        elif [ -f *.ipr ]; then
+        elif [ -f "*.ipr" ]; then
             #      echo "opening via the project file"
             open -a "$IDEA" `ls -1d *.ipr | head -n1`
 
         # Is there a pom.xml?
-        elif [ -f pom.xml ]; then
+        elif [ -f "pom.xml" ]; then
             #      echo "importing from pom"
             open -a "$IDEA" "pom.xml"
 
