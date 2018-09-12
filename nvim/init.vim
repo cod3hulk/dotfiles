@@ -122,9 +122,11 @@ let g:ctrlp_macth_window='bottom,order:btt,min:1,max:10'
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
 map <SPACE>ff :CtrlP<CR>
+map <leader>ff :CtrlP<CR>
 map <leader>o :CtrlPBufTag<CR>
 map <leader>e :CtrlPBuffer<CR>
 map <SPACE>fr :CtrlPMRUFiles<CR>
+map <leader>fr :CtrlPMRUFiles<CR>
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 
@@ -143,7 +145,7 @@ if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set completeopt-=preview
@@ -151,7 +153,8 @@ set completeopt-=preview
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easymotion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map  <SPACE>jj <Plug>(easymotion-bd-f)
+map <SPACE>jj <Plug>(easymotion-bd-f)
+map <leader>e <Plug>(easymotion-bd-f)
 let g:EasyMotion_smartcase = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
