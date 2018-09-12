@@ -42,6 +42,12 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " GO Support
 Plug 'fatih/vim-go', { 'for': 'go' }
 
+" Silver searcher support
+Plug 'rking/ag.vim'
+
+" Easymotion
+Plug 'easymotion/vim-easymotion'
+
 " Initialize plugin system
 call plug#end()
 
@@ -115,9 +121,10 @@ let g:ctrlp_map=''
 let g:ctrlp_macth_window='bottom,order:btt,min:1,max:10'
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_reversed=0
-map <leader>f :CtrlP<CR>
+map <SPACE>ff :CtrlP<CR>
 map <leader>o :CtrlPBufTag<CR>
 map <leader>e :CtrlPBuffer<CR>
+map <SPACE>fr :CtrlPMRUFiles<CR>
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 
@@ -140,6 +147,12 @@ endif
 " youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set completeopt-=preview
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" easymotion
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map  <SPACE>jj <Plug>(easymotion-bd-f)
+let g:EasyMotion_smartcase = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocommands
@@ -167,3 +180,4 @@ highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Re
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+

@@ -26,7 +26,7 @@
     rebase = true
 [core]
     autocrlf = false
-    editor = nvim
+	editor = nvim
 [color]
     branch = auto
     diff = auto

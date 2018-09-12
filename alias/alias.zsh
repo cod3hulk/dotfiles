@@ -22,3 +22,5 @@ alias mci='mc install'
 alias mt='mvn test'
 alias mi='mvn install'
 
+# local aliases
+source "${HOME}/.aliases.local"
