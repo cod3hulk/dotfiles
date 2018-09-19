@@ -11,6 +11,7 @@ alias vim='nvim'
 # git
 alias gcob='gco $(git branch -r | cut -d "/" -f2- | fzf)'
 alias gcp='git create-pull-request'
+alias gpc='git push -u origin "$(git-branch-current 2> /dev/null)"'
 
 # edit alias
 alias aliases="e ${HOME}/dotfiles/alias/alias.zsh"
