@@ -48,6 +48,9 @@ Plug 'rking/ag.vim'
 " Easymotion
 Plug 'easymotion/vim-easymotion'
 
+" Easy align
+Plug 'junegunn/vim-easy-align'
+
 " Initialize plugin system
 call plug#end()
 
