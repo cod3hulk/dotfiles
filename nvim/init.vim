@@ -51,6 +51,9 @@ Plug 'easymotion/vim-easymotion'
 " Easy align
 Plug 'junegunn/vim-easy-align'
 
+" Git support
+Plug 'tpope/vim-fugitive'
+
 " Initialize plugin system
 call plug#end()
 
@@ -90,6 +93,9 @@ set nofoldenable
 " enable incremental search
 set incsearch
 
+" scroll offset
+set scrolloff=10
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -99,6 +105,7 @@ let g:mapleader = ","
 
 " Fast visual mode
 imap fd <Esc>
+imap jj <Esc>
 
 " remove higlight for search results
 nmap <cr> :nohlsearch<cr>
