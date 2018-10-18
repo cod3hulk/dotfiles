@@ -9,6 +9,7 @@
 - clean: ['~', '~/.config']
 - link:
     ~/.tmux.conf: tmux/tmux.conf
+    ~/.tigrc: tig/tig.conf
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.ideavimrc: intellij/ideavimrc
     ~/.zshrc: zsh/zshrc.zsh
