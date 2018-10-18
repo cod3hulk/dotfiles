@@ -54,6 +54,9 @@ Plug 'junegunn/vim-easy-align'
 " Git support
 Plug 'tpope/vim-fugitive'
 
+" Typescript
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+
 " Initialize plugin system
 call plug#end()
 
