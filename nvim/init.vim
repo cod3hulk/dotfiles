@@ -188,8 +188,10 @@ augroup END
 
 augroup markdown_conf
     " enable spell check
-    autocmd FileType markdown setlocal spell spelllang=en_us
+    command! Spell setlocal spell spelllang=en_us
+    command! NoSpell set nospell
 augroup END
+
 
 " TODO better diff colors
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
