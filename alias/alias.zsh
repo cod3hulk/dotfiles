@@ -7,6 +7,7 @@ alias ec='emacsclient -c -n -a ""'
 # neovim
 alias vi='nvim'
 alias vim='nvim'
+alias gvim='o -a VimR'
 
 # git
 alias gcob='gco $(git branch -r | cut -d "/" -f2- | fzf)'
