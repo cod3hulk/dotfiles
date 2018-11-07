@@ -11,7 +11,7 @@ alias vim='nvim'
 # git
 alias gcob='gco $(git branch -r | cut -d "/" -f2- | fzf)'
 alias gcp='git create-pull-request'
-alias gpc='git push -u origin "$(git-branch-current 2> /dev/null)"'
+alias gpo='git push -u origin "$(git-branch-current 2> /dev/null)"'
 
 # docker
 alias compose='docker-compose'
