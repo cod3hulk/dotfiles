@@ -32,7 +32,7 @@ Plug 'tpope/vim-surround'
 " Easy uncomment/comment
 Plug 'scrooloose/nerdcommenter'
 
-" Pythno support
+" Python support
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 
@@ -87,8 +87,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 " disable folding
 set nofoldenable
@@ -162,6 +162,12 @@ endif
 " youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set completeopt-=preview
+let g:ycm_min_num_of_chars_for_completion = 4
+let g:ycm_min_num_identifier_candidate_chars = 4
+let g:ycm_enable_diagnostic_highlighting = 0
+" Don't show YCM's preview window [ I find it really annoying ]
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easymotion
