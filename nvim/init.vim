@@ -115,12 +115,15 @@ nmap <cr> :nohlsearch<cr>
 
 " Fast saving
 nmap <leader>w :update<cr>
+nmap <SPACE>w :update<cr>
 
 " Fast quitting
 nmap <leader>q :q<cr>
+nmap <SPACE>q :q<cr>
 
 " Fast saving and quitting
 nmap <leader>x :x<cr>
+nmap <SPACE>x :x<cr>
 
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
