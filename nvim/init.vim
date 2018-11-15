@@ -26,8 +26,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
-" Surround words
-Plug 'tpope/vim-surround'
+" Auto colose and surround
+Plug 'jiangmiao/auto-pairs'
 
 " Easy uncomment/comment
 Plug 'scrooloose/nerdcommenter'
