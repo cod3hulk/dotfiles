@@ -7,6 +7,7 @@ alias ec='emacsclient -c -n -a ""'
 # neovim
 alias vi='nvim'
 alias vim='nvim'
+alias vimdiff='nvim -d'
 alias gvim='o -a VimR'
 
 # git
