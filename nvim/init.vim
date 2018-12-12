@@ -54,8 +54,11 @@ Plug 'junegunn/vim-easy-align'
 " Git support
 Plug 'tpope/vim-fugitive'
 
-" Typescript
+" Typescrip
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+
+" Surround support
+Plug 'tpope/vim-surround'
 
 " Initialize plugin system
 call plug#end()
@@ -95,6 +98,7 @@ set nofoldenable
 
 " enable incremental search
 set incsearch
+set hls
 
 " scroll offset
 set scrolloff=10
@@ -164,9 +168,8 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " youcomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set completeopt-=preview
-let g:ycm_min_num_of_chars_for_completion = 4
-let g:ycm_min_num_identifier_candidate_chars = 4
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_min_num_identifier_candidate_chars = 1
 let g:ycm_enable_diagnostic_highlighting = 0
 " Don't show YCM's preview window [ I find it really annoying ]
 set completeopt-=preview
