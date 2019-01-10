@@ -204,6 +204,11 @@ augroup markdown_conf
     command! NoSpell set nospell
 augroup END
 
+augroup general_conf
+    " enable spell check
+    command! Difft windo difft
+    command! Diffo windo diffo
+augroup END
 
 " TODO better diff colors
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
