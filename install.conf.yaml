@@ -14,8 +14,5 @@
     ~/.ideavimrc: intellij/ideavimrc
     ~/.zshrc: zsh/zshrc.zsh
     ~/.zprofile: zsh/zprofile.zsh
-    ~/.oni/config.js: oni/config.js
-    ~/.oni/config.tsx: oni/config.tsx
-    ~/.spacemacs: spacemacs/spacemacs.el
     ~/.hammerspoon: hammerspoon
     ~/.tmux/plugins/tpm: tmux/tpm
