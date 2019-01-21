@@ -13,3 +13,6 @@
 [submodule "hammerspoon"]
 	path = hammerspoon
 	url = https://github.com/cod3hulk/hammerspoon-config.git
+[submodule "iterm"]
+	path = iterm
+	url = https://github.com/dracula/iterm.git
