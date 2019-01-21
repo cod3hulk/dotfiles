@@ -17,5 +17,5 @@
     ~/.hammerspoon: hammerspoon
     ~/.tmux/plugins/tpm: tmux/tpm
 - shell:
-  - ${HOME}/dotfiles/brew/init.zsh 
-  #- nvim +PlugClean +PlugUpdate +PlugInstall +qa
+  - brew/init.zsh 
+  - nvim/init.zsh 
