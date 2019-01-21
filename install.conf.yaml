@@ -18,3 +18,4 @@
     ~/.oni/config.tsx: oni/config.tsx
     ~/.spacemacs: spacemacs/spacemacs.el
     ~/.hammerspoon: hammerspoon
+    ~/.tmux/plugins/tpm: tmux/tpm

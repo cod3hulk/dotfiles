@@ -16,3 +16,6 @@
 [submodule "iterm"]
 	path = iterm
 	url = https://github.com/dracula/iterm.git
+[submodule "tmux/tpm"]
+	path = tmux/tpm
+	url = https://github.com/tmux-plugins/tpm
