@@ -17,3 +17,4 @@
     ~/.oni/config.js: oni/config.js
     ~/.oni/config.tsx: oni/config.tsx
     ~/.spacemacs: spacemacs/spacemacs.el
+    ~/.hammerspoon: hammerspoon

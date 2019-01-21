@@ -10,3 +10,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
+[submodule "hammerspoon"]
+	path = hammerspoon
+	url = https://github.com/cod3hulk/hammerspoon-config.git
