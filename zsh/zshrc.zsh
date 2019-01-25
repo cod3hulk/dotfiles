@@ -34,7 +34,7 @@ fi
 ZSH_THEME="dracula"
 
 bindkey -M viins 'fd' vi-cmd-mode
-bindkey -M vicmd ',e' edit-command-line
+bindkey -M vicmd 'V' edit-command-line
 
 export ZSH_PLUGINS_ALIAS_TIPS_EXPAND=0
 export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
