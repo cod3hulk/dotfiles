@@ -183,6 +183,24 @@ map <leader>e <Plug>(easymotion-bd-f)
 let g:EasyMotion_smartcase = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neoformat
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neoformat_xml_tidy = {
+        \ 'exe': 'tidy',
+        \ 'args': ['-quiet',
+        \          '-xml',
+        \          '--indent auto',
+        \          '--indent-attributes yes',
+        \          '--indent-spaces ' . shiftwidth(),
+        \          '--tidy-mark no',
+        \          '--vertical-space yes',
+        \          '--wrap 0',
+        \         ],
+        \ 'stdin': 1,
+        \ 'valid_exit_codes': [0, 1],
+        \ }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " source .vimrc on save
@@ -215,4 +233,5 @@ highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Re
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
 
