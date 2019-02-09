@@ -144,7 +144,7 @@ let g:ctrlp_match_window_reversed=0
 map <SPACE>ff :CtrlP<CR>
 map <leader>ff :CtrlP<CR>
 map <leader>o :CtrlPBufTag<CR>
-map <leader>e :CtrlPBuffer<CR>
+map <SPACE>fb :CtrlPBuffer<CR>
 map <SPACE>fr :CtrlPMRUFiles<CR>
 map <leader>fr :CtrlPMRUFiles<CR>
 let g:ctrlp_max_files=0
@@ -226,6 +226,7 @@ augroup general_conf
     " enable spell check
     command! Difft windo difft
     command! Diffo windo diffo
+    command! Cdc cd %:p:h
 augroup END
 
 " TODO better diff colors
