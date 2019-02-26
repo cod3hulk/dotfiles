@@ -41,3 +41,14 @@ function open_with_app() {
     fi
 }
 
+# docker
+function dkill() {
+  CONTAINER_ID=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
+  docker kill "$CONTAINER_ID"
+}
+
+function dbash() {
+  CONTAINER_ID=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
+  docker exec -it "$CONTAINER_ID" bash
+}
+
