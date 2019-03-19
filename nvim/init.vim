@@ -60,6 +60,9 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 " Surround support
 Plug 'tpope/vim-surround'
 
+" Tab support
+Plug 'gcmt/taboo.vim'
+
 " Initialize plugin system
 call plug#end()
 
