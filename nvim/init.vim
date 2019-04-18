@@ -17,7 +17,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'sbdchd/neoformat'
 
 " Autocomplete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Support for UNIX shell commands
 Plug 'tpope/vim-eunuch'
@@ -172,14 +172,9 @@ if executable('ag')
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" youcomplete
+" deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_min_num_identifier_candidate_chars = 1
-let g:ycm_enable_diagnostic_highlighting = 0
-" Don't show YCM's preview window [ I find it really annoying ]
-set completeopt-=preview
-let g:ycm_add_preview_to_completeopt = 0
+let g:deoplete#enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easymotion
@@ -195,6 +190,7 @@ let g:neoformat_xml_tidy = {
         \ 'exe': 'tidy',
         \ 'args': ['-quiet',
         \          '-xml',
+        \          '-utf8',
         \          '--indent auto',
         \          '--indent-attributes yes',
         \          '--indent-spaces ' . shiftwidth(),
