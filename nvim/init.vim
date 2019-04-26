@@ -64,9 +64,7 @@ Plug 'tpope/vim-surround'
 Plug 'gcmt/taboo.vim'
 
 " Snippets
-"Plug 'Shougo/neosnippet.vim'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 " Initialize plugin system
 call plug#end()
@@ -188,7 +186,7 @@ let g:deoplete#enable_at_startup = 1
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.snippets']
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.nvim/snippets']
 let g:UltiSnipsEditSplit="vertical"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
