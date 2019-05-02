@@ -135,9 +135,6 @@ nmap <SPACE>q :q<cr>
 nmap <leader>x :x<cr>
 nmap <SPACE>x :x<cr>
 
-" Fast command mode
-nnoremap ; :
-
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
 endif
