@@ -175,12 +175,13 @@ endif
 " deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ultisnips
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.nvim/snippets']
@@ -265,12 +266,12 @@ augroup reload_vimrc
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 
-augroup python_conf
-    " add breakpoint
-    autocmd FileType python nmap <leader>b Oimport ipdb; ipdb.set_trace()<esc>
-    " delete all breakpoints
-    autocmd FileType python command DelBreaks execute "g/import ipdb; ipdb.set_trace()/d"
-augroup END
+"augroup python_conf
+    "" add breakpoint
+    "autocmd FileType python nmap <leader>b Oimport ipdb; ipdb.set_trace()<esc>
+    "" delete all breakpoints
+    "autocmd FileType python command DelBreaks execute "g/import ipdb; ipdb.set_trace()/d"
+"augroup END
 
 augroup markdown_conf
     " enable spell check

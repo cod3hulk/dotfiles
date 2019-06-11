@@ -23,6 +23,7 @@ alias aliases="vi ${HOME}/dotfiles/alias/alias.zsh"
 
 # mvn
 alias mc='mvn clean'
+alias mcc='mvn clean compile'
 alias mct='mc test'
 alias mci='mc install'
 alias mcp='mc package'
