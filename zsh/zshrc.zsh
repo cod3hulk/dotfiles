@@ -62,3 +62,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/function/function.zsh"  ]]; then
     source "${ZDOTDIR:-$HOME}/dotfiles/function/function.zsh"
 fi
 
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
