@@ -17,6 +17,7 @@
     ~/.zprofile: zsh/zprofile.zsh
     ~/.hammerspoon: hammerspoon
     ~/.tmux/plugins/tpm: tmux/tpm
+    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
 - shell:
   - brew/init.zsh 
   - nvim/init.zsh 
