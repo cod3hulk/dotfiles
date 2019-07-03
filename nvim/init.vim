@@ -1,5 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'vim-scripts/BufOnly.vim'
+
 " Color themes
 Plug 'dracula/vim'
 
@@ -134,6 +136,9 @@ nmap <SPACE>q :q<cr>
 " Fast saving and quitting
 nmap <leader>x :x<cr>
 nmap <SPACE>x :x<cr>
+
+" Close all buffers but this one
+nmap <SPACE>bm :BufOnly<cr>
 
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
