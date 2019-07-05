@@ -33,8 +33,10 @@ alias mp='mvn package'
 
 # kubernetes
 alias kc='kubectx'
-alias kl='kubectl get pods --no-headers -o custom-columns=":metadata.name" | sed "s/-[a-z0-9]*-[a-z0-9]*-[a-z0-9]*$//g" | uniq | fzf | xargs stern'
-alias kp='kubectl get pods'
+alias kl='kubectl get deployments --no-headers -o custom-columns=":metadata.name" | sed -E "s/(.*)-[0-9a-z]{8}$/\1/" | uniq | fzf | xargs stern --color always'
+alias kle='kl | ag -A 15 ERROR'
+alias kgp='kubectl get pods'
+alias kgd='kubectl get deployments'
 alias k='kubectl'
 
 # local aliases
