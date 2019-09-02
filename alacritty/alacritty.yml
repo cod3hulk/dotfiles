@@ -619,6 +619,7 @@ key_bindings:
   - { key: F10,                     chars: "\x1b[21~"                        }
   - { key: F11,                     chars: "\x1b[23~"                        }
   - { key: F12,                     chars: "\x1b[24~"                        }
+  - { key: F18,                     chars: ""                                }
   - { key: F1,       mods: Shift,   chars: "\x1b[1;2P"                       }
   - { key: F2,       mods: Shift,   chars: "\x1b[1;2Q"                       }
   - { key: F3,       mods: Shift,   chars: "\x1b[1;2R"                       }
