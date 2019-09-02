@@ -20,6 +20,7 @@ Plug 'sbdchd/neoformat'
 
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 " Support for UNIX shell commands
 Plug 'tpope/vim-eunuch'
@@ -115,8 +116,8 @@ set scrolloff=10
 " Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader mapping
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = "\<SPACE>"
+let g:mapleader = "\<SPACE>"
 
 " Fast visual mode
 imap fd <Esc>
@@ -180,8 +181,10 @@ endif
 " deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#go#gocode_binary = '$HOME/go/bin/gocode'
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ultisnips
