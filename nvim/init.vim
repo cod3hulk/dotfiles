@@ -236,6 +236,11 @@ map <leader>e <Plug>(easymotion-bd-f)
 let g:EasyMotion_smartcase = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" nerdcommenter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <SPACE>cc <Plug>NERDCommenterToggle
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neoformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:neoformat_xml_tidy = {
