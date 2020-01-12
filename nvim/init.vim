@@ -78,6 +78,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable line numbers
 set number
+set relativenumber
 
 " Paste yanked text to global clipboard
 set clipboard=unnamed
@@ -111,6 +112,9 @@ set hls
 
 " scroll offset
 set scrolloff=10
+
+" completion menu
+set completeopt=longest,menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
