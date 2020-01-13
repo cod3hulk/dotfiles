@@ -18,6 +18,7 @@
     ~/.hammerspoon: hammerspoon
     ~/.tmux/plugins/tpm: tmux/tpm
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
+    /usr/local/bin/kubectl-restart: kubectl/restart.sh
 - shell:
   - brew/init.zsh 
   - nvim/init.zsh 
