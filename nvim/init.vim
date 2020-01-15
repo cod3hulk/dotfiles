@@ -69,6 +69,9 @@ Plug 'gcmt/taboo.vim'
 " Snippets
 Plug 'SirVer/ultisnips'
 
+" UML
+Plug 'aklt/plantuml-syntax'
+
 " Initialize plugin system
 call plug#end()
 
@@ -231,6 +234,11 @@ let g:UltiSnipsEditSplit="vertical"
 "let g:neosnippet#disable_runtime_snippets = {
         "\   '_' : 1,
         "\ }
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plantuml
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:plantuml_executable_script = 'plantuml'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easymotion
