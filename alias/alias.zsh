@@ -1,9 +1,5 @@
 #!/bin/zsh
 
-# emacs
-alias e='emacsclient -t -a ""'
-alias ec='emacsclient -c -n -a ""'
-
 # neovim
 alias vi='nvim'
 alias vim='nvim'
@@ -40,6 +36,9 @@ alias kle='kl | ag -A 15 ERROR'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deployments'
 alias k='kubectl'
+
+# tig
+alias tigs="tig status"
 
 # local aliases
 source "${HOME}/.aliases.local"
