@@ -11,6 +11,8 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tigrc: tig/tig.conf
     ~/.config/nvim/init.vim: nvim/init.vim
+    ~/.config/nvim/common.vim: nvim/common.vim
+    ~/.config/nvim/language.vim: nvim/language.vim
     ~/.nvim/snippets: nvim/snippets
     ~/.ideavimrc: intellij/ideavimrc
     ~/.zshrc: zsh/zshrc.zsh

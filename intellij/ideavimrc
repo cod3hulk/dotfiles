@@ -1,4 +1,4 @@
-source ~/.config/nvim/init.vim
+source ~/.config/nvim/common.vim
 nmap ,,w :action AceJumpAction<cr>
 nmap ,x :action VimFileSaveClose<cr>
 nmap ,qq :action CloseContent<cr>
