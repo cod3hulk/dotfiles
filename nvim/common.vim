@@ -25,6 +25,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'junegunn/fzf'
 
 
 " Support for UNIX shell commands
@@ -143,7 +144,10 @@ imap fd <Esc>
 imap jj <Esc>
 
 " remove higlight for search results
-nmap <cr> :nohlsearch<cr>
+" nmap <cr> :nohlsearch<cr>
+nnoremap <CR> :nohlsearch<CR>
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
 " Fast saving
 nmap <leader>w :update<cr>
@@ -209,14 +213,15 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#go#gocode_binary = '$HOME/go/bin/gocode'
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ultisnips
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>" 
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>" 
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.nvim/snippets']
 let g:UltiSnipsEditSplit="vertical"
 
@@ -269,6 +274,7 @@ let g:EasyMotion_smartcase = 1
 " nerdcommenter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <SPACE>cc <Plug>NERDCommenterToggle
+nmap <SPACE>c<SPACE> <Plug>NERDCommenterComment
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neoformat

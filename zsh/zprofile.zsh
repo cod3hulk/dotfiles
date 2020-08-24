@@ -22,6 +22,12 @@ export VISUAL="$EDITOR"
 export PAGER='less'
 
 #
+# Java
+#
+
+export JAVA_HOME=`/usr/libexec/java_home`
+
+#
 # Language
 #
 

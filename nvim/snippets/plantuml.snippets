@@ -1,12 +1,23 @@
-snippet start "startuml"
+snippet st "startuml"
 @startuml
 	$1
 @enduml
 endsnippet
 
-snippet pack "package"
+snippet pg "package"
 package "${1:NAME}" {
 	$0
 }
 endsnippet
 
+snippet cl "class"
+class "${1:CLASS}" {
+	$0
+}
+endsnippet
+
+snippet et "entity"
+entity "${1:ENTITY}" {
+	$0
+}
+endsnippet
