@@ -17,10 +17,11 @@
     ~/.ideavimrc: intellij/ideavimrc
     ~/.zshrc: zsh/zshrc.zsh
     ~/.zprofile: zsh/zprofile.zsh
-    ~/.hammerspoon: hammerspoon
+    #~/.hammerspoon: hammerspoon
     ~/.tmux/plugins/tpm: tmux/tpm
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
-    /usr/local/bin/kubectl-restart: kubectl/restart.sh
+    #/usr/local/bin/kubectl-restart: kubectl/restart.sh
 - shell:
   - brew/init.zsh 
-  - nvim/init.zsh 
+  - linux/init.zsh
+  #- nvim/init.zsh 
