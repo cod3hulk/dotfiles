@@ -20,7 +20,7 @@ alias gcu='git reset HEAD^'
 alias compose='docker-compose'
 
 # edit alias
-alias aliases="vi ${HOME}/dotfiles/alias/alias.zsh"
+alias aliases="vi ${HOME}/.dotfiles/alias/alias.zsh"
 
 # mvn
 alias mc='mvn clean'
