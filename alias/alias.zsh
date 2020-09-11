@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+# apt
+alias apti='apt install'
+alias apts='apt-cache search'
+
 # neovim
 alias vi='nvim'
 alias vim='nvim'
