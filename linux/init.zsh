@@ -16,5 +16,6 @@ then
     docker.io \
     docker-compose \
     openjdk-14-jdk-headless \
+    alacritty \
     tig
 fi
