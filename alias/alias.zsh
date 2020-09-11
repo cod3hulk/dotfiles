@@ -44,4 +44,4 @@ alias k='kubectl'
 alias tigs="tig status"
 
 # local aliases
-source "${HOME}/.aliases.local"
+[[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
