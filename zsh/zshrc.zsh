@@ -42,26 +42,28 @@ export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
 ZSH_TMUX_AUTOSTART=false
 [[ $TMUX == "" ]] && tmux new-session -A -s tmux
 
+DOTFILES_HOME="${ZDOTDIR:-$HOME}/.dotfiles"
+
 # alias
-if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/alias/alias.zsh"  ]]; then
-    source "${ZDOTDIR:-$HOME}/dotfiles/alias/alias.zsh"
+if [[ -s "${DOTFILES_HOME}/alias/alias.zsh"  ]]; then
+    source "${DOTFILES_HOME}/alias/alias.zsh"
 fi
 
 # fzf
-if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/fzf/init.zsh"  ]]; then
-    source "${ZDOTDIR:-$HOME}/dotfiles/fzf/init.zsh"
+if [[ -s "${DOTFILES_HOME}/fzf/init.zsh"  ]]; then
+    source "${DOTFILES_HOME}/fzf/init.zsh"
 fi
 
 # autojump
-if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/autojump/init.zsh"  ]]; then
-    source "${ZDOTDIR:-$HOME}/dotfiles/autojump/init.zsh"
+if [[ -s "${DOTFILES_HOME}/autojump/init.zsh"  ]]; then
+    source "${DOTFILES_HOME}/autojump/init.zsh"
 fi
 
 # function
-if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/function/function.zsh"  ]]; then
-    source "${ZDOTDIR:-$HOME}/dotfiles/function/function.zsh"
+if [[ -s "${DOTFILES_HOME}/function/function.zsh"  ]]; then
+    source "${DOTFILES_HOME}/function/function.zsh"
 fi
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 fpath+=${ZDOTDIR:-~}/.zsh_functions
-if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
+if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi

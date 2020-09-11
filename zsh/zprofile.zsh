@@ -6,6 +6,11 @@
 #
 
 #
+# Path
+#
+export PATH="$PATH:/usr/share"
+
+#
 # Browser
 #
 
@@ -25,7 +30,7 @@ export PAGER='less'
 # Java
 #
 
-export JAVA_HOME=`/usr/libexec/java_home`
+#export JAVA_HOME=`/usr/libexec/java_home`
 
 #
 # Language
