@@ -17,5 +17,10 @@ then
     docker-compose \
     openjdk-14-jdk-headless \
     alacritty \
+    fzf \
+    htop \
+    pasystray \
+    pavucontrol \
+    pavumeter \
     tig
 fi
