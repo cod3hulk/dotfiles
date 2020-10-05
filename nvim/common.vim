@@ -99,7 +99,7 @@ set number
 set relativenumber
 
 " Paste yanked text to global clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " Ignore case when searching
 set ignorecase
