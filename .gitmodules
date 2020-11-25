@@ -1,28 +1,21 @@
 [submodule "dracula/iterm"]
 	path = dracula/iterm
 	url = https://github.com/dracula/iterm.git
-  ignore = dirty
 [submodule "dracula/alfred"]
 	path = dracula/alfred
 	url = https://github.com/dracula/alfred
-  ignore = dirty
 [submodule "dracula/jetbrains"]
 	path = dracula/jetbrains
 	url = https://github.com/cod3hulk/dracula-theme.git
-  ignore = dirty
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
-  ignore = dirty
 [submodule "hammerspoon"]
 	path = hammerspoon
 	url = https://github.com/cod3hulk/hammerspoon-config.git
-  ignore = dirty
 [submodule "iterm"]
 	path = iterm
 	url = https://github.com/dracula/iterm.git
-  ignore = dirty
 [submodule "tmux/tpm"]
 	path = tmux/tpm
 	url = https://github.com/tmux-plugins/tpm
-  ignore = dirty
