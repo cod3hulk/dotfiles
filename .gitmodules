@@ -4,18 +4,12 @@
 [submodule "dracula/alfred"]
 	path = dracula/alfred
 	url = https://github.com/dracula/alfred
-[submodule "dracula/jetbrains"]
-	path = dracula/jetbrains
-	url = https://github.com/cod3hulk/dracula-theme.git
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 [submodule "hammerspoon"]
 	path = hammerspoon
 	url = https://github.com/cod3hulk/hammerspoon-config.git
-[submodule "iterm"]
-	path = iterm
-	url = https://github.com/dracula/iterm.git
 [submodule "tmux/tpm"]
 	path = tmux/tpm
 	url = https://github.com/tmux-plugins/tpm
