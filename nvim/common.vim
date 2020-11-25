@@ -19,13 +19,15 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'sbdchd/neoformat'
 
 " Autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'junegunn/fzf'
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+"Plug 'autozimu/LanguageClient-neovim', {
+    "\ 'branch': 'next',
+    "\ 'do': 'bash install.sh',
+    "\ }
+"Plug 'junegunn/fzf'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 
 " Support for UNIX shell commands
