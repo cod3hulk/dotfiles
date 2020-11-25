@@ -19,8 +19,11 @@
     ~/.zprofile: zsh/zprofile.zsh
     #~/.hammerspoon: hammerspoon
     ~/.tmux/plugins/tpm: tmux/tpm
+    ~/.tmux/scripts: tmux/scripts
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
     #/usr/local/bin/kubectl-restart: kubectl/restart.sh
+    /usr/local/bin/kubectx: k8s/kubectx
+    /usr/local/bin/kubens: k8s/kubens
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
