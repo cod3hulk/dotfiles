@@ -34,6 +34,7 @@ alias mp='mvn package'
 
 # kubernetes
 alias kc='kubectx'
+alias kn='kubens'
 alias kl='kubectl get deployments --no-headers -o custom-columns=":metadata.name" | sed -E "s/(.*)-[0-9a-z]{8}$/\1/" | uniq | fzf | xargs -I {} stern --color always "^{}"'
 alias kle='kl | ag -A 15 ERROR'
 alias kgp='kubectl get pods'
@@ -42,6 +43,9 @@ alias k='kubectl'
 
 # tig
 alias tigs="tig status"
+
+# IntelliJ
+[[ -x /snap/bin/intellij-idea-community ]] && alias ij='nohup intellij-idea-community . > /dev/null 2>&1 &'
 
 # local aliases
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
