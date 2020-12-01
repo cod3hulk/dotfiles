@@ -40,6 +40,7 @@ export ZSH_PLUGINS_ALIAS_TIPS_EXPAND=0
 export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
 
 ZSH_TMUX_AUTOSTART=false
+unset I3SOCK
 [[ $TMUX == "" ]] && tmux new-session -A -s tmux
 
 DOTFILES_HOME="${ZDOTDIR:-$HOME}/.dotfiles"
