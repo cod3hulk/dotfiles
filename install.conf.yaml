@@ -24,7 +24,7 @@
     #/usr/local/bin/kubectl-restart: kubectl/restart.sh
     /usr/local/bin/kubectx: k8s/kubectx
     /usr/local/bin/kubens: k8s/kubens
+    ~/.config/i3/config: i3/config
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
-  #- nvim/init.zsh 
