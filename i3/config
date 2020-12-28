@@ -57,7 +57,9 @@ floating_modifier $mod
 bindsym $hyper+b [class="Firefox"] focus
 bindsym $hyper+t [class="Alacritty"] focus
 bindsym $hyper+c [class="Slack"] focus
-bindsym $hyper+m [class=".*Microsoft.*"] focus
+bindsym $hyper+m [class="(?i).*microsoft.*"] focus
+bindsym $hyper+i [class=".*jetbrains-idea.*"] focus
+bindsym $hyper+e [class="(?i)code"] focus
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -218,7 +220,7 @@ assign [class=".*Microsoft Teams.*"] $ws1
 assign [class="Alacritty"] $ws2
 assign [class="Firefox"] $ws3
 
-for_window [class="KeePassXC"] move to workspace 4
+#for_window [class="KeePassXC"] move to workspace 4
 for_window [class="Spotify"] move to workspace 4
 
 # workspace layout
