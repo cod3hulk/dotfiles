@@ -1,55 +1,23 @@
 {
-  // vi settings
-  "vim.easymotion": true,
-  "vim.incsearch": true,
-  "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
-  "vim.hlsearch": true,
-  "vim.insertModeKeyBindings": [
-    {
-      "before": ["f", "d"],
-      "after": ["<Esc>"]
-    }
-  ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<space>", "f", "f"],
-      "commands": ["workbench.action.quickOpen"]
-    },
-    {
-      "before": ["<Enter>"],
-      "commands": [":nohl"]
-    },
-    {
-      "before": ["<space>", "j" , "j"],
-      "after": ["<space>", "<space>", "s"]
-    },
-    {
-    "before": ["<space>","x"],
-    "commands": [
-      ":x"
-    ]
-  },
-    {
-    "before": ["<space>","w"],
-    "commands": [
-      ":w"
-    ]
-  }
-  ],
-  "vim.leader": "<space>",
-  "vim.handleKeys": {
-    "<C-a>": false,
-    "<C-f>": false
-  },
+  // formatter
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   // general
-  "workbench.activityBar.visible": false,
+  "workbench.activityBar.visible": true,
   "window.zoomLevel": 2,
-  "editor.minimap.enabled": false
+  "editor.minimap.enabled": false,
+  "workbench.colorTheme": "Dracula",
+  "window.closeWhenEmpty": true,
+  "window.menuBarVisibility": "toggle",
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "vscode-neovim.neovimInitVimPaths.linux": "/home/tave/.config/nvim/init.vim",
+  "vscode-neovim.textDecorationsAtTop": true,
+  "vscode-neovim.logOutputToConsole": true,
+  "vscode-neovim.logPath": "~/vscode-neovim.log",
+  "editor.renderWhitespace": "all" 
 }
