@@ -19,5 +19,5 @@
   "vscode-neovim.textDecorationsAtTop": true,
   "vscode-neovim.logOutputToConsole": true,
   "vscode-neovim.logPath": "~/vscode-neovim.log",
-  "editor.renderWhitespace": "all" 
+  "editor.lineNumbers": "relative"
 }
