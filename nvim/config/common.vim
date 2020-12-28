@@ -44,7 +44,7 @@ set scrolloff=10
 set completeopt=longest,menuone
 
 " set cursor
-set guicursor=a:blinkwait700-blinkon400-blinkoff250
+" set guicursor=a:blinkwait700-blinkon400-blinkoff250
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -87,6 +87,9 @@ nmap <SPACE>r :%s /\<<C-r><C-w>\>/
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
 endif
+
+" tab completion
+inoremap <silent> <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocommands
