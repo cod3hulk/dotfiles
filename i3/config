@@ -66,7 +66,7 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+d exec dmenu_run
 bindsym $mod+d exec "rofi -combi-modi window,drun -show combi"
 bindsym Mod4+Shift+c exec "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'"
-bindsym $mod+g exec "~/.dotfiles/i3/scripts/websearch.sh"
+bindsym $mod+s exec "~/.dotfiles/i3/scripts/websearch.sh"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -102,9 +102,9 @@ bindsym $mod+| split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+w layout tabbed
+bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -170,7 +170,7 @@ mode "(S)uspend, (L)ogout, (R)eboot, (P)oweroff" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-bindsym $mod+Shift+e mode "(S)uspend, (L)ogout, (R)eboot, (P)oweroff"
+bindsym $mod+Shift+x mode "(S)uspend, (L)ogout, (R)eboot, (P)oweroff"
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
@@ -217,14 +217,14 @@ assign [class="slack"] $ws1
 assign [class=".*Microsoft Teams.*"] $ws1
 assign [class="Alacritty"] $ws2
 assign [class="Firefox"] $ws3
-#assign [class="keepassxc"] $ws4
-#assign [class="Spotify"] $ws4
 
-for_window [class="keepassxc"] move to workspace 4
-for_window [class="spotify"] move to workspace 4
+for_window [class="KeePassXC"] move to workspace 4
+for_window [class="Spotify"] move to workspace 4
 
 # workspace layout
 for_window [workspace=$ws1] layout stacked
+for_window [workspace=$ws2] layout tabbed
+for_window [workspace=$ws4] layout tabbed
 
 focus_on_window_activation focus
 
