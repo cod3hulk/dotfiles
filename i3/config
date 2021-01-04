@@ -205,6 +205,7 @@ bindsym $mod+r mode "resize"
 # autostart
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
+exec --no-startup-id blueman-applet
 exec --no-startup-id greenclip daemon
 exec keepassxc
 exec firefox
@@ -227,6 +228,9 @@ for_window [class="Spotify"] move to workspace 4
 for_window [workspace=$ws1] layout stacked
 for_window [workspace=$ws2] layout tabbed
 for_window [workspace=$ws4] layout tabbed
+
+# window layouts
+for_window[class="(?i)blueman-manager"] floating enable
 
 focus_on_window_activation focus
 
