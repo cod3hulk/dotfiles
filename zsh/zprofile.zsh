@@ -8,7 +8,7 @@
 #
 # Path
 #
-export PATH="$PATH:/usr/share"
+export PATH="$PATH:/usr/share:$HOME/bin"
 
 #
 # Browser
