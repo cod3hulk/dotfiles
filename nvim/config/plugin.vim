@@ -28,8 +28,6 @@ Plug 'sbdchd/neoformat'
 " Autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-
-
 " Support for UNIX shell commands
 Plug 'tpope/vim-eunuch'
 
@@ -86,6 +84,9 @@ Plug 'tyru/open-browser.vim'
 Plug 'hashivim/vim-terraform'
 Plug 'vim-syntastic/syntastic'
 Plug 'juliosueiras/vim-terraform-completion'
+
+" Which-Key
+Plug 'liuchengxu/vim-which-key'
 
 " Initialize plugin system
 call plug#end()

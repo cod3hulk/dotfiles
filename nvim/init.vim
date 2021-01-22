@@ -6,6 +6,7 @@ source $HOME/.dotfiles/nvim/config/plantuml.vim
 source $HOME/.dotfiles/nvim/config/easymotion.vim
 source $HOME/.dotfiles/nvim/config/nerdcommenter.vim
 source $HOME/.dotfiles/nvim/config/neoformat.vim
+source $HOME/.dotfiles/nvim/config/whichkey.vim
 if exists('g:vscode')
   source $HOME/.dotfiles/nvim/config/vscode.vim
 endif

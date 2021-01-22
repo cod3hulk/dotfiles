@@ -78,9 +78,6 @@ nmap <SPACE>x :x<cr>
 " Close all buffers but this one
 nmap <SPACE>bm :BufOnly<cr>
 
-" Search for word under cursor
-nmap <SPACE>f :Ag <C-r><C-w><cr>
-
 " Replace for word under cursor
 nmap <SPACE>r :%s /\<<C-r><C-w>\>/
 
