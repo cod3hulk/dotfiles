@@ -8,7 +8,7 @@
 #
 # Path
 #
-export PATH="$PATH:/usr/share:$HOME/bin"
+export PATH="$PATH:/usr/share:$HOME/bin:/opt/homebrew/bin"
 
 #
 # Browser
@@ -86,5 +86,4 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
-
 
