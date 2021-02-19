@@ -15,7 +15,7 @@
     ~/.ideavimrc: intellij/ideavimrc
     ~/.zshrc: zsh/zshrc.zsh
     ~/.zprofile: zsh/zprofile.zsh
-    #~/.hammerspoon: hammerspoon
+    ~/.hammerspoon: hammerspoon
     ~/.tmux/plugins/tpm: tmux/tpm
     ~/.tmux/scripts: tmux/scripts
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
@@ -27,3 +27,4 @@
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
+  - zgen/init.zsh
