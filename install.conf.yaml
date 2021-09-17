@@ -10,6 +10,8 @@
 - link:
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tigrc: tig/tig.conf
+    ~/.yabairc: yabai/yabairc
+    ~/.skhdrc: skhd/skhdrc
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.nvim/snippets: nvim/snippets
     ~/.ideavimrc: intellij/ideavimrc
