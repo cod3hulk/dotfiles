@@ -19,11 +19,11 @@
     ~/.tmux/plugins/tpm: tmux/tpm
     ~/.tmux/scripts: tmux/scripts
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
-    #/usr/local/bin/kubectl-restart: kubectl/restart.sh
     /usr/local/bin/kubectx: k8s/kubectx
     /usr/local/bin/kubens: k8s/kubens
     ~/.config/i3/config: i3/config
     ~/.config/Code/User/settings.json: vscode/settings.json
+    ~/.config/Code/User/keybindings.json: vscode/keybindings.json
 - shell:
   - brew/init.zsh 
   - linux/init.zsh

@@ -1,23 +1,94 @@
 {
-  // formatter
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  // general
-  "workbench.activityBar.visible": true,
-  "window.zoomLevel": 2,
-  "editor.minimap.enabled": false,
-  "workbench.colorTheme": "Dracula",
-  "window.closeWhenEmpty": true,
-  "window.menuBarVisibility": "toggle",
-  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
-  "vscode-neovim.neovimInitVimPaths.linux": "/home/tave/.config/nvim/init.vim",
-  "vscode-neovim.textDecorationsAtTop": true,
-  "vscode-neovim.logOutputToConsole": true,
-  "vscode-neovim.logPath": "~/vscode-neovim.log",
-  "editor.lineNumbers": "relative"
-}
+    "whichkey.bindings": [
+      {
+        "key": "e",
+        "name": "Toggle Explorer",
+        "type": "command",
+        "command": "workbench.action.toggleSidebarVisibility"
+      },
+      {
+        "key": "w",
+        "name": "Save File",
+        "type": "command",
+        "command": "workbench.action.files.save"
+      },
+      {
+        "key": "q",
+        "name": "Close File",
+        "type": "command",
+        "command": "workbench.action.closeActiveEditor"
+      },
+      {
+        "key": "f",
+        "name": "Find...",
+        "type": "bindings",
+        "bindings": [
+          {
+            "key": "f",
+            "name": "Find file",
+            "type": "command",
+            "command": "workbench.action.quickOpen"
+          },
+          {
+            "key": "r",
+            "name": "Find recent file",
+            "type": "command",
+            "command": "workbench.action.openRecent"
+          }
+        ]
+      },
+      {
+        "key": "b",
+        "name": "Buffer...",
+        "type": "bindings",
+        "bindings": [
+          {
+            "key": "n",
+            "name": "New",
+            "type": "command",
+            "command": "workbench.action.files.newUntitledFile"
+          },
+          {
+            "key": "m",
+            "name": "Close others",
+            "type": "command",
+            "command": "workbench.action.closeOtherEditors"
+          }
+        ]
+      }
+    ],
+    "[javascript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    // general
+    "cSpell.language": "en,de",
+    "workbench.activityBar.visible": false,
+    "editor.minimap.enabled": false,
+    "workbench.colorTheme": "Dracula",
+    "window.closeWhenEmpty": true,
+    "window.menuBarVisibility": "toggle",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/tave/.config/nvim/init.vim",
+    "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+    "vscode-neovim.textDecorationsAtTop": true,
+    "vscode-neovim.logOutputToConsole": true,
+    "vscode-neovim.logPath": "~/vscode-neovim.log",
+    "editor.lineNumbers": "relative",
+    "[python]": {
+      "editor.wordBasedSuggestions": true
+    },
+    "python.showStartPage": false,
+    "python.pythonPath": "/opt/homebrew/bin/python3",
+    "python.languageServer": "Pylance",
+    "window.zoomLevel": 2,
+    "workbench.editor.untitled.hint": "hidden",
+    "workbench.editorAssociations": {
+      "*.ipynb": "jupyter-notebook"
+    },
+    "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+    "notebook.cellToolbarLocation": {
+      "default": "right",
+      "jupyter-notebook": "left"
+    },
+    "security.workspace.trust.untrustedFiles": "open"
+  }
