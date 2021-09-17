@@ -1,0 +1,119 @@
+#!/usr/bin/env sh
+
+# the scripting-addition must be loaded manually if
+# you are running yabai on macOS Big Sur. Uncomment
+# the following line to have the injection performed
+# when the config is executed during startup.
+#
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+#
+# see this wiki page for information:
+#  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+#
+
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# global settings
+yabai -m config mouse_follows_focus          off
+yabai -m config focus_follows_mouse          off
+yabai -m config window_placement             second_child
+yabai -m config window_topmost               off
+yabai -m config window_shadow                off
+yabai -m config window_opacity               off
+yabai -m config window_opacity_duration      0.0
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.90
+yabai -m config window_border                off
+yabai -m config window_border_width          6
+yabai -m config active_window_border_color   0xff775759
+yabai -m config normal_window_border_color   0xff555555
+yabai -m config insert_feedback_color        0xffd75f5f
+yabai -m config split_ratio                  0.50
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               fn
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+yabai -m config mouse_drop_action            swap
+yabai -m config debug_output                 on
+SPACEBAR_HEIGHT=$(spacebar -m config height)
+yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+
+# general space settings
+yabai -m config layout                       bsp
+yabai -m config top_padding                  12
+yabai -m config bottom_padding               12
+yabai -m config left_padding                 12
+yabai -m config right_padding                12
+yabai -m config window_gap                   06
+
+# spaces
+#(yabai -m query --spaces | jq -e 'contains([{"index": 1}])') || yabai -m space --create 
+#(yabai -m query --spaces | jq -e 'contains([{"index": 2}])') || yabai -m space --create 
+#(yabai -m query --spaces | jq -e 'contains([{"index": 3}])') || yabai -m space --create 
+#(yabai -m query --spaces | jq -e 'contains([{"index": 4}])') || yabai -m space --create 
+
+#yabai -m space 1 --label main
+#yabai -m space 2 --label code
+#yabai -m space 3 --label chat
+#yabai -m space 4 --label browser
+
+#yabai -m space 1 --display 1
+#yabai -m space 2 --display 1
+#yabai -m space 3 --display 2 --layout stack
+#yabai -m space 4 --display 1
+
+#yabai -m rule --add app='Alacritty' space=code
+#yabai -m rule --add app='Firefox' space=browser
+#yabai -m rule --add app='Microsoft Outlook' space=chat
+#yabai -m rule --add app='Microsoft Teams' space=chat
+#yabai -m rule --add app='Todoist' manage=off
+#yabai -m rule --add app='Finder' manage=off
+#yabai -m rule --add app="Microsoft Outlook" title="^Neuer Termin.*" manage=off
+#yabai -m rule --add app!="^(Alacritty|Firefox)$" manage=off
+
+yabai -m rule --add app="Microsoft Outlook" title="^Neuer Termin.*" manage=off
+yabai -m rule --add app="Microsoft Outlook" title=".*Erinnerung.*" manage=off
+yabai -m rule --add app="Firefox" title="Öffnen von.*" manage=off
+
+# unmaged apps
+yabai -m rule --add app='Todoist' manage=off grid=4:5:2:1:1:2 
+yabai -m rule --add app='Spotify' manage=off grid=4:4:1:1:2:2
+yabai -m rule --add app='1Password' manage=off grid=4:4:1:1:2:2
+yabai -m rule --add app='System­einstellungen' manage=off grid=4:4:1:0:2:4
+
+# spaces config
+#yabai -m space 1 --label main
+#yabai -m space 2 --label chat
+#yabai -m space 3 --label browser
+#yabai -m space main --layout bsp
+#yabai -m space chat --layout stack
+
+#yabai -m space 2 --display 2
+#yabai -m space 3 --display 1
+
+## assigne apps to spaces
+#yabai -m rule --add app='Microsoft Outlook' space=chat
+#yabai -m rule --add app='Microsoft Teams' space=chat
+#yabai -m rule --add app='Slack' space=chat
+#yabai -m rule --add app='Firefox' space=browser
+
+
+#yabai -m config --space main layout bsp
+#yabai -m config --space code layout bsp
+#yabai -m config --space chat layout stack
+#yabai -m config --space browser layout bsp
+
+#display_added="yabai -m space 1 --display 1 &\\
+#yabai -m space 2 --display 2 &\\
+#yabai -m space 3 --display 1"
+
+#display_removed="yabai -m space 1 --display"
+
+## update on display removed/attached
+#yabai -m signal --add event=display_added action="source /Users/tave/development/scripts/test.sh"
+#yabai -m signal --add event=display_removed action="${display_removed}"
+
+
+echo "yabai configuration loaded.."
