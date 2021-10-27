@@ -26,6 +26,7 @@
     ~/.config/i3/config: i3/config
     ~/.config/Code/User/settings.json: vscode/settings.json
     ~/.config/Code/User/keybindings.json: vscode/keybindings.json
+    ~/.config/karabiner/karabiner.json: karabiner/karabiner.json
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
