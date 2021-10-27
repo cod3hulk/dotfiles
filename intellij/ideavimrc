@@ -17,12 +17,19 @@ nmap <c-]> :action MethodDown<cr>
 nmap <c-[> :action MethodUp<cr>
 
 " spacemacs like mappings
-nmap <SPACE>ji :action FileStructurePopup<cr>
-nmap <SPACE>bm :action CloseAllEditorsButActive<cr>
-nmap <SPACE>ff :action SearchEverywhere<cr>
-nmap <SPACE>fr :action RecentFiles<cr>
-nmap <SPACE>qq :action CloseProject<cr>
-nmap <SPACE>jj :action emacsIDEAs.AceJump<cr>
+nmap <LEADER>bm :action CloseAllEditorsButActive<cr>
+nmap <LEADER>ff :action SearchEverywhere<cr>
+nmap <LEADER>fr :action RecentFiles<cr>
+nmap <LEADER>qq :action CloseProject<cr>
+nmap <LEADER>jj :action AceAction<cr>
+nmap <LEADER>ji :action FileStructurePopup<cr>
+nmap <LEADER>rr :action Run<cr>
+
+let g:WhichKeyDesc_find_recent_files  = "<Space>fr find recent"
 
 " plugins
 set surround
+set which-key
+
+set notimeout
+set timeoutlen = 5000
