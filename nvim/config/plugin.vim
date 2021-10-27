@@ -88,5 +88,9 @@ Plug 'juliosueiras/vim-terraform-completion'
 " Which-Key
 Plug 'liuchengxu/vim-which-key'
 
+" Tree
+Plug 'kyazdani42/nvim-web-devicons' 
+Plug 'kyazdani42/nvim-tree.lua'
+
 " Initialize plugin system
 call plug#end()
