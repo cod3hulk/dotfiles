@@ -39,7 +39,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'jiangmiao/auto-pairs'
 
 " Easy uncomment/comment
-Plug 'scrooloose/nerdcommenter'
+Plug 'terrortylor/nvim-comment'
 
 " Python support
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
