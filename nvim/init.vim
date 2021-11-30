@@ -8,6 +8,7 @@ source $HOME/.dotfiles/nvim/config/neoformat.vim
 source $HOME/.dotfiles/nvim/config/whichkey.vim
 source $HOME/.dotfiles/nvim/config/nvim-tree.vim
 source $HOME/.dotfiles/nvim/config/nvim-comment.vim
+source $HOME/.dotfiles/nvim/config/nvim-web-devicons.vim
 if exists('g:vscode')
   source $HOME/.dotfiles/nvim/config/vscode.vim
 endif
