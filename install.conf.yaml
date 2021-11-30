@@ -11,6 +11,7 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tigrc: tig/tig.conf
     ~/.yabairc: yabai/yabairc
+    ~/.limelight: limelight/limelight.sh
     ~/.skhdrc: skhd/skhdrc
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.nvim/snippets: nvim/snippets
