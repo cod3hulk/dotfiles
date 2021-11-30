@@ -155,7 +155,9 @@ alt + shift - x : yabai -m space --destroy
 # toggle window zoom
 # alt - d : yabai -m window --toggle zoom-parent
 alt - f : yabai -m window --toggle zoom-fullscreen
-alt + shift - f: yabai -m window --toggle float
+# Float and center
+alt + shift - f : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
 alt + shift - m: yabai -m window --minimize
 alt + shift - w: yabai -m window --close
 
@@ -188,6 +190,13 @@ hyper - b : open /Applications/Firefox.app
 hyper - t : open /Applications/Alacritty.app
 hyper - m : open '/Applications/Microsoft Outlook.app'
 hyper - c : open '/Applications/Microsoft Teams.app'
+hyper - e : open '/Applications/Visual Studio Code.app'
+hyper - i : open '/Applications/PyCharm CE.app'
+
+# media keys
+hyper - p : cliclick kp:play-pause
+hyper - 0x29 : cliclick kp:volume-down
+# hyper - 0x27 : cliclick kp:volume-up
 
 # Restart Yabai
 shift + lctrl + alt - r : \
