@@ -5,16 +5,19 @@ alt - h : yabai -m window --focus west || yabai -m display --focus west
 alt - l : yabai -m window --focus east || yabai -m display --focus east
 alt - j : yabai -m window --focus south
 
-alt + shift - h : yabai -m window --warp west || yabai -m window --display west
-alt + shift - l : yabai -m window --warp east || yabai -m window --display east
+alt + shift - h : cur_window=$(yabai -m query --windows --window | jq '.id') && \
+                  yabai -m window --warp west || yabai -m window --display west && \
+                  yabai -m window --focus ${cur_window}
+alt + shift - l : cur_window=$(yabai -m query --windows --window | jq '.id') && \
+                  yabai -m window --warp east || yabai -m window --display east && \
+                  yabai -m window --focus ${cur_window}
 
 alt + shift - j : yabai -m window --focus stack.next || yabai -m window --focus stack.first
 alt + shift - k : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 
 alt - n : yabai -m window --focus next || yabai -m window --focus first
 alt - p : yabai -m window --focus prev
-#alt + shift - x: id="$(yabai -m query --spaces | jq 'map(select(."focused" == 1))[-1].index')";\
-                 #yabai -m
+
 alt + shift - s : yabai -m space --layout stack
 alt + shift - b : yabai -m space --layout bsp
 alt + shift - t : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')
