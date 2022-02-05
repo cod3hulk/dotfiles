@@ -34,6 +34,7 @@ Plug 'tpope/vim-eunuch'
 " Markdown support
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
 
 " Auto colose and surround
 Plug 'jiangmiao/auto-pairs'

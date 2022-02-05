@@ -11,6 +11,14 @@ alt + shift - h : cur_window=$(yabai -m query --windows --window | jq '.id') && 
 alt + shift - l : cur_window=$(yabai -m query --windows --window | jq '.id') && \
                   yabai -m window --warp east || yabai -m window --display east && \
                   yabai -m window --focus ${cur_window}
+alt + shift - k : cur_window=$(yabai -m query --windows --window | jq '.id') && \
+                  yabai -m window --warp north && \
+                  yabai -m window --focus ${cur_window}
+alt + shift - j : cur_window=$(yabai -m query --windows --window | jq '.id') && \
+                  yabai -m window --warp south && \
+                  yabai -m window --focus ${cur_window}
+
+alt + shift - t : yabai -m window --toggle split
 
 alt + shift - j : yabai -m window --focus stack.next || yabai -m window --focus stack.first
 alt + shift - k : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
@@ -22,14 +30,6 @@ alt + shift - s : yabai -m space --layout stack
 alt + shift - b : yabai -m space --layout bsp
 alt + shift - t : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')
 
-# swap managed window
-# shift + alt - h : yabai -m window --swap north
-
-# move managed window
-# shift + cmd - h : yabai -m window --warp east
-
-# balance size of windows
-# shift + alt - 0 : yabai -m space --balance
 
 # make floating window fill screen
 #shift + alt - f : yabai -m window --grid 1:1:0:0:1:1
@@ -92,6 +92,7 @@ ctrl + cmd - h : yabai -m window west --resize right:-50:0 2> /dev/null || yabai
 ctrl + cmd - j : yabai -m window north --resize bottom:0:50 2> /dev/null || yabai -m window --resize bottom:0:50
 ctrl + cmd - k : yabai -m window south --resize top:0:-50 2> /dev/null || yabai -m window --resize top:0:-50
 ctrl + cmd - l : yabai -m window east --resize left:50:0 2> /dev/null || yabai -m window --resize left:50:0
+ctrl + cmd - 0 : yabai -m space --balance
 
 # toggle window split type
  #alt - e : yabai -m window --toggle split
@@ -122,7 +123,7 @@ hyper - b : open '/Applications/Google Chrome.app'
 hyper - s : open '/Applications/Slack.app'
 hyper - v : open '/Applications/Gather.app'
 hyper - t : open '/Applications/Alacritty.app'
-hyper - i : open '/Applications/PyCharm CE.app'
+hyper - i : open '/Applications/PyCharm.app'
 
 # media keys
 hyper - p : cliclick kp:play-pause
