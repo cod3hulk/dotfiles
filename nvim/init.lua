@@ -1,6 +1,5 @@
 require('plugins')
 require('common')
-require('config/telescope')
 require('config/which-key')
 -- source $HOME/.dotfiles/nvim/config/plugin.vim
 -- source $HOME/.dotfiles/nvim/config/ctrlp.vim
