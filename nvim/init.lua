@@ -1,3 +1,4 @@
+require('plugins')
 require('common')
 -- source $HOME/.dotfiles/nvim/config/plugin.vim
 -- source $HOME/.dotfiles/nvim/config/ctrlp.vim

@@ -20,8 +20,14 @@ opt.incsearch = true
 opt.hls = true
 opt.scrolloff = 10
 
--- cmd 'colorscheme dracula'
+cmd 'colorscheme dracula'
 
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 --[[
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Diff colors
