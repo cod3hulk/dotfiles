@@ -41,6 +41,13 @@ alias kgp='kubectl get pods'
 alias kgd='kubectl get deployments'
 alias k='kubectl'
 
+# google cloud
+alias gc='gcloud'
+
+# tunnelblick
+alias tbc='tunnelblickctl connect --all'
+alias tbd='tunnelblickctl disconnect --all'
+
 # tig
 alias tigs="tig status"
 
