@@ -1,6 +1,8 @@
-require('plugins')
-require('common')
-require('config/which-key')
+require('user.plugins')
+require('user.options')
+require('user.autocommands')
+require('user.keymaps')
+require('user.which-key')
 -- source $HOME/.dotfiles/nvim/config/plugin.vim
 -- source $HOME/.dotfiles/nvim/config/ctrlp.vim
 -- source $HOME/.dotfiles/nvim/config/ultisnips.vim
