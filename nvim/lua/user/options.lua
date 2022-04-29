@@ -1,6 +1,7 @@
 local opts = {
   backup = false,
   clipboard ='unnamedplus',
+  completeopt = { "menuone", "noselect" }, 
   cursorline = true,
   expandtab = true,
   fileencoding = "utf-8",
@@ -25,6 +26,4 @@ local opts = {
 for k, v in pairs(opts) do
   vim.opt[k] = v
 end
-
-vim.cmd 'colorscheme dracula'
 

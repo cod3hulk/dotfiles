@@ -11,5 +11,6 @@ wk.register({
   },
   w = { "<cmd>:w<cr>", "Write File" },
   x = { "<cmd>:x<cr>", "Write And Close File" },
-  q = { "<cmd>:q<cr>", "Close File" }
+  q = { "<cmd>:q<cr>", "Close File" },
+  e = { "<cmd>:NvimTreeToggle<cr>", "Toggle File Explorer" },
 }, { prefix = "<leader>" })

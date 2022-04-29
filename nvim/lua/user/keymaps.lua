@@ -31,4 +31,4 @@ keymap("x", "<", "<gv", opts)
 -- stop visual selection
 keymap("x", "<CR>", "<C-c>", opts)
 
-
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
