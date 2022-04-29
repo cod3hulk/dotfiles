@@ -5,6 +5,8 @@ require("user.colorscheme")
 require("user.which-key")
 require("user.cmp")
 require("user.nvim-tree")
+require("user.lsp")
+require("user.treesitter")
 -- source $HOME/.dotfiles/nvim/config/plantuml.vim
 -- source $HOME/.dotfiles/nvim/config/easymotion.vim
 -- source $HOME/.dotfiles/nvim/config/neoformat.vim

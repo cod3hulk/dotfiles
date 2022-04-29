@@ -40,14 +40,15 @@ packer.init {
 }
 
 return packer.startup(function(use)
-  -- My plugins 
+  -- My plugins
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
 
   -- colorscheme
-  use {'dracula/vim', as = 'dracula'} 
+  use {'dracula/vim', as = 'dracula'}
+  use 'folke/tokyonight.nvim'
 
-   -- treesitter
+  -- treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
@@ -59,7 +60,7 @@ return packer.startup(function(use)
   }
 
   -- which-key
-  use "folke/which-key.nvim"  
+  use "folke/which-key.nvim"
 
   -- nvim-tree
   use "kyazdani42/nvim-tree.lua"
