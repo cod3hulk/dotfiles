@@ -26,7 +26,7 @@ vim.cmd [[
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-  print "Packer not successfully installed"
+  print "packer not found"
   return
 end
 
@@ -49,6 +49,7 @@ return packer.startup(function(use)
   -- colorscheme
   use {'dracula/vim', as = 'dracula'}
   use 'folke/tokyonight.nvim'
+  use 'navarasu/onedark.nvim'
 
   -- treesitter
   use {
