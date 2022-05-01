@@ -7,6 +7,8 @@ require("user.cmp")
 require("user.nvim-tree")
 require("user.lsp")
 require("user.treesitter")
+require("user.autopairs")
+require("user.comment")
 -- source $HOME/.dotfiles/nvim/config/plantuml.vim
 -- source $HOME/.dotfiles/nvim/config/easymotion.vim
 -- source $HOME/.dotfiles/nvim/config/neoformat.vim
