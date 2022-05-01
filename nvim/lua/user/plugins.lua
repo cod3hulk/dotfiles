@@ -43,6 +43,8 @@ return packer.startup(function(use)
   -- My plugins
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
+  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+  use "numToStr/Comment.nvim"
 
   -- colorscheme
   use {'dracula/vim', as = 'dracula'}
