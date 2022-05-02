@@ -84,7 +84,7 @@ alt - f : yabai -m window --toggle zoom-fullscreen
 # Float and center
 alt + shift - f : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
-alt - m: yabai -m window --minimize && yabai -m window --focus largest
+alt - m: yabai -m window --minimize && yabai -m window --focus recent
 alt - w: yabai -m window --close
 
 # resize
@@ -93,6 +93,9 @@ ctrl + cmd - j : yabai -m window north --resize bottom:0:50 2> /dev/null || yaba
 ctrl + cmd - k : yabai -m window south --resize top:0:-50 2> /dev/null || yabai -m window --resize top:0:-50
 ctrl + cmd - l : yabai -m window east --resize left:50:0 2> /dev/null || yabai -m window --resize left:50:0
 ctrl + cmd - 0 : yabai -m space --balance
+ctrl + cmd - 3 : yabai -m window --ratio abs:0.3
+ctrl + cmd - 7 : yabai -m window --ratio abs:0.7
+
 
 # toggle window split type
  #alt - e : yabai -m window --toggle split
@@ -127,7 +130,7 @@ hyper - i : open '/Applications/PyCharm.app'
 
 # media keys
 hyper - p : cliclick kp:play-pause
-hyper - 0x29 : cliclick kp:volume-down
+cmd + alt + shift + ctrl - 0x29 : cliclick kp:volume-down
 hyper - 0x27 : cliclick kp:volume-up
 
 # Restart Yabai
