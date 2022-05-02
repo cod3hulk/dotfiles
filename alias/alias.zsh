@@ -41,6 +41,9 @@ alias kgp='kubectl get pods'
 alias kgd='kubectl get deployments'
 alias k='kubectl'
 
+# better find
+alias ff='fd'
+
 # tig
 alias tigs="tig status"
 
