@@ -1,4 +1,3 @@
-source ~/.dotfiles/nvim/config/common.vim
 nmap gR :action RenameElement<cr>
 nmap g; :action JumpToLastChange<cr>
 nmap g, :action JumpToNextChange<cr>

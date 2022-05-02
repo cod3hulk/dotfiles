@@ -13,8 +13,7 @@
     ~/.yabairc: yabai/yabairc
     ~/.limelight: limelight/limelight.sh
     ~/.skhdrc: skhd/skhdrc
-    ~/.config/nvim/init.vim: nvim/init.vim
-    ~/.nvim/snippets: nvim/snippets
+    ~/.config/nvim: nvim
     ~/.ideavimrc: intellij/ideavimrc
     ~/.zshrc: zsh/zshrc.zsh
     ~/.zprofile: zsh/zprofile.zsh
