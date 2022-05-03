@@ -213,6 +213,11 @@ local mappings = {
     g = { "<cmd>Telescope live_grep<cr>", "Grep File"},
     n = { "<cmd>:new<cr>", "New File" },
   },
+  j = {
+    name = "jump",
+    w = { "<cmd>HopWord<cr>", "Jump Word"},
+    j = { "<cmd>HopChar1<cr>", "Jump Char"},
+  },
   l = {
     name = "LSP",
     i = { "<cmd>LspInstallInfo<cr>", "Install LanguageServer"},
