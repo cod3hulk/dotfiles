@@ -46,6 +46,6 @@ yabai -m config left_padding                 0
 yabai -m config right_padding                0
 yabai -m config window_gap                   8
 
-yabai -m rule --add app!='^Google Chrome|Alacritty$' manage=off
+yabai -m rule --add app!='^Google Chrome|Alacritty|kitty$' manage=off
 
 echo "yabai configuration loaded.."

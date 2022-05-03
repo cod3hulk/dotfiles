@@ -124,8 +124,7 @@ alt + shift - 5 : yabai -m window --space 5
 # open apps
 hyper - b : open '/Applications/Google Chrome.app'
 hyper - s : open '/Applications/Slack.app'
-hyper - v : open '/Applications/Gather.app'
-hyper - t : open '/Applications/Alacritty.app'
+hyper - t : open '/Applications/kitty.app'
 hyper - i : open '/Applications/PyCharm.app'
 
 # media keys
