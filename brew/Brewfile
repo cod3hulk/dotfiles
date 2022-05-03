@@ -19,3 +19,12 @@ brew "nvm"
 tap "homebrew/cask-fonts"
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
+
+cask "alfred"
+cask "alacritty"
+cask "karabiner-elements"
+cask "kitty"
+
+tap "koekeishiya/formulae"
+brew "yabai"
+brew "skhd"
