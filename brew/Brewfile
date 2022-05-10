@@ -24,6 +24,8 @@ cask "alfred"
 cask "alacritty"
 cask "karabiner-elements"
 cask "kitty"
+cask "bartender"
+cask "xbar"
 
 tap "koekeishiya/formulae"
 brew "yabai"
