@@ -209,18 +209,19 @@ local mappings = {
     name = "find",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
     b = { "<cmd>Telescope buffers<cr>", "Find Buffers" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File"},
-    g = { "<cmd>Telescope live_grep<cr>", "Grep File"},
+    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+    g = { "<cmd>Telescope live_grep<cr>", "Grep File" },
     n = { "<cmd>:new<cr>", "New File" },
   },
   j = {
     name = "jump",
-    w = { "<cmd>HopWord<cr>", "Jump Word"},
-    j = { "<cmd>HopChar1<cr>", "Jump Char"},
+    w = { "<cmd>HopWord<cr>", "Jump Word" },
+    j = { "<cmd>HopChar1<cr>", "Jump Char" },
   },
   l = {
     name = "LSP",
-    i = { "<cmd>LspInstallInfo<cr>", "Install LanguageServer"},
+    i = { "<cmd>LspInstallInfo<cr>", "Install LanguageServer" },
+    f = { "<cmd>lua vim.lsp.buf.format({async = true})<cr>", "Format" },
   },
   w = { "<cmd>:w<cr>", "Write File" },
   x = { "<cmd>:x<cr>", "Write And Close File" },
@@ -244,4 +245,3 @@ local vmappings = {
 which_key.setup(setup)
 which_key.register(mappings, opts)
 which_key.register(vmappings, vopts)
-

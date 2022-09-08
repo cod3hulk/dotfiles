@@ -46,6 +46,8 @@ return packer.startup(function(use)
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "numToStr/Comment.nvim"
   use "phaazon/hop.nvim"
+  use "akinsho/toggleterm.nvim"
+  use "mechatroner/rainbow_csv"
 
   -- colorscheme
   use {'dracula/vim', as = 'dracula'}

@@ -16,10 +16,10 @@ lsp_installer.on_server_ready(function(server)
     opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
   end
 
-  -- if server.name == "tsserver" then
-  --   local tsserver_opts = {}
-  --   opts = vim.tbl_deep_extend("force", tsserver_opts, opts)
-  -- end
+  if server.name == "tsserver" then
+    local tsserver_opts = {}
+    opts = vim.tbl_deep_extend("force", tsserver_opts, opts)
+  end
   --
   -- if server.name == "pyright" then
   --   local pyright_opts = require("user.lsp.settings.pyright")
