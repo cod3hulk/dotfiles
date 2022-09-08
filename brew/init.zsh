@@ -1,5 +1,5 @@
 #!/bin/bash
-BREW_COMMAND="brew"
+BREW_COMMAND="/opt/homebrew/bin/brew"
 BREW_FILE="${HOME}/.dotfiles/brew/Brewfile"
 
 if [ `uname` == 'Darwin' ] && ! command -v "${BREW_COMMAND}" &> /dev/null
@@ -11,5 +11,5 @@ fi
 if [ -e ${BREW_FILE} ] && [ `uname` == 'Darwin' ]
 then
   echo "Install bottles"
-  brew bundle install --file=${BREW_FILE}
+  ${BREW_COMMAND} bundle install --file=${BREW_FILE}
 fi
