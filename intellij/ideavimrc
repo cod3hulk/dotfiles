@@ -1,31 +1,39 @@
+let mapleader = " "
 nmap gR :action RenameElement<cr>
 nmap g; :action JumpToLastChange<cr>
 nmap g, :action JumpToNextChange<cr>
 nmap ,m :action HideAllWindows<cr>
-nmap qo :action CloseAllEditorsButActive<cr>
-nmap ,Q :action CloseProject<cr>
 nmap <c-]> :action MethodDown<cr>
 nmap <c-[> :action MethodUp<cr>
 
-nmap <LEADER>bm :action CloseAllEditorsButActive<cr>
 nmap <LEADER>ff :action SearchEverywhere<cr>
 nmap <LEADER>fr :action RecentFiles<cr>
-nmap <LEADER>qq :action CloseProject<cr>
+nmap <LEADER>fg :action FindInPath<cr>
+
+nmap <LEADER>q :q<cr>
+nmap <LEADER>bm :action CloseAllEditorsButActive<cr>
+nmap <LEADER>pq :action CloseProject<cr>
 nmap <LEADER>jj :action AceAction<cr>
 nmap <LEADER>ji :action FileStructurePopup<cr>
 nmap <LEADER>rr :action Run<cr>
 nmap <LEADER><SPACE> :action GotoAction<cr>
-" nmap <LEADER>f :action ReformatCode<cr>
 nmap <LEADER>w :action SaveAll<cr>
 nmap <LEADER>e :NERDTreeToggle<cr>
+nmap <CR> :nohls<cr>
+nmap <c-\> :action ActivateTerminalToolWindow<cr>
+imap fd <ESC>
 
-let g:WhichKeyDesc_find_recent_files  = "<Space>fr find recent"
 
 " plugins
 set surround
 set which-key
 set commentary
 set NERDTree
+set clipboard+=unnamed
 
 set notimeout
 set timeoutlen = 5000
+set hlsearch
+set incsearch
+
+let g:WhichKeyDesc_files_prefix  = "<LEADER>f Files"
