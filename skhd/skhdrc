@@ -83,7 +83,7 @@ shift + cmd - z : yabai -m window --space next; yabai -m space --focus next
 alt - f : yabai -m window --toggle zoom-fullscreen
 # Float and center
 alt + shift - f : yabai -m window --toggle float;\
-          yabai -m window --grid 4:4:1:1:2:2
+          yabai -m window --grid 8:8:1:1:6:6
 alt - m: yabai -m window --minimize && yabai -m window --focus recent
 alt - w: yabai -m window --close
 
@@ -125,12 +125,7 @@ alt + shift - 5 : yabai -m window --space 5
 hyper - b : open '/Applications/Google Chrome.app'
 hyper - s : open '/Applications/Slack.app'
 hyper - t : open '/Applications/kitty.app'
-hyper - i : open '/Applications/PyCharm.app'
-
-# media keys
-hyper - p : cliclick kp:play-pause
-cmd + alt + shift + ctrl - 0x29 : cliclick kp:volume-down
-hyper - 0x27 : cliclick kp:volume-up
+hyper - i : open '/Applications/IntelliJ IDEA.app'
 
 # Restart Yabai
 shift + lctrl + alt - r : \
