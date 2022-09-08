@@ -37,12 +37,15 @@ alias kc='kubectx'
 alias kn='kubens'
 alias kl='kubectl get deployments --no-headers -o custom-columns=":metadata.name" | sed -E "s/(.*)-[0-9a-z]{8}$/\1/" | uniq | fzf | xargs -I {} stern --color always "^{}"'
 alias kle='kl | ag -A 15 ERROR'
-alias kgp='kubectl get pods'
-alias kgd='kubectl get deployments'
+alias kp='kubectl get pods --no-headers | fzf'
+alias kd='kubectl get deployments --no-headers | fzf'
 alias k='kubectl'
 
-# better find
 alias ff='fd'
+alias eg='egrep'
+
+# node 
+alias ts='npx ts-node'
 
 # tig
 alias tigs="tig status"
