@@ -8,7 +8,7 @@
 #
 # Path
 #
-export PATH="$PATH:/usr/share:$HOME/bin:/opt/homebrew/bin"
+export PATH="$PATH:/usr/share:$HOME/bin:/$HOME/.local/bin:/opt/homebrew/bin"
 
 #
 # Browser
@@ -87,3 +87,4 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
