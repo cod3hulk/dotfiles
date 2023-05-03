@@ -10,14 +10,20 @@ nmap <LEADER>ff :action SearchEverywhere<cr>
 nmap <LEADER>fr :action RecentFiles<cr>
 nmap <LEADER>fg :action FindInPath<cr>
 
-nmap <LEADER>q :q<cr>
-nmap <LEADER>bm :action CloseAllEditorsButActive<cr>
-nmap <LEADER>pq :action CloseProject<cr>
+nmap <LEADER>lf :action ReformatCode<cr>
+vmap <LEADER>lf :action ReformatCode<cr>
+nmap <LEADER>lr :action Run<cr>
+
 nmap <LEADER>jj :action AceAction<cr>
 nmap <LEADER>ji :action FileStructurePopup<cr>
+
+nmap <LEADER>bm :action CloseAllEditorsButActive<cr>
+nmap <LEADER>w :action SaveAll<cr>
+nmap <LEADER>q :q<cr>
+
+nmap <LEADER>pq :action CloseProject<cr>
 nmap <LEADER>rr :action Run<cr>
 nmap <LEADER><SPACE> :action GotoAction<cr>
-nmap <LEADER>w :action SaveAll<cr>
 nmap <LEADER>e :NERDTreeToggle<cr>
 nmap <CR> :nohls<cr>
 nmap <c-\> :action ActivateTerminalToolWindow<cr>
