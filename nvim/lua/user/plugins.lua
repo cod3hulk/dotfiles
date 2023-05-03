@@ -57,7 +57,7 @@ return packer.startup(function(use)
   -- treesitter
   use {
    'nvim-treesitter/nvim-treesitter',
-   run = ':TSUpdate'
+   run = ':TSUpdateSync'
   }
 
   -- telescope
