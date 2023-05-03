@@ -12,7 +12,8 @@ end
 
 local servers = {
   "sumneko_lua",
-  "kotlin_language_server",
+  "tsserver",
+  "jsonls"
 }
 
 mason.setup()
@@ -42,6 +43,10 @@ for _, server in pairs(servers) do
   if server == "sumneko_lua" then
     local sumneko_opts = require("user.lsp.settings.sumneko_lua")
     opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+  end
+  if server == "jsonls" then
+    local jsonls = require("user.lsp.settings.jsonls")
+    opts = vim.tbl_deep_extend("force", jsonls, opts)
   end
 
 

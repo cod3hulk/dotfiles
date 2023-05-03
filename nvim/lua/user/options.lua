@@ -7,6 +7,7 @@ local opts = {
   fileencoding = "utf-8",
   hls = true,
   incsearch = true,
+  ignorecase = true,
   number = true,
   relativenumber = true,
   scrolloff = 10,
