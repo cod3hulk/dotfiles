@@ -28,6 +28,8 @@ nmap <LEADER>e :NERDTreeToggle<cr>
 nmap <CR> :nohls<cr>
 nmap <c-\> :action ActivateTerminalToolWindow<cr>
 imap fd <ESC>
+nmap <c-p> :action HippieBackwardCompletion<cr>
+nmap <c-n> :action HippieCompletion<cr>
 
 
 " plugins
