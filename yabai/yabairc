@@ -27,9 +27,6 @@ yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        1.0
 yabai -m config window_border                on
 yabai -m config window_border_width          6
-yabai -m config active_window_border_color   0xffbd93f9
-yabai -m config normal_window_border_color   0xff6272a4
-yabai -m config insert_feedback_color        0xffd75f5f
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off
 yabai -m config mouse_modifier               fn
@@ -52,3 +49,7 @@ yabai -m rule --add app='IntelliJ IDEA' title='Project Structure|Preferences|Lic
 yabai -m rule --add app='Google Chrome' title='Picture in Picture' manage=off
 
 echo "yabai configuration loaded.."
+
+borders active_color=0xffbd93f9 inactive_color=0xff6272a4 width=10.0&
+echo "borders started..."
+
