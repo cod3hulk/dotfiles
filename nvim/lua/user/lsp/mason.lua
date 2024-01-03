@@ -11,7 +11,7 @@ if not status_ok_1 then
 end
 
 local servers = {
-  "sumneko_lua",
+  "lua_ls",
   "tsserver",
   "jsonls"
 }
@@ -40,9 +40,9 @@ for _, server in pairs(servers) do
   server = vim.split(server, "@")[1]
 
 
-  if server == "sumneko_lua" then
-    local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-    opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+  if server == "lua_ls" then
+    local lusls_opts = require("user.lsp.settings.lua_ls")
+    opts = vim.tbl_deep_extend("force", lusls_opts, opts)
   end
   if server == "jsonls" then
     local jsonls = require("user.lsp.settings.jsonls")
