@@ -11,9 +11,9 @@ lsp_installer.on_server_ready(function(server)
     capabilities = require("user.lsp.handlers").capabilities,
   }
 
-  if server.name == "sumneko_lua" then
-    local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-    opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+  if server.name == "lua_ls" then
+    local luals_opts = require("user.lsp.settings.lua_ls")
+    opts = vim.tbl_deep_extend("force", luals_opts, opts)
   end
 
   if server.name == "tsserver" then
