@@ -42,6 +42,7 @@ alias kd='kubectl get deployments | fzf --header-lines=1'
 alias k='kubectl'
 
 alias ff='fd'
+alias fs='cd $(ff | fzf)'
 alias eg='egrep'
 
 # node 
