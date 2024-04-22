@@ -50,27 +50,27 @@ return packer.startup(function(use)
   use "mechatroner/rainbow_csv"
 
   -- colorscheme
-  use {'dracula/vim', as = 'dracula'}
+  use { 'dracula/vim', as = 'dracula' }
   use 'folke/tokyonight.nvim'
   use 'navarasu/onedark.nvim'
 
   -- treesitter
   use {
-   'nvim-treesitter/nvim-treesitter',
-   run = ':TSUpdateSync'
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdateSync'
   }
 
   -- telescope
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
   -- which-key
   use "folke/which-key.nvim"
 
   -- nvim-tree
-  use "kyazdani42/nvim-tree.lua"
+  use "nvim-tree/nvim-tree.lua"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -89,6 +89,23 @@ return packer.startup(function(use)
   use "williamboman/mason.nvim" -- simple to use language server installer
   use "williamboman/mason-lspconfig.nvim"
   use "neovim/nvim-lspconfig" -- enable LSP
+  --
+  -- -- ChatGPT
+  -- use "robitx/gp.nvim"
+  --
+  -- Kitty scrollback
+  use({
+    'mikesmithgh/kitty-scrollback.nvim',
+    disable = false,
+    opt = true,
+    cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth' },
+    event = { 'User KittyScrollbackLaunch' },
+    -- tag = '*', -- latest stable version, may have breaking changes if major version changed
+    tag = 'v4.0.0', -- pin specific tag
+    config = function()
+      require('kitty-scrollback').setup()
+    end,
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -96,4 +113,3 @@ return packer.startup(function(use)
     require("packer").sync()
   end
 end)
-
