@@ -46,10 +46,8 @@ yabai -m config window_gap                   12
 
 yabai -m rule --add app!='^Google Chrome|Alacritty|kitty|zoom.us|IntelliJ IDEA$' manage=off
 yabai -m rule --add app='IntelliJ IDEA' title='Project Structure|Preferences|Licenses|Data Sources and Drivers|Export Data|Pull to .*' manage=off
-yabai -m rule --add app='Google Chrome' title='Picture in Picture' manage=off
+yabai -m rule --add app='Google Chrome' title='about:blank.*' manage=off layer=above
+yabai -m rule --add app='Spotify' manage=off layer=above grid=1:3:0:0:2:1
 
 echo "yabai configuration loaded.."
-
-borders active_color=0xffbd93f9 inactive_color=0xff6272a4 width=10.0&
-echo "borders started..."
 

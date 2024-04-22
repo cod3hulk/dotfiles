@@ -28,6 +28,7 @@
     ~/.config/Code/User/keybindings.json: vscode/keybindings.json
     ~/.config/karabiner/karabiner.json: karabiner/karabiner.json
     ~/.config/kitty: kitty
+    ~/.config/borders/bordersrc: borders/bordersrc
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
