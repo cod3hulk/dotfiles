@@ -30,3 +30,6 @@ cask "xbar"
 tap "koekeishiya/formulae"
 brew "yabai"
 brew "skhd"
+tap FelixKratz/formulae
+brew borders
+
