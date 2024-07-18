@@ -131,4 +131,4 @@ hyper - i : open '/Applications/IntelliJ IDEA.app'
 shift + lctrl + alt - r : \
     /usr/bin/env osascript <<< \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
-    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+    yabai --restart-service
