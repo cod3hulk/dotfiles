@@ -41,10 +41,11 @@ alias kp='kubectl get pods | fzf --header-lines=1 | cut -d " " -f 1 | pbcopy'
 alias kd='kubectl get deployments | fzf --header-lines=1'
 alias k='kubectl'
 
+# file and directory search
 alias ff='fd'
+alias eg='egrep'
 function fs() { local dir="$(ff -t d $1 | fzf)"; [ ! -z "$dir" ] && cd "$dir"; }
 function fe() { local file="$(ff -t f $1 | fzf)"; [ ! -z "$file" ] && nvim "$file"; }
-alias eg='egrep'
 
 # node 
 alias ts='npx ts-node'
