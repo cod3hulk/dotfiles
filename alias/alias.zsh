@@ -42,7 +42,7 @@ alias kd='kubectl get deployments | fzf --header-lines=1'
 alias k='kubectl'
 
 alias ff='fd'
-alias fs='cd $(ff | fzf)'
+function fs() { local dir="$(ff -t d $1 | fzf)"; [ ! -z "$dir" ] && cd "$dir"; }
 alias eg='egrep'
 
 # node 
