@@ -43,6 +43,7 @@ alias k='kubectl'
 
 alias ff='fd'
 function fs() { local dir="$(ff -t d $1 | fzf)"; [ ! -z "$dir" ] && cd "$dir"; }
+function fe() { local file="$(ff -t f $1 | fzf)"; [ ! -z "$file" ] && nvim "$file"; }
 alias eg='egrep'
 
 # node 
