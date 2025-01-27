@@ -26,9 +26,34 @@ alt + shift - k : yabai -m window --focus stack.prev || yabai -m window --focus 
 alt - n : yabai -m window --focus next || yabai -m window --focus first
 alt - p : yabai -m window --focus prev
 
-alt + shift - s : yabai -m space --layout stack
-alt + shift - b : yabai -m space --layout bsp
-alt + shift - t : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')
+# alt + shift - h : sh -c 'is_floating=$(yabai -m query --windows --window | jq -re ".\"is-floating\""); \
+#                 cur_window=$(yabai -m query --windows --window | jq '.id'); \
+#                   if [ "$is_floating" = "true" ]; then \
+#                       yabai -m window --toggle float; \
+#                       yabai -m window --display west; \
+#                       yabai -m window --focus ${cur_window}; \
+#                       yabai -m window --toggle float; \
+#                       yabai -m window --grid 8:8:1:1:6:6; \
+#                   else \
+#                     yabai -m window --warp west || yabai -m window --display west && \
+#                     yabai -m window --focus ${cur_window}; \
+#                   fi'
+#
+# alt + shift - l : sh -c 'is_floating=$(yabai -m query --windows --window | jq -re ".\"is-floating\""); \
+#                 cur_window=$(yabai -m query --windows --window | jq '.id'); \
+#                   if [ "$is_floating" = "true" ]; then \
+#                       yabai -m window --toggle float; \
+#                       yabai -m window --display east; \
+#                       yabai -m window --focus ${cur_window}; \
+#                       yabai -m window --toggle float; \
+#                       yabai -m window --grid 8:8:1:1:6:6; \
+#                   else \
+#                     yabai -m window --warp east || yabai -m window --display east && \
+#                     yabai -m window --focus ${cur_window}; \
+#                   fi'
+
+# alt + shift - s : yabai -m space --layout stack
+# alt + shift - t : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')
 
 
 # make floating window fill screen
@@ -126,7 +151,10 @@ hyper - b : open '/Applications/Google Chrome.app'
 hyper - s : open '/Applications/Slack.app'
 hyper - t : open '/Applications/kitty.app'
 hyper - i : open '/Applications/IntelliJ IDEA.app'
+hyper - f1 : open '/Applications/Spotify.app'
 
+# hyper - f1 : \
+#   /usr/bin/env osascript /Users/tave/.dotfiles/scripts/automations/Spotify/like.scpt
 # Restart Yabai
 shift + lctrl + alt - r : \
     /usr/bin/env osascript <<< \
