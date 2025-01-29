@@ -12,10 +12,10 @@ alt + shift - l : cur_window=$(yabai -m query --windows --window | jq '.id') && 
                   yabai -m window --warp east || yabai -m window --display east && \
                   yabai -m window --focus ${cur_window}
 alt + shift - k : cur_window=$(yabai -m query --windows --window | jq '.id') && \
-                  yabai -m window --warp north && \
+                  yabai -m window --warp north || yabai -m window --display north && \
                   yabai -m window --focus ${cur_window}
 alt + shift - j : cur_window=$(yabai -m query --windows --window | jq '.id') && \
-                  yabai -m window --warp south && \
+                  yabai -m window --warp south || yabai -m window --display south && \
                   yabai -m window --focus ${cur_window}
 
 alt + shift - t : yabai -m window --toggle split
