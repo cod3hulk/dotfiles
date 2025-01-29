@@ -16,20 +16,31 @@ brew "jenv"
 brew "pyenv"
 brew "nvm"
 
-tap "homebrew/cask-fonts"
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
 
-cask "alfred"
-cask "alacritty"
+cask "alfred@4"
 cask "karabiner-elements"
 cask "kitty"
 cask "bartender"
 cask "xbar"
+cask "bitwarden"
+cask "shortcat"
+cask "cleanshot"
+cask "firefox"
+cask "grammarly-desktop"
+cask "spotify"
+cask "chatgpt"
+cask "alt-tab"
+cask "obsidian"
 
 tap "koekeishiya/formulae"
 brew "yabai"
 brew "skhd"
-tap FelixKratz/formulae
-brew borders
+#brew tap FelixKratz/formulae
+#brew borders
 
+at_exit do 
+  system "/opt/homebrew/bin/skhd --start-service"
+  system "/opt/homebrew/bin/yabai --start-service"
+end
