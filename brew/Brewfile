@@ -1,9 +1,9 @@
 brew "autojump"
-brew "fzf"
+brew "fzf", postinstall: "#{ENV["HOME"]}/.dotfiles/fzf/init.zsh"
 brew "git"
 brew "htop"
 brew "make"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "tmux"
 brew "zsh"
 brew "tig"
@@ -37,14 +37,11 @@ cask "chatgpt"
 cask "alt-tab"
 cask "obsidian"
 cask "whatsapp"
+cask "rocket"
 
 tap "koekeishiya/formulae"
-brew "yabai"
-brew "skhd"
-#brew tap FelixKratz/formulae
-#brew borders
+brew "yabai", postinstall: "#{ENV["HOME"]}/.dotfiles/yabai/init.sh"
+brew "skhd", postinstall: "#{ENV["HOME"]}/.dotfiles/skhd/init.sh"
 
-at_exit do 
-  system "/opt/homebrew/bin/skhd --start-service"
-  system "/opt/homebrew/bin/yabai --start-service"
-end
+tap "FelixKratz/formulae"
+brew "borders", postinstall: "#{ENV["HOME"]}/.dotfiles/borders/init.sh"
