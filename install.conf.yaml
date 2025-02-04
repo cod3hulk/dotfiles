@@ -8,27 +8,49 @@
       stderr: true
 - clean: ['~', '~/.config']
 - link:
-    ~/.tmux.conf: tmux/tmux.conf
-    ~/.tigrc: tig/tig.conf
-    ~/.yabairc: yabai/yabairc
-    ~/.limelight: limelight/limelight.sh
-    ~/.skhdrc: skhd/skhdrc
-    ~/.config/nvim: nvim
-    ~/.ideavimrc: intellij/ideavimrc
-    ~/.zshrc: zsh/zshrc.zsh
-    ~/.zprofile: zsh/zprofile.zsh
-    ~/.hammerspoon: hammerspoon
-    ~/.tmux/plugins/tpm: tmux/tpm
-    ~/.tmux/scripts: tmux/scripts
-    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
-    /usr/local/bin/kubectx: k8s/kubectx
-    /usr/local/bin/kubens: k8s/kubens
-    ~/.config/i3/config: i3/config
-    ~/.config/Code/User/settings.json: vscode/settings.json
-    ~/.config/Code/User/keybindings.json: vscode/keybindings.json
-    ~/.config/karabiner/karabiner.json: karabiner/karabiner.json
-    ~/.config/kitty: kitty
-    ~/.config/borders/bordersrc: borders/bordersrc
+    ~/.tmux.conf: 
+      path: tmux/tmux.conf
+    ~/.tigrc: 
+      path: tig/tig.conf
+    ~/.yabairc:
+      path: yabai/yabairc
+    ~/.limelight: 
+      path: limelight/limelight.sh
+    ~/.skhdrc: 
+      path: skhd/skhdrc
+    ~/.config/nvim: 
+      path: nvim
+    ~/.ideavimrc: 
+      path: intellij/ideavimrc
+    ~/.zshrc: 
+      path: zsh/zshrc.zsh
+    ~/.zprofile: 
+      path: zsh/zprofile.zsh
+    ~/.hammerspoon: 
+      path: hammerspoon
+    ~/.tmux/plugins/tpm: 
+      path: tmux/tpm
+    ~/.tmux/scripts: 
+      path: tmux/scripts
+    ~/.config/alacritty/alacritty.yml: 
+      path: alacritty/alacritty.yml
+      #/usr/local/bin/kubectx: 
+      #path: k8s/kubectx
+      #/usr/local/bin/kubens: 
+      #path: k8s/kubens
+    ~/.config/i3/config: 
+      path: i3/config
+    ~/.config/Code/User/settings.json: 
+      path: vscode/settings.json
+    ~/.config/Code/User/keybindings.json: 
+      path: vscode/keybindings.json
+    ~/.config/karabiner/karabiner.json: 
+      path: karabiner/karabiner.json
+      force: true
+    ~/.config/kitty: 
+      path: kitty
+    ~/.config/borders/bordersrc: 
+      path: borders/bordersrc
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
