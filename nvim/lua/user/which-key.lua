@@ -97,6 +97,7 @@ local mappings =   {
 
     { "<leader>g", group = "Git", nowait = true, remap = false },
     { "<leader>gb", "<cmd>G blame<cr>", desc = "Blame", nowait = true, remap = false },
+    { "<leader>gs", "<cmd>G<cr>", desc = "Status", nowait = true, remap = false },
 
     { "<leader>q", "<cmd>:q<cr>", desc = "Close File", nowait = true, remap = false },
     { "<leader>w", "<cmd>:w<cr>", desc = "Write File", nowait = true, remap = false },
