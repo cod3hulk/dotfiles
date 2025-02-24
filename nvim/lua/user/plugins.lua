@@ -49,6 +49,15 @@ return packer.startup(function(use)
   use "akinsho/toggleterm.nvim"
   use "mechatroner/rainbow_csv"
   use "tpope/vim-fugitive"
+  use({
+      "kylechui/nvim-surround",
+      tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+      config = function()
+          require("nvim-surround").setup({
+              -- Configuration here, or leave empty to use defaults
+          })
+      end
+  })
 
   -- colorscheme
   use { 'dracula/vim', as = 'dracula' }
