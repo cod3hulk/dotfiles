@@ -48,6 +48,7 @@ return packer.startup(function(use)
   use "phaazon/hop.nvim"
   use "akinsho/toggleterm.nvim"
   use "mechatroner/rainbow_csv"
+  use "tpope/vim-fugitive"
 
   -- colorscheme
   use { 'dracula/vim', as = 'dracula' }
