@@ -34,10 +34,8 @@
       path: tmux/scripts
     ~/.config/alacritty/alacritty.yml: 
       path: alacritty/alacritty.yml
-      #/usr/local/bin/kubectx: 
-      #path: k8s/kubectx
-      #/usr/local/bin/kubens: 
-      #path: k8s/kubens
+    ~/.config/kanata/kanata.kbd:
+      path: kanata/kanata.kbd
     ~/.config/i3/config: 
       path: i3/config
     ~/.config/Code/User/settings.json: 

@@ -86,6 +86,7 @@ local mappings =   {
     { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Grep File", nowait = true, remap = false },
     { "<leader>fn", "<cmd>:new<cr>", desc = "New File", nowait = true, remap = false },
     { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", nowait = true, remap = false },
+    { "<leader>fp", "<cmd>normal! /[\"']\\?[%./~_%w-]\\+\\.[%w]\\+[\"']\\?<cr>", desc = "Search File Paths", nowait = true, remap = false }, 
 
     { "<leader>j", group = "jump", nowait = true, remap = false },
     { "<leader>jj", "<cmd>HopChar1<cr>", desc = "Jump Char", nowait = true, remap = false },
