@@ -38,6 +38,7 @@ cask "alt-tab"
 cask "obsidian"
 cask "whatsapp"
 cask "rocket"
+cask "keepingyouawake"
 
 tap "koekeishiya/formulae"
 brew "yabai", postinstall: "#{ENV["HOME"]}/.dotfiles/yabai/init.sh"

@@ -1,0 +1,58 @@
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+)
+
+(defvar
+  tap-time 200
+  hold-time 200
+)
+
+(defsrc
+)
+
+(defchordsv2
+  (w e) esc 200 all-released (first)
+  (x c) tab 200 all-released (first)
+  (i o) bspc 200 all-released (first)
+  (, .) ent 200 all-released (first)
+)
+
+(deftemplate hyper (char)
+  (multi alt sft ctl met $char)
+)
+
+(deftemplate charmod (char mod)
+  (switch 
+    ((key-timing 3 less-than 200)) $char break
+    () (tap-hold-release 200 200 $char $mod) break
+  )
+)
+
+(deflayermap (default)
+  a (t! charmod a lctl)
+  s (t! charmod s lalt)
+  d (t! charmod d lmet)
+  f (t! charmod f lsft)
+  j (t! charmod j rsft)
+  k (t! charmod k rmet)
+  l (t! charmod l ralt)
+  ; (t! charmod ; rctl)
+  caps (layer-while-held first)
+)
+
+(deflayermap(first)
+  ;; navigation mappings
+  k up
+  j down
+  h left
+  l right
+
+  ;; hyper key mappings
+  t (t! hyper t)
+  b (t! hyper b)
+  o (t! hyper o)
+  s (t! hyper s)
+  f (t! hyper f)
+)
+
