@@ -152,6 +152,7 @@ hyper - s : open '/Applications/Slack.app'
 hyper - t : open '/Applications/kitty.app'
 hyper - i : open '/Applications/IntelliJ IDEA.app'
 hyper - f1 : open '/Applications/Spotify.app'
+hyper - v : /Users/tomas.ave/Development/cod3hulk/nvim-anywhere/nvim-anywhere.sh
 
 # hyper - f1 : \
 #   /usr/bin/env osascript /Users/tave/.dotfiles/scripts/automations/Spotify/like.scpt
