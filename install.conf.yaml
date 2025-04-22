@@ -53,3 +53,4 @@
   - brew/init.zsh 
   - linux/init.zsh
   - zgen/init.zsh
+  - "touch ~/.hushlogin"
