@@ -49,6 +49,7 @@ return packer.startup(function(use)
   use "akinsho/toggleterm.nvim"
   use "mechatroner/rainbow_csv"
   use "tpope/vim-fugitive"
+  use "pabloariasal/webify.nvim"
   use({
     "kylechui/nvim-surround",
     tag = "*",   -- Use for stability; omit to use `main` branch for the latest features
