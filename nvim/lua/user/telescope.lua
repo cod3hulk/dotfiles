@@ -6,6 +6,9 @@ end
 
 local actions = require("telescope.actions")
 local setup = {
+  defaults = {
+    path_display = { "smart" }
+  },
   pickers = {
     git_branches = {
       mappings = {
