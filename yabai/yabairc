@@ -34,18 +34,15 @@ yabai -m config debug_output                 on
 
 # general space settings
 yabai -m config layout                       bsp
-yabai -m config top_padding                  12
-yabai -m config bottom_padding               12
-yabai -m config left_padding                 12
-yabai -m config right_padding                12
-yabai -m config window_gap                   12
+yabai -m config top_padding                  20
+yabai -m config bottom_padding               20
+yabai -m config left_padding                 20
+yabai -m config right_padding                20
+yabai -m config window_gap                   20
 # yabai -m config external_bar all:32:0
 
-yabai -m rule --add app!='^Google Chrome|kitty|IntelliJ IDEA$' manage=off
-yabai -m rule --add app='IntelliJ IDEA' title='Project Structure|Preferences|Licenses|Data Sources and Drivers|Export Data|Pull to .*' manage=off
-yabai -m rule --add app='Google Chrome' title='about:blank.*' manage=off
-yabai -m rule --add app='Spotify' grid=1:1:0:0:1:1 manage=off
-yabai -m rule --add app="^Audio Hijack$" title="Meeting recorder" sticky=on layer=above manage=off
+yabai -m rule --apply app='.*' grid=8:8:1:1:6:6 manage=off
+yabai -m rule --apply app='Google Chrome|Firefox|Slack' manage=on
 
 echo "yabai configuration loaded.."
 
