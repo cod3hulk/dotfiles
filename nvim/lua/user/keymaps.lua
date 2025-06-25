@@ -25,12 +25,12 @@ keymap('n', '<C-u>', '<C-u>zz', opts)
 -- move text up and down
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
+-- stop visual selection
+keymap("x", "<CR>", "<C-c>", opts)
 
 -- indentation
 keymap("x", ">", ">gv", opts)
 keymap("x", "<", "<gv", opts)
 
--- stop visual selection
-keymap("x", "<CR>", "<C-c>", opts)
-
+-- file explorer
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)

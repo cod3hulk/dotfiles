@@ -13,7 +13,8 @@ end
 local servers = {
   "lua_ls",
   "ts_ls",
-  "jsonls"
+  "jsonls",
+  "kotlin_language_server",
 }
 
 mason.setup()
@@ -21,6 +22,11 @@ mason.setup()
 mason_lspconfig.setup {
   ensure_installed = servers,
   automatic_installation = true,
+  automatic_enable = {
+    exclude = {
+      "lua_ls",
+    }
+  }
 }
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
