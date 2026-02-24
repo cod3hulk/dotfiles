@@ -79,6 +79,20 @@ local opts = {
   nowait = true, -- use `nowait` when creating keymaps
 }
 
+local function toggle_diff()
+  -- Check if the current window is in diff mode
+  if vim.wo.diff then
+    -- If it is, turn diff mode off for all windows
+    vim.cmd('windo diffoff')
+    print('Diff mode OFF')
+  else
+    -- If not, turn diff mode on for all windows
+    vim.cmd('windo diffthis')
+    print('Diff mode ON')
+  end
+end
+
+
 local mappings =   {
     { "<leader>f", group = "find", nowait = true, remap = false },
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers", nowait = true, remap = false },
@@ -92,6 +106,9 @@ local mappings =   {
     { "<leader>j", group = "jump", nowait = true, remap = false },
     { "<leader>jj", "<cmd>HopChar1<cr>", desc = "Jump Char", nowait = true, remap = false },
     { "<leader>jw", "<cmd>HopWord<cr>", desc = "Jump Word", nowait = true, remap = false },
+    { "<leader>jd", "<cmd>Telescope lsp_definitions<cr>", desc = "Jump to definition", nowait = true, remap = false },
+    { "<leader>jr", "<cmd>Telescope lsp_references<cr>", desc = "Jump to references", nowait = true, remap = false },
+    { "<leader>jt", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Jump to symbols", nowait = true, remap = false },
 
     { "<leader>l", group = "LSP", nowait = true, remap = false },
     { "<leader>lf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format", nowait = true, remap = false },
@@ -104,10 +121,12 @@ local mappings =   {
     { "<leader>gP", "<cmd>G pull<cr>", desc = "Pull", nowait = true, remap = false },
     { "<leader>gc", "<cmd>Telescope git_branches<cr>", desc = "Checkout", nowait = true, remap = false },
 
+
     { "<leader>q", "<cmd>:q<cr>", desc = "Close File", nowait = true, remap = false },
     { "<leader>w", "<cmd>:w<cr>", desc = "Write File", nowait = true, remap = false },
     { "<leader>x", "<cmd>:x<cr>", desc = "Write And Close File", nowait = true, remap = false },
     { "<leader>e", "<cmd>:NvimTreeToggle<cr>", desc = "Toggle File Explorer", nowait = true, remap = false },
+    { "<leader>d", toggle_diff, group = "Buffer", desc = "Diff", nowait = true, remap = false },
 }
 
 

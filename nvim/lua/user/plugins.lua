@@ -49,20 +49,20 @@ return packer.startup(function(use)
   use "akinsho/toggleterm.nvim"
   use "mechatroner/rainbow_csv"
   use "tpope/vim-fugitive"
-  use "pabloariasal/webify.nvim"
+  -- use "pabloariasal/webify.nvim"
   use({
     "kylechui/nvim-surround",
-    tag = "*",   -- Use for stability; omit to use `main` branch for the latest features
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
       require("nvim-surround").setup({
         -- Configuration here, or leave empty to use defaults
       })
     end
   })
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
+  -- use {
+  --   'nvim-lualine/lualine.nvim',
+  --   requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  -- }
 
   -- colorscheme
   use { 'dracula/vim', as = 'dracula' }
@@ -121,6 +121,32 @@ return packer.startup(function(use)
       require('kitty-scrollback').setup()
     end,
   })
+
+  -- Gemini
+  use {
+    "marcinjahn/gemini-cli.nvim",
+    -- 'cmd' defines which commands trigger the lazy-load
+    cmd = { "Gemini" },
+
+    -- Packer handles keybindings via the 'setup' or 'config' function
+    -- or via the 'keys' keyword if using a specific packer extension.
+    -- The most reliable way is to define them manually:
+    setup = function()
+      vim.keymap.set("n", "<leader>a/", "<cmd>Gemini toggle<cr>", { desc = "Toggle Gemini CLI" })
+      vim.keymap.set({ "n", "v" }, "<leader>aa", "<cmd>Gemini ask<cr>", { desc = "Ask Gemini" })
+      vim.keymap.set("n", "<leader>af", "<cmd>Gemini add_file<cr>", { desc = "Add File" })
+    end,
+
+    requires = {
+      "folke/snacks.nvim",
+    },
+
+    -- In lazy.nvim, 'config = true' automatically calls require("gemini-cli").setup({})
+    -- In Packer, you must do this explicitly:
+    config = function()
+      require("gemini-cli").setup({})
+    end,
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
