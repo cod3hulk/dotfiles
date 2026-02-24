@@ -20,11 +20,11 @@ alt + shift - j : cur_window=$(yabai -m query --windows --window | jq '.id') && 
 
 alt + shift - t : yabai -m window --toggle split
 
-alt + shift - j : yabai -m window --focus stack.next || yabai -m window --focus stack.first
-alt + shift - k : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+# alt + shift - j : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+# alt + shift - k : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 
 alt - n : yabai -m window --focus next || yabai -m window --focus first
-alt - p : yabai -m window --focus prev
+alt - p : yabai -m window --focus prev || yabai -m window --focus last
 
 # alt + shift - h : sh -c 'is_floating=$(yabai -m query --windows --window | jq -re ".\"is-floating\""); \
 #                 cur_window=$(yabai -m query --windows --window | jq '.id'); \
@@ -113,13 +113,13 @@ alt - m: yabai -m window --minimize && yabai -m window --focus recent
 alt - w: yabai -m window --close
 
 # resize
-ctrl + cmd - h : yabai -m window west --resize right:-50:0 2> /dev/null || yabai -m window --resize right:-50:0
-ctrl + cmd - j : yabai -m window north --resize bottom:0:50 2> /dev/null || yabai -m window --resize bottom:0:50
-ctrl + cmd - k : yabai -m window south --resize top:0:-50 2> /dev/null || yabai -m window --resize top:0:-50
-ctrl + cmd - l : yabai -m window east --resize left:50:0 2> /dev/null || yabai -m window --resize left:50:0
-ctrl + cmd - 0 : yabai -m space --balance
-ctrl + cmd - 3 : yabai -m window --ratio abs:0.3
-ctrl + cmd - 7 : yabai -m window --ratio abs:0.7
+alt + cmd - h : yabai -m window west --resize right:-50:0 2> /dev/null || yabai -m window --resize right:-50:0
+alt + cmd - j : yabai -m window north --resize bottom:0:50 2> /dev/null || yabai -m window --resize bottom:0:50
+alt + cmd - k : yabai -m window south --resize top:0:-50 2> /dev/null || yabai -m window --resize top:0:-50
+alt + cmd - l : yabai -m window east --resize left:50:0 2> /dev/null || yabai -m window --resize left:50:0
+alt + cmd - 0 : yabai -m space --balance
+alt + cmd - 3 : yabai -m window --ratio abs:0.3
+alt + cmd - 7 : yabai -m window --ratio abs:0.7
 
 
 # toggle window split type
@@ -135,21 +135,21 @@ ctrl + cmd - 7 : yabai -m window --ratio abs:0.7
           #yabai -m window --toggle pip
           #
 # focus spaces
-alt - 1 : yabai -m space --focus 1
-alt + shift - 1 : yabai -m window --space 1
-alt - 2 : yabai -m space --focus 2
-alt + shift - 2 : yabai -m window --space 2
-alt - 3 : yabai -m space --focus 3
-alt + shift - 3 : yabai -m window --space 3
-alt - 4 : yabai -m space --focus 4
-alt + shift - 4 : yabai -m window --space 4
-alt - 5 : yabai -m space --focus 5
-alt + shift - 5 : yabai -m window --space 5
+#alt - 1 : yabai -m space --focus 1
+#alt + shift - 1 : yabai -m window --space 1
+#alt - 2 : yabai -m space --focus 2
+#alt + shift - 2 : yabai -m window --space 2
+#alt - 3 : yabai -m space --focus 3
+#alt + shift - 3 : yabai -m window --space 3
+#alt - 4 : yabai -m space --focus 4
+#alt + shift - 4 : yabai -m window --space 4
+#alt - 5 : yabai -m space --focus 5
+#alt + shift - 5 : yabai -m window --space 5
 
 # open apps
 hyper - b : open '/Applications/Google Chrome.app'
 hyper - s : open '/Applications/Slack.app'
-hyper - t : open '/Applications/kitty.app'
+hyper - t : open '/Applications/Alacritty.app'
 hyper - i : open '/Applications/IntelliJ IDEA.app'
 hyper - f1 : open '/Applications/Spotify.app'
 hyper - v : /Users/tomas.ave/Development/cod3hulk/nvim-anywhere/nvim-anywhere.sh
@@ -157,7 +157,7 @@ hyper - v : /Users/tomas.ave/Development/cod3hulk/nvim-anywhere/nvim-anywhere.sh
 # hyper - f1 : \
 #   /usr/bin/env osascript /Users/tave/.dotfiles/scripts/automations/Spotify/like.scpt
 # Restart Yabai
-shift + lctrl + alt - r : \
+shift + lcmd + alt - r : \
     /usr/bin/env osascript <<< \
         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
     yabai --restart-service
