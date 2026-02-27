@@ -49,6 +49,24 @@ return packer.startup(function(use)
   use "akinsho/toggleterm.nvim"
   use "mechatroner/rainbow_csv"
   use "tpope/vim-fugitive"
+  use {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    config = function()
+      vim.keymap.set("n", "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>")
+      vim.keymap.set("n", "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>")
+      vim.keymap.set("n", "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>")
+      vim.keymap.set("n", "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>")
+      vim.keymap.set("n", "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>")
+    end
+  }
   -- use "pabloariasal/webify.nvim"
   use({
     "kylechui/nvim-surround",
@@ -94,8 +112,6 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-cmdline"      -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
   use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-nvim-lua"
-
   -- snippets
   use "L3MON4D3/LuaSnip"             --snippet engine
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use

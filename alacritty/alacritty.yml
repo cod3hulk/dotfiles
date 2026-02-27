@@ -422,7 +422,7 @@ debug:
   print_events: false
 
   # Record all characters and escape sequences as test data.
-  ref_test: false
+  # ref_test: false
 
 # Key bindings
 #

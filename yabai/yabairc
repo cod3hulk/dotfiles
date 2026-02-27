@@ -41,8 +41,10 @@ yabai -m config right_padding                20
 yabai -m config window_gap                   20
 # yabai -m config external_bar all:32:0
 
-yabai -m rule --apply app='.*' grid=8:8:1:1:6:6 manage=off
-yabai -m rule --apply app='Google Chrome|Firefox|Slack' manage=on
+# yabai -m rule --apply app='.*' grid=8:8:1:1:6:6 manage=off
+# yabai -m rule --apply app='Google Chrome|Firefox|Slack' role="AXWindow" subrole="AXStandardWindow" manage=on layer=below
+# Disable mouse follwos focus for specific apps
+# yabai -m rule --add app="iStat Menus.*" manage=off mouse_follows_focus=off
 
 echo "yabai configuration loaded.."
 

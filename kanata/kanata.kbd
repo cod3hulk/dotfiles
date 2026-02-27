@@ -4,18 +4,21 @@
 )
 
 (defvar
-  tap-time 200
-  hold-time 200
+  streak-count 3
+  streak-time 325
+  tap-timeout 200
+  hold-timeout 300
+  chord-timeout 50
 )
 
 (defsrc
 )
 
 (defchordsv2
-  (w e) esc 200 all-released (first)
-  (x c) tab 200 all-released (first)
-  (i o) bspc 200 all-released (first)
-  (, .) ent 200 all-released (first)
+  (w e) esc $chord-timeout all-released (first)
+  (x c) tab $chord-timeout all-released (first)
+  (i o) bspc $chord-timeout all-released (first)
+  (, .) ent $chord-timeout all-released (first)
 )
 
 (deftemplate hyper (char)
@@ -24,8 +27,8 @@
 
 (deftemplate charmod (char mod)
   (switch 
-    ((key-timing 3 less-than 140)) $char break
-    () (tap-hold-release 0 500 $char $mod) break
+    ((key-timing $streak-count less-than $streak-time)) $char break
+    () (tap-hold-release $tap-timeout $hold-timeout $char $mod) break
   )
 )
 
