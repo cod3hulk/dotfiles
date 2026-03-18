@@ -51,14 +51,6 @@ return packer.startup(function(use)
   use "tpope/vim-fugitive"
   use {
     "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-      "TmuxNavigatorProcessList",
-    },
     config = function()
       vim.keymap.set("n", "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>")
       vim.keymap.set("n", "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>")
