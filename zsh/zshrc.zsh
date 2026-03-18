@@ -9,6 +9,7 @@ if ! zgen saved; then
     zgen prezto prompt theme 'kylewest'
     zgen prezto '*:*' color 'yes'
     zgen prezto 'tmux:auto-start' local 'no'
+    zgen prezto 'tmux:auto-start' local 'yes'
     zgen prezto 'autosuggestions:color' found 'fg=241'
 
     # plugins
