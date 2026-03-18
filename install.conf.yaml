@@ -44,8 +44,8 @@
       path: vscode/settings.json
     ~/.config/Code/User/keybindings.json: 
       path: vscode/keybindings.json
-    ~/.config/karabiner/karabiner.json: 
-      path: karabiner/karabiner.json
+    ~/.config/karabiner:
+      path: karabiner
       force: true
     ~/.config/kitty: 
       path: kitty
