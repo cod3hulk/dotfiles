@@ -1,1 +1,0 @@
--- blink.cmp is configured via lazy.nvim opts in plugins.lua
