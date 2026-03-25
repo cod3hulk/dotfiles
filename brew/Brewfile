@@ -19,6 +19,7 @@ brew "kubectx"
 brew "ag"
 brew "stern"
 brew "meetingbar"
+brew "tree-sitter-cli"
 brew "colima", postinstall: "#{ENV["HOME"]}/.dotfiles/colima/init.zsh"
 
 cask "font-fira-code-nerd-font"
