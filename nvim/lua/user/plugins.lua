@@ -77,8 +77,8 @@ require("lazy").setup({
   "rafamadriz/friendly-snippets",
 
   -- LSP
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
+  "mason-org/mason.nvim",
+  "mason-org/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
 
   -- Kitty scrollback (lazy-loaded)
