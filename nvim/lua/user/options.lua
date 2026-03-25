@@ -27,3 +27,4 @@ local opts = {
 for k, v in pairs(opts) do
   vim.opt[k] = v
 end
+vim.env.PATH = vim.env.PATH .. ":/opt/homebrew/bin"

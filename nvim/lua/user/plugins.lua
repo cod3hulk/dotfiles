@@ -64,6 +64,9 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdateSync",
+    config = function()
+      require("user.treesitter")
+    end,
   },
 
   -- Completion
