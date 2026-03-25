@@ -1,0 +1,51 @@
+# dotbot infrastructure — not managed by chezmoi
+dotbot/
+install
+install.conf.yaml
+
+# legacy directories — not managed by chezmoi
+config/
+
+# legacy source directories (contents migrated into dot_* structure)
+alias/
+autojump/
+borders/
+alacritty/
+colima/
+dracula/
+fzf/
+function/
+hammerspoon/
+i3/
+intellij/
+k8s/
+k9s/
+kanata/
+karabiner/
+kitty/
+limelight/
+linux/
+nvim/
+scripts/
+skhd/
+tig/
+tmux/
+vscode/
+yabai/
+zgen/
+zsh/
+
+# git
+.git/
+.gitmodules
+.gitignore
+
+# repo root files not deployed to home
+LICENSE
+README.md
+brew/
+
+# chezmoi config not part of the managed home
+.chezmoiignore
+.chezmoiexternal.toml
+.chezmoi.toml.tmpl

@@ -1,0 +1,58 @@
+" plugins
+" set surround
+set which-key
+" set commentary
+" set NERDTree
+set clipboard+=unnamed
+
+set notimeout
+set timeoutlen = 5000
+" set hlsearch
+" set incsearch
+let mapleader = " "
+
+" Git
+nmap <leader>gp :action Git.Pull<cr>
+nmap <leader>gb :action Annotate<cr>
+
+let g:WhichKeyDesc_git_prefix  = "<leader>g Git"
+let g:WhichKeyDesc_git_pull_action  = "<leader>gp Pull"
+let g:WhichKeyDesc_git_blame_action  = "<leader>gb Blame"
+
+" " Find files
+nmap <leader>ff :action SearchEverywhere<cr>
+nmap <leader>fr :action RecentFiles<cr>
+nmap <leader>fg :action FindInPath<cr>
+
+let g:WhichKeyDesc_files_prefix  = "<leader>f Files"
+let g:WhichKeyDesc_files_find_action  = "<leader>ff Find"
+let g:WhichKeyDesc_files_recent_action  = "<leader>fr Recent"
+let g:WhichKeyDesc_files_grep_action  = "<leader>fg Grep"
+
+nmap gR :action RenameElement<cr>
+nmap g; :action JumpToLastChange<cr>
+nmap g, :action JumpToNextChange<cr>
+nmap ,m :action HideAllWindows<cr>
+nmap <c-]> :action MethodDown<cr>
+nmap <c-[> :action MethodUp<cr>
+
+nmap <LEADER>lf :action ReformatCode<cr>
+nmap <LEADER>lr :action Run<cr>
+
+nmap <LEADER>jj :action AceAction<cr>
+nmap <LEADER>ji :action FileStructurePopup<cr>
+
+nmap <LEADER>bm :action CloseAllEditorsButActive<cr>
+nmap <LEADER>w :action SaveAll<cr>
+nmap <LEADER>q :q<cr>
+
+nmap <LEADER>pq :action CloseProject<cr>
+nmap <LEADER>rr :action Run<cr>
+nmap <LEADER><SPACE> :action GotoAction<cr>
+nmap <LEADER>e :NERDTreeToggle<cr>
+nmap <CR> :nohls<cr>
+nmap <c-\> :action ActivateTerminalToolWindow<cr>
+imap fd <ESC>
+nmap <c-p> :action HippieBackwardCompletion<cr>
+nmap <c-n> :action HippieCompletion<cr>
+

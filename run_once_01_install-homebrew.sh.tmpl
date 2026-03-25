@@ -1,0 +1,16 @@
+#!/bin/bash
+# Runs once per machine. Re-run by deleting ~/.local/share/chezmoi/.chezmoistate.boltdb
+# or by changing this file's content.
+{{ if eq .chezmoi.os "darwin" -}}
+set -e
+
+BREW_COMMAND="/opt/homebrew/bin/brew"
+
+if ! command -v "${BREW_COMMAND}" &>/dev/null; then
+  echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+echo "Installing Homebrew packages from Brewfile..."
+"${BREW_COMMAND}" bundle install --file="{{ .chezmoi.sourceDir }}/brew/Brewfile" --no-lock
+{{ end -}}

@@ -1,0 +1,22 @@
+#!/bin/bash
+# Linux package bootstrap — runs once per machine.
+{{ if eq .chezmoi.os "linux" -}}
+set -e
+
+sudo apt install -y \
+  chromium-browser \
+  tmux \
+  zsh \
+  python3 \
+  python3-pip \
+  neovim \
+  python3-neovim \
+  curl \
+  autojump \
+  silversearcher-ag \
+  docker.io \
+  docker-compose \
+  fzf \
+  htop \
+  tig
+{{ end -}}

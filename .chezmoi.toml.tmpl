@@ -1,0 +1,24 @@
+{{- $work := false -}}
+{{- $gitName := "Tomas Ave" -}}
+{{- $gitEmail := "" -}}
+
+{{- if eq .chezmoi.hostname "work" -}}
+  {{- $work = true -}}
+{{- end -}}
+
+{{- if hasKey . "work" -}}
+  {{- $work = .work -}}
+{{- end -}}
+
+{{- if not (hasKey . "gitEmail") -}}
+  {{- $gitEmail = promptStringOnce . "gitEmail" "Git email address" -}}
+{{- else -}}
+  {{- $gitEmail = .gitEmail -}}
+{{- end -}}
+
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
+[data]
+    work = {{ $work }}
+    gitName = {{ $gitName | quote }}
+    gitEmail = {{ $gitEmail | quote }}

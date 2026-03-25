@@ -1,0 +1,17 @@
+# External repos managed by chezmoi (replaces git submodules)
+# chezmoi will clone/update these automatically on `chezmoi apply`
+
+[".hammerspoon"]
+    type = "git-repo"
+    url = "https://github.com/cod3hulk/hammerspoon-config.git"
+    refreshPeriod = "168h"
+
+[".tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
+    refreshPeriod = "168h"
+
+[".zgen"]
+    type = "git-repo"
+    url = "https://github.com/tarjoilija/zgen.git"
+    refreshPeriod = "168h"
