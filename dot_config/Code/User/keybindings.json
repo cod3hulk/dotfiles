@@ -1,0 +1,25 @@
+[
+  {
+    "command": "vscode-neovim.compositeEscape1",
+    "key": "f",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "f"
+  },
+  {
+    "command": "vscode-neovim.compositeEscape2",
+    "key": "d",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "d"
+  },
+  {
+    "command": "vscode-neovim.send",
+    "key": "ctrl+l",
+    "when": "filesExplorerFocus || editorTextFocus && neovim.ctrlKeysNormal && neovim.init && neovim.mode != 'insert'",
+    "args": "<C-l>"
+  },
+  {
+    "key": "space",
+    "command": "whichkey.show",
+    "when": "neovim.mode != insert && editorTextFocus"
+  }
+]

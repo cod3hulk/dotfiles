@@ -1,0 +1,20 @@
+#!/bin/bash
+# Start macOS background services — runs once per machine.
+{{ if eq .chezmoi.os "darwin" -}}
+set -e
+
+# yabai
+if command -v yabai &>/dev/null; then
+  yabai --start-service 2>/dev/null || true
+fi
+
+# skhd
+if command -v skhd &>/dev/null; then
+  skhd --start-service 2>/dev/null || true
+fi
+
+# borders (JankyBorders)
+if command -v borders &>/dev/null; then
+  borders --start-service 2>/dev/null || true
+fi
+{{ end -}}
