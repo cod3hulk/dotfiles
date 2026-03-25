@@ -3,8 +3,12 @@ if not status_ok then
   return
 end
 
+local parser_install_dir = vim.fn.stdpath("data") .. "/site"
+vim.opt.runtimepath:prepend(parser_install_dir)
+
 configs.setup {
-  ensure_installed = {"javascript", "markdown", "bash", "lua"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  parser_install_dir = parser_install_dir,
+  ensure_installed = { "javascript", "typescript", "tsx", "json", "python", "css", "html", "yaml", "markdown", "bash", "lua" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { "phpdoc", "tree-sitter-phpdoc" }, -- List of parsers to ignore installing
   autopairs = {
