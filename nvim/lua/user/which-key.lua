@@ -126,6 +126,14 @@ local mappings =   {
     { "<leader>ghl", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Line Blame", nowait = true, remap = false },
 
 
+    { "<leader>t", group = "Terminal", nowait = true, remap = false },
+    { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal", nowait = true, remap = false },
+    { "<leader>tg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", desc = "Lazygit", nowait = true, remap = false },
+    { "<leader>tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node", nowait = true, remap = false },
+    { "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", desc = "Python", nowait = true, remap = false },
+    { "<leader>th", "<cmd>lua _HTOP_TOGGLE()<cr>", desc = "Htop", nowait = true, remap = false },
+    { "<leader>td", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "Ncdu", nowait = true, remap = false },
+
     { "<leader>q", "<cmd>:q<cr>", desc = "Close File", nowait = true, remap = false },
     { "<leader>w", "<cmd>:w<cr>", desc = "Write File", nowait = true, remap = false },
     { "<leader>x", "<cmd>:x<cr>", desc = "Write And Close File", nowait = true, remap = false },
