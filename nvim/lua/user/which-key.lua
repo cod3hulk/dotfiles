@@ -111,7 +111,9 @@ local mappings =   {
 
     { "<leader>l", group = "LSP", nowait = true, remap = false },
     { "<leader>lf", "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<cr>", desc = "Format", nowait = true, remap = false },
-    { "<leader>li", "<cmd>LspInstallInfo<cr>", desc = "Install LanguageServer", nowait = true, remap = false },
+    { "<leader>lR", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", nowait = true, remap = false },
+    { "<leader>ld", "<cmd>lua vim.diagnostic.open_float()<cr>", desc = "Line Diagnostics", nowait = true, remap = false },
+    { "<leader>lD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
 
     { "<leader>g", group = "Git", nowait = true, remap = false },
     { "<leader>gb", "<cmd>G blame<cr>", desc = "Blame", nowait = true, remap = false },
@@ -133,6 +135,12 @@ local mappings =   {
     { "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", desc = "Python", nowait = true, remap = false },
     { "<leader>th", "<cmd>lua _HTOP_TOGGLE()<cr>", desc = "Htop", nowait = true, remap = false },
     { "<leader>td", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "Ncdu", nowait = true, remap = false },
+
+    { "<leader>b", group = "Buffers", nowait = true, remap = false },
+    { "<leader>bn", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer", nowait = true, remap = false },
+    { "<leader>bp", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", nowait = true, remap = false },
+    { "<leader>bc", "<cmd>bdelete!<cr>", desc = "Close Buffer", nowait = true, remap = false },
+    { "<leader>bf", "<cmd>Telescope buffers<cr>", desc = "Find Buffer", nowait = true, remap = false },
 
     { "<leader>q", "<cmd>:q<cr>", desc = "Close File", nowait = true, remap = false },
     { "<leader>w", "<cmd>:w<cr>", desc = "Write File", nowait = true, remap = false },
