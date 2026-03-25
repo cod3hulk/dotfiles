@@ -81,6 +81,11 @@ M.on_attach = function(client, bufnr)
   lsp_highlight_document(client)
 end
 
-M.capabilities = require("blink.cmp").get_lsp_capabilities()
+local ok, blink = pcall(require, "blink.cmp")
+if ok then
+  M.capabilities = blink.get_lsp_capabilities()
+else
+  M.capabilities = vim.lsp.protocol.make_client_capabilities()
+end
 
 return M
