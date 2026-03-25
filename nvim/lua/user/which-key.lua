@@ -120,6 +120,11 @@ local mappings =   {
     { "<leader>gp", "<cmd>G push<cr>", desc = "Push", nowait = true, remap = false },
     { "<leader>gP", "<cmd>G pull<cr>", desc = "Pull", nowait = true, remap = false },
     { "<leader>gc", "<cmd>Telescope git_branches<cr>", desc = "Checkout", nowait = true, remap = false },
+    { "<leader>gh", group = "Hunks", nowait = true, remap = false },
+    { "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk", nowait = true, remap = false },
+    { "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk", nowait = true, remap = false },
+    { "<leader>ghp", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview Hunk", nowait = true, remap = false },
+    { "<leader>ghl", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Line Blame", nowait = true, remap = false },
 
 
     { "<leader>q", "<cmd>:q<cr>", desc = "Close File", nowait = true, remap = false },

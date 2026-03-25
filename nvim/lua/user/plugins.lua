@@ -58,6 +58,12 @@ require("lazy").setup({
   },
   "mechatroner/rainbow_csv",
   "tpope/vim-fugitive",
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("user.gitsigns")
+    end,
+  },
   "akinsho/toggleterm.nvim",
 
   -- Treesitter
