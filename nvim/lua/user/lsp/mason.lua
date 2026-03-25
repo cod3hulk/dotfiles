@@ -15,6 +15,7 @@ local servers = {
   "ts_ls",
   "jsonls",
   "kotlin_language_server",
+  "bashls",
 }
 
 mason.setup()
@@ -43,6 +44,10 @@ for _, server in pairs(servers) do
   if server == "jsonls" then
     local jsonls = require("user.lsp.settings.jsonls")
     opts = vim.tbl_deep_extend("force", jsonls, opts)
+  end
+  if server == "bashls" then
+    local bashls = require("user.lsp.settings.bashls")
+    opts = vim.tbl_deep_extend("force", bashls, opts)
   end
 
 
