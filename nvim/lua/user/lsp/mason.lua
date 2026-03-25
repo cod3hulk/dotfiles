@@ -22,11 +22,7 @@ mason.setup()
 mason_lspconfig.setup {
   ensure_installed = servers,
   automatic_installation = true,
-  automatic_enable = {
-    exclude = {
-      "lua_ls",
-    }
-  }
+  automatic_enable = true,
 }
 
 local opts = {}
