@@ -67,14 +67,22 @@ require("lazy").setup({
   },
 
   -- Completion
-  "hrsh7th/nvim-cmp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
-  "saadparwaiz1/cmp_luasnip",
-  "hrsh7th/cmp-nvim-lsp",
-  "L3MON4D3/LuaSnip",
-  "rafamadriz/friendly-snippets",
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    opts = {
+      keymap = { preset = "super-tab" },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 200 },
+        accept = { auto_brackets = { enabled = true } },
+      },
+      signature = { enabled = true },
+    },
+  },
 
   -- LSP
   "mason-org/mason.nvim",
