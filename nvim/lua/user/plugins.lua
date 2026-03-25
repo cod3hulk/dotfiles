@@ -87,10 +87,26 @@ require("lazy").setup({
     },
   },
 
+  -- Formatting
+  {
+    "stevearc/conform.nvim",
+    config = function()
+      require("user.conform")
+    end,
+  },
+
   -- LSP
   "mason-org/mason.nvim",
   "mason-org/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = { "prettier", "stylua", "black" },
+      })
+    end,
+  },
 
   -- Kitty scrollback (lazy-loaded)
   {

@@ -111,7 +111,7 @@ local mappings =   {
     { "<leader>jt", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Jump to symbols", nowait = true, remap = false },
 
     { "<leader>l", group = "LSP", nowait = true, remap = false },
-    { "<leader>lf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", desc = "Format", nowait = true, remap = false },
+    { "<leader>lf", "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<cr>", desc = "Format", nowait = true, remap = false },
     { "<leader>li", "<cmd>LspInstallInfo<cr>", desc = "Install LanguageServer", nowait = true, remap = false },
 
     { "<leader>g", group = "Git", nowait = true, remap = false },
