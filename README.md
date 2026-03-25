@@ -103,4 +103,4 @@ Dotbot links the following (see `install.conf.yaml` for the full list):
 
 ## License
 
-MIT
+GPL v2
