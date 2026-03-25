@@ -40,7 +40,12 @@ require("lazy").setup({
       vim.keymap.set("n", "<c-\\>", "<cmd>TmuxNavigatePrevious<cr>")
     end,
   },
-  "phaazon/hop.nvim",
+  {
+    "folke/flash.nvim",
+    config = function()
+      require("flash").setup()
+    end,
+  },
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },

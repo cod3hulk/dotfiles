@@ -104,8 +104,7 @@ local mappings =   {
     { "<leader>fd", "<cmd>Telescope grep_string<cr>", desc = "Find definition/word", nowait = true, remap = false },
 
     { "<leader>j", group = "jump", nowait = true, remap = false },
-    { "<leader>jj", "<cmd>HopChar1<cr>", desc = "Jump Char", nowait = true, remap = false },
-    { "<leader>jw", "<cmd>HopWord<cr>", desc = "Jump Word", nowait = true, remap = false },
+    { "<leader>jj", "<cmd>lua require('flash').jump()<cr>", desc = "Flash Jump", nowait = true, remap = false },
     { "<leader>jd", "<cmd>Telescope lsp_definitions<cr>", desc = "Jump to definition", nowait = true, remap = false },
     { "<leader>jr", "<cmd>Telescope lsp_references<cr>", desc = "Jump to references", nowait = true, remap = false },
     { "<leader>jt", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Jump to symbols", nowait = true, remap = false },
