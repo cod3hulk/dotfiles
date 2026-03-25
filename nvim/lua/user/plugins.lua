@@ -18,10 +18,15 @@ require("lazy").setup({
 
   -- Colorschemes
   { "dracula/vim", name = "dracula" },
-  "folke/tokyonight.nvim",
-  "navarasu/onedark.nvim",
 
   -- UI
+  {
+    "akinsho/bufferline.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("user.bufferline")
+    end,
+  },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
