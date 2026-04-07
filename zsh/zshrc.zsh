@@ -1,3 +1,5 @@
+ZSH_TMUX_AUTOSTART=false
+
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
 # if the init scipt doesn't exist
@@ -8,6 +10,7 @@ if ! zgen saved; then
     zgen prezto editor key-bindings 'vi'
     zgen prezto prompt theme 'kylewest'
     zgen prezto '*:*' color 'yes'
+    zgen prezto 'tmux:auto-start' local 'no'
     zgen prezto 'autosuggestions:color' found 'fg=241'
 
     # plugins
@@ -39,8 +42,11 @@ export ZSH_PLUGINS_ALIAS_TIPS_EXPAND=0
 export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
 
 unset I3SOCK
-if [[ -n $ALACRITTY_SOCKET && -z $TMUX ]]; then
-  tmux new-session -A -s main
+
+# Auto-attach to tmux only when launched from Alacritty
+if [[ -z "$TMUX" ]] && [[ "$TERM_PROGRAM" == "alacritty" ]]; then
+    tmux new-session -A -s main
+    exit
 fi
 
 DOTFILES_HOME="${ZDOTDIR:-$HOME}/.dotfiles"

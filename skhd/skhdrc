@@ -147,7 +147,7 @@ alt + cmd - 7 : yabai -m window --ratio abs:0.7
 #alt + shift - 5 : yabai -m window --space 5
 
 # open apps
-hyper - b : open '/Applications/Google Chrome.app'
+hyper - b : open -b "$(defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers | awk '/LSHandlerRoleAll/{gsub(/.*= "/,""); gsub(/".*$/,""); bundle=$0} /LSHandlerURLScheme = https;/{print bundle; exit}')"
 hyper - s : open '/Applications/Slack.app'
 hyper - t : open '/Applications/Alacritty.app'
 hyper - i : open '/Applications/IntelliJ IDEA.app'
