@@ -630,5 +630,8 @@ y = 5
 
 [keyboard]
 
+[env]
+TERM_PROGRAM = "alacritty"
+
 [terminal]
 shell = { program = "/bin/zsh", args = ["-l", "-c", "exec tmux new-session -A -s main"] }
