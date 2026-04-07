@@ -36,8 +36,6 @@
       path: alacritty/alacritty.yml
     ~/.config/alacritty/alacritty.toml: 
       path: alacritty/alacritty.toml
-    ~/.config/kanata/kanata.kbd:
-      path: kanata/kanata.kbd
     ~/.config/i3/config: 
       path: i3/config
     ~/.config/Code/User/settings.json: 
