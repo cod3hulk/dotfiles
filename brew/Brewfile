@@ -53,4 +53,6 @@ cask "keepingyouawake"
 cask "meetingbar"
 cask "claude"
 cask "claude-code"
+cask "raindropio"
+cask "google-gemini"
 
