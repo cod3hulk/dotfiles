@@ -631,4 +631,4 @@ y = 5
 [keyboard]
 
 [terminal]
-shell = { program = "/bin/zsh", args = ["--login"] }
+shell = { program = "/bin/zsh", args = ["-l", "-c", "exec tmux new-session -A -s main"] }
