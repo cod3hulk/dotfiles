@@ -16,7 +16,7 @@
 # yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
-yabai -m config mouse_follows_focus          on
+yabai -m config mouse_follows_focus          off
 yabai -m config focus_follows_mouse          off
 yabai -m config window_placement             second_child
 yabai -m config window_shadow                off
@@ -41,10 +41,10 @@ yabai -m config right_padding                20
 yabai -m config window_gap                   20
 # yabai -m config external_bar all:32:0
 
-# yabai -m rule --apply app='.*' grid=8:8:1:1:6:6 manage=off
-# yabai -m rule --apply app='Google Chrome|Firefox|Slack' role="AXWindow" subrole="AXStandardWindow" manage=on layer=below
+yabai -m rule --apply app='.*' grid=8:8:1:1:6:6 manage=off
+yabai -m rule --apply app='Google Chrome|Brave|Slack' role="AXWindow" subrole="AXStandardWindow" manage=on layer=below
 # Disable mouse follwos focus for specific apps
-# yabai -m rule --add app="iStat Menus.*" manage=off mouse_follows_focus=off
+yabai -m rule --add app="iStat Menus.*" manage=off mouse_follows_focus=off
 
 echo "yabai configuration loaded.."
 
