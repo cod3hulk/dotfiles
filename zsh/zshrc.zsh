@@ -8,7 +8,6 @@ if ! zgen saved; then
     zgen prezto editor key-bindings 'vi'
     zgen prezto prompt theme 'kylewest'
     zgen prezto '*:*' color 'yes'
-    zgen prezto 'tmux:auto-start' local 'yes'
     zgen prezto 'autosuggestions:color' found 'fg=241'
 
     # plugins
@@ -39,9 +38,10 @@ bindkey -M vicmd 'V' edit-command-line
 export ZSH_PLUGINS_ALIAS_TIPS_EXPAND=0
 export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
 
-ZSH_TMUX_AUTOSTART=false
 unset I3SOCK
-# [[ $TMUX == "" ]] && tmux new-session -A -s tmux
+if [[ -n $ALACRITTY_SOCKET && -z $TMUX ]]; then
+  tmux new-session -A -s main
+fi
 
 DOTFILES_HOME="${ZDOTDIR:-$HOME}/.dotfiles"
 
