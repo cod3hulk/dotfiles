@@ -71,11 +71,15 @@ local function lsp_keymaps(bufnr)
   vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
   vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ float = { border = "rounded" } }) end, opts)
   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end, opts)
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 end
 
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
 end
 
 local ok, blink = pcall(require, "blink.cmp")

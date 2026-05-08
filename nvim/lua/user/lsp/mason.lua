@@ -49,6 +49,10 @@ for _, server in pairs(servers) do
     local bashls = require("user.lsp.settings.bashls")
     opts = vim.tbl_deep_extend("force", bashls, opts)
   end
+  if server == "ts_ls" then
+    local ts_ls_opts = require("user.lsp.settings.ts_ls")
+    opts = vim.tbl_deep_extend("force", ts_ls_opts, opts)
+  end
 
 
   vim.lsp.config(server, opts)
