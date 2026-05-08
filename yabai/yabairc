@@ -43,6 +43,12 @@ yabai -m config window_gap                   20
 
 yabai -m rule --apply app='.*' grid=8:8:1:1:6:6 manage=off
 yabai -m rule --apply app='Google Chrome|Brave|Slack' role="AXWindow" subrole="AXStandardWindow" manage=on layer=below
+
+# Zoom rules - keep auxiliary windows floating, only manage main meeting window
+yabai -m rule --add app="zoom.us" title="^$" manage=off
+yabai -m rule --add app="zoom.us" subrole="AXSystemDialog" manage=off
+yabai -m rule --add app="zoom.us" title="^Zoom Workplace$" manage=on
+
 # Disable mouse follwos focus for specific apps
 yabai -m rule --add app="iStat Menus.*" manage=off mouse_follows_focus=off
 
