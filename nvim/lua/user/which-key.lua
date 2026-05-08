@@ -108,12 +108,17 @@ local mappings =   {
     { "<leader>jd", "<cmd>Telescope lsp_definitions<cr>", desc = "Jump to definition", nowait = true, remap = false },
     { "<leader>jr", "<cmd>Telescope lsp_references<cr>", desc = "Jump to references", nowait = true, remap = false },
     { "<leader>jt", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Jump to symbols", nowait = true, remap = false },
+    { "<leader>jy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Jump to type definition", nowait = true, remap = false },
+    { "<leader>ji", "<cmd>Telescope lsp_implementations<cr>", desc = "Jump to implementation", nowait = true, remap = false },
 
     { "<leader>l", group = "LSP", nowait = true, remap = false },
     { "<leader>lf", "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<cr>", desc = "Format", nowait = true, remap = false },
     { "<leader>lR", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", nowait = true, remap = false },
     { "<leader>ld", "<cmd>lua vim.diagnostic.open_float()<cr>", desc = "Line Diagnostics", nowait = true, remap = false },
     { "<leader>lD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics", nowait = true, remap = false },
+    { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", nowait = true, remap = false },
+    { "<leader>lo", "<cmd>lua vim.lsp.buf.code_action({ apply = true, context = { only = { 'source.organizeImports' } } })<cr>", desc = "Organize Imports", nowait = true, remap = false },
+    { "<leader>lh", "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>", desc = "Toggle Inlay Hints", nowait = true, remap = false },
 
     { "<leader>g", group = "Git", nowait = true, remap = false },
     { "<leader>gb", "<cmd>G blame<cr>", desc = "Blame", nowait = true, remap = false },
