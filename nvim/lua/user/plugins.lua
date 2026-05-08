@@ -152,4 +152,40 @@ require("lazy").setup({
       require("gemini-cli").setup({})
     end,
   },
+
+  -- Claude Code (lazy-loaded)
+  {
+    "greggh/claude-code.nvim",
+    lazy = true,
+    cmd = { "ClaudeCode", "ClaudeCodeContinue", "ClaudeCodeResume", "ClaudeCodeVerbose" },
+    keys = {
+      { "<C-,>", "<cmd>ClaudeCode<cr>", mode = { "n", "t" }, desc = "Toggle Claude Code" },
+      { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code" },
+      { "<leader>cC", "<cmd>ClaudeCodeContinue<cr>", desc = "Claude Code Continue" },
+      { "<leader>cr", "<cmd>ClaudeCodeResume<cr>", desc = "Claude Code Resume" },
+      { "<leader>cV", "<cmd>ClaudeCodeVerbose<cr>", desc = "Claude Code Verbose" },
+    },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("claude-code").setup({
+        window = {
+          position = "float",
+          float = {
+            width = "90%",
+            height = "90%",
+            row = "center",
+            col = "center",
+            relative = "editor",
+            border = "rounded",
+          },
+        },
+        keymaps = {
+          toggle = {
+            normal = "<leader>cc",
+            terminal = "<leader>cc",
+          },
+        },
+      })
+    end,
+  },
 })

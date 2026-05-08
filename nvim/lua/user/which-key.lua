@@ -134,6 +134,12 @@ local mappings =   {
     { "<leader>ghl", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Line Blame", nowait = true, remap = false },
 
 
+    { "<leader>c", group = "Claude Code", nowait = true, remap = false },
+    { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code", nowait = true, remap = false },
+    { "<leader>cC", "<cmd>ClaudeCodeContinue<cr>", desc = "Continue Conversation", nowait = true, remap = false },
+    { "<leader>cr", "<cmd>ClaudeCodeResume<cr>", desc = "Resume Conversation", nowait = true, remap = false },
+    { "<leader>cV", "<cmd>ClaudeCodeVerbose<cr>", desc = "Verbose Mode", nowait = true, remap = false },
+
     { "<leader>t", group = "Terminal", nowait = true, remap = false },
     { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal", nowait = true, remap = false },
     { "<leader>tg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", desc = "Lazygit", nowait = true, remap = false },
