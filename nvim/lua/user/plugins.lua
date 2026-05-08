@@ -68,6 +68,7 @@ require("lazy").setup({
   },
   "mechatroner/rainbow_csv",
   "tpope/vim-fugitive",
+  "tpope/vim-rhubarb",
   {
     "lewis6991/gitsigns.nvim",
     config = function()

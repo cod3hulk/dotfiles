@@ -119,6 +119,7 @@ local mappings =   {
     { "<leader>gb", "<cmd>G blame<cr>", desc = "Blame", nowait = true, remap = false },
     { "<leader>gs", "<cmd>G<cr>", desc = "Status", nowait = true, remap = false },
     { "<leader>gp", "<cmd>G push<cr>", desc = "Push", nowait = true, remap = false },
+    { "<leader>go", "<cmd>.GBrowse<cr>", desc = "Open remote", nowait = true, remap = false },
     { "<leader>gP", "<cmd>G pull<cr>", desc = "Pull", nowait = true, remap = false },
     { "<leader>gc", "<cmd>Telescope git_branches<cr>", desc = "Checkout", nowait = true, remap = false },
     { "<leader>gh", group = "Hunks", nowait = true, remap = false },
