@@ -77,9 +77,6 @@ end
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  if client.server_capabilities.inlayHintProvider then
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-  end
 end
 
 local ok, blink = pcall(require, "blink.cmp")

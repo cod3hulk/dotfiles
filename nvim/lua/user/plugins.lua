@@ -159,7 +159,7 @@ require("lazy").setup({
     lazy = true,
     cmd = { "ClaudeCode", "ClaudeCodeContinue", "ClaudeCodeResume", "ClaudeCodeVerbose" },
     keys = {
-      { "<C-,>", "<cmd>ClaudeCode<cr>", mode = { "n", "t" }, desc = "Toggle Claude Code" },
+      { "<C-g>", "<cmd>ClaudeCode<cr>", mode = { "n", "t" }, desc = "Toggle Claude Code" },
       { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code" },
       { "<leader>cC", "<cmd>ClaudeCodeContinue<cr>", desc = "Claude Code Continue" },
       { "<leader>cr", "<cmd>ClaudeCodeResume<cr>", desc = "Claude Code Resume" },
@@ -177,12 +177,6 @@ require("lazy").setup({
             col = "center",
             relative = "editor",
             border = "rounded",
-          },
-        },
-        keymaps = {
-          toggle = {
-            normal = "<leader>cc",
-            terminal = "<leader>cc",
           },
         },
       })
