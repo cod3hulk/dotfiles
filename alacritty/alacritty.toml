@@ -522,6 +522,16 @@ chars = """
 """
 key = "NumpadEnter"
 
+[[keyboard.bindings]]
+chars = "\u0001p" # <prefix>p
+key = "{"
+mods = "Command|Shift"
+
+[[keyboard.bindings]]
+chars = "\u0001n" # <prefix>n
+key = "}"
+mods = "Command|Shift"
+
 [general]
 live_config_reload = true
 working_directory = "None"
