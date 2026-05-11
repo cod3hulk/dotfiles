@@ -153,6 +153,7 @@ local mappings =   {
     { "<leader>bp", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", nowait = true, remap = false },
     { "<leader>bc", "<cmd>bdelete!<cr>", desc = "Close Buffer", nowait = true, remap = false },
     { "<leader>bf", "<cmd>Telescope buffers<cr>", desc = "Find Buffer", nowait = true, remap = false },
+    { "<leader>bm", "<cmd>%bd|e#|bd#<cr>", desc = "Close Other Buffers", mode = "n", nowait = true, remap = false },
 
     { "<leader>q", "<cmd>:q<cr>", desc = "Close File", nowait = true, remap = false },
     { "<leader>w", "<cmd>:w<cr>", desc = "Write File", nowait = true, remap = false },
