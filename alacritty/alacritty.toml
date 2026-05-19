@@ -523,6 +523,11 @@ chars = """
 key = "NumpadEnter"
 
 [[keyboard.bindings]]
+chars = "\x1b[13;2u"
+key = "Return"
+mods = "Shift"
+
+[[keyboard.bindings]]
 chars = "\u0001p" # <prefix>p
 key = "{"
 mods = "Command|Shift"
