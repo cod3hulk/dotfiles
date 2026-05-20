@@ -58,7 +58,6 @@ require("lazy").setup({
 
   -- Editing
   "windwp/nvim-autopairs",
-  "numToStr/Comment.nvim",
   {
     "kylechui/nvim-surround",
     version = "*",
