@@ -55,6 +55,7 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
+  $HOME/go/bin
   $path
 )
 
@@ -88,3 +89,6 @@ if [[ ! -d "$TMPPREFIX" ]]; then
 fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+export NODE_USE_SYSTEM_CA=1
+
+[[ -f "${HOME}/.zprofile.local" ]] && source "${HOME}/.zprofile.local"
