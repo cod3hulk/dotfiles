@@ -1,4 +1,4 @@
-alt_send_esc = true
+# alt_send_esc = true
 # enable_experimental_conpty_backend = false
 # "window.dynamic_title" = true
 
