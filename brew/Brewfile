@@ -21,17 +21,15 @@ brew "stern"
 brew "tree-sitter-cli"
 brew "shellcheck"
 brew "gemini-cli"
+brew "go"
 brew "colima", postinstall: "#{ENV["HOME"]}/.dotfiles/colima/init.zsh"
 brew "koekeishiya/formulae/yabai", postinstall: "#{ENV["HOME"]}/.dotfiles/yabai/init.sh"
 brew "koekeishiya/formulae/skhd", postinstall: "#{ENV["HOME"]}/.dotfiles/skhd/init.sh"
 brew "FelixKratz/formulae/borders", postinstall: "#{ENV["HOME"]}/.dotfiles/borders/init.sh"
 
 
-
-
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
-
 cask "alfred@4"
 cask "alacritty"
 cask "karabiner-elements"
