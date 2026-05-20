@@ -1,4 +1,6 @@
 config/vim/plugged
 nvim/plugin/packer_compiled.lua
 k9s/config.yml
+zsh/zprofile.local
+tmux/*.backup*
 
