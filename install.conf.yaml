@@ -47,8 +47,10 @@
       force: true
     ~/.config/kitty: 
       path: kitty
-    ~/.config/borders/bordersrc: 
+    ~/.config/borders/bordersrc:
       path: borders/bordersrc
+    ~/.config/tmux-powerline/config.sh:
+      path: tmux/tmux-powerline.sh
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
