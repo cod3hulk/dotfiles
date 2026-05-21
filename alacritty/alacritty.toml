@@ -523,7 +523,7 @@ chars = """
 key = "NumpadEnter"
 
 [[keyboard.bindings]]
-chars = "\x1b[13;2u"
+chars = "\u001b[13;2u"
 key = "Return"
 mods = "Shift"
 
