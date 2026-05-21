@@ -18,6 +18,13 @@ cd ~/.dotfiles
 1. Cleans broken symlinks in `~` and `~/.config`
 2. Creates symlinks for all configs
 3. Runs `brew/init.zsh`, `linux/init.zsh`, `zgen/init.zsh` as post-install hooks
+4. Creates `~/.hushlogin` to suppress login messages
+
+### Machine-Specific Overrides
+
+- **zsh/zprofile.local.zsh** — machine-specific env vars (not tracked in git, sourced by `zsh/zprofile.zsh` if present)
+- **alacritty/alacritty.local.toml** — machine-specific Alacritty overrides (not tracked)
+- **tmux/*.backup** — automatic backups of configs before major changes (not tracked)
 
 ## Package Management
 
@@ -46,6 +53,11 @@ All config files live in this repo and are symlinked into place by dotbot. The a
 - Entry point: `nvim/init.lua` — requires all modules under `nvim/lua/user/`
 - Plugin manager: [lazy.nvim](https://github.com/folke/lazy.nvim) (auto-installs on first launch)
 - Key modules: `plugins.lua` (all plugin specs), `which-key.lua` (keybinding palette), `lsp/` (language server setup), `conform.lua` (formatting)
+- Notable plugins:
+  - **claude-code.nvim** — in-editor Claude Code sessions
+  - Built-in commenting (removed Comment.nvim in favor of native vim commenting)
+  - flash.nvim for motion navigation
+  - vim-tmux-navigator for seamless tmux integration
 
 ### macOS Window Management
 
@@ -56,7 +68,15 @@ All config files live in this repo and are symlinked into place by dotbot. The a
 
 ### Tmux
 
-Config at `tmux/tmux.conf`. Prefix is `C-a`. Plugins managed by [tpm](https://github.com/tmux-plugins/tpm) (git submodule at `tmux/tpm`). Key plugins: tmux-resurrect (session save/restore), tmux-continuum (auto-save every 10 min), vim-tmux-navigator.
+Config at `tmux/tmux.conf`. Prefix is `C-a`. Plugins managed by [tpm](https://github.com/tmux-plugins/tpm) (git submodule at `tmux/tpm`). Key plugins:
+- **tmux-resurrect** — session save/restore
+- **tmux-continuum** — auto-save every 10 min
+- **vim-tmux-navigator** — seamless vim/tmux pane navigation
+- **tmux-agent-indicator** — Claude Code agent state visualization (see `tmux/AGENT_INDICATOR.md`)
+  - Shows 🤖 in status bar when Claude agent is active
+  - Window tabs change color: 🟠 orange (running), 🔴 red (needs input), 🟢 green (done)
+  - Hooks configured in `~/.claude/settings.json` for automatic state updates
+  - Passthrough mode enabled for better compatibility
 
 ### Git Submodules
 
@@ -74,6 +94,14 @@ When adding a new submodule: `git submodule add <url> <path>` and re-run `./inst
 - **karabiner** (`karabiner/`) — macOS only; `caps_lock→control`, tab mod-tap. Symlinked with `force: true` because Karabiner manages its own directory.
 - **kanata** (`kanata/kanata.kbd`) — cross-platform alternative
 
+### Kubernetes Tools
+
+- **k8s/** directory contains kubectl plugins:
+  - `kubectx` — quickly switch between Kubernetes contexts
+  - `kubens` — quickly switch between Kubernetes namespaces
+  - `kubectl/` — kubectl completion and aliases
+- k9s config with Dracula theme at `k9s/`
+
 ### Dracula Theme
 
-Dracula is the unified theme across all tools (nvim colorscheme, tmux status bar, borders colors, k9s, terminal emulators). When adding a new tool, look for its Dracula theme variant first.
+Dracula is the unified theme across all tools (nvim colorscheme, tmux status bar (including tmux-agent-indicator window tabs), borders colors, k9s, terminal emulators). When adding a new tool, look for its Dracula theme variant first.
