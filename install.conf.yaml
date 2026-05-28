@@ -51,6 +51,10 @@
       path: borders/bordersrc
     ~/.config/tmux-powerline/config.sh:
       path: tmux/tmux-powerline.sh
+    ~/.pi/agent/themes:
+      path: pi/themes
+    ~/.pi/agent/extensions:
+      path: pi/extensions
 - shell:
   - brew/init.zsh 
   - linux/init.zsh
