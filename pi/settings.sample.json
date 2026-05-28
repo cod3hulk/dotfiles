@@ -1,0 +1,10 @@
+{
+  "lastChangelogVersion": "0.76.0",
+  "defaultProvider": "",
+  "defaultModel": "",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:pi-powerline-footer"
+  ],
+  "theme": "dracula"
+}

@@ -1,0 +1,6 @@
+# Shared packages — installed on all machines
+
+# Package browser (search & install pi packages from npm)
+# npm:pi-pkg-browser  ← uncomment once published
+
+# Add shared packages below:
