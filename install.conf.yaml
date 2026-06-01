@@ -51,6 +51,8 @@
       path: borders/bordersrc
     ~/.config/tmux-powerline/config.sh:
       path: tmux/tmux-powerline.sh
+    ~/.tmux/plugins/tmux-which-key/config.yaml:
+      path: tmux/which-key.yaml
     ~/.pi/agent/themes:
       path: pi/themes
     ~/.pi/agent/extensions:
