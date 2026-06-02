@@ -61,7 +61,7 @@ items:
         command: next-window
       - name: New
         key: n
-        command: 'neww -c ~'
+        command: run-shell "bash ~/.dotfiles/tmux/scripts/window-new.sh"
       - name: Kill
         key: x
         command: killw
@@ -100,7 +100,10 @@ items:
       - separator: true
       - name: Rename
         key: r
-        command: command-prompt -p "Rename window:" -I "#W" "renamew -- \"%%\""
+        command: run-shell "bash ~/.dotfiles/tmux/scripts/window-rename.sh"
+      - name: Search
+        key: s
+        command: run-shell "bash ~/.dotfiles/tmux/scripts/window-search.sh"
   - name: +Panes
     key: p
     menu:
@@ -203,14 +206,23 @@ items:
     key: s
     menu:
       - name: Choose
-        key: s
+        key: c
         command: choose-tree -Zs
       - name: New
-        key: N
-        command: new
+        key: n
+        command: command-prompt -p "New session:" "new-session -s '%%'"
       - name: Rename
         key: r
         command: command-prompt -p "Rename session:" -I "#S" "rename-session -- \"%%\""
+      - name: Kill
+        key: x
+        command: kill-session
+      - name: Kill others
+        key: o
+        command: kill-session -a
+      - name: Search
+        key: s
+        command: run-shell "bash ~/.dotfiles/tmux/scripts/session-search.sh"
       - name: Detach
         key: d
         command: detach
