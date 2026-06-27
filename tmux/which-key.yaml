@@ -134,7 +134,7 @@ items:
         command: killp
       - name: Kill others
         key: o
-        command: run "tmux kill-pane -a -t #{pane_id}"
+        command: kill-pane -a
       - separator: true
       - name: Zoom
         key: z
