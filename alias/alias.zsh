@@ -15,6 +15,14 @@ alias gcob='gco $(git branch -r | cut -d "/" -f2- | fzf)'
 alias gcp='git create-pull-request'
 alias gpo='git push -u origin "$(git-branch-current 2> /dev/null)"'
 alias gcu='git reset HEAD^'
+function gho() {
+  local url="$(git remote get-url "${1:-origin}" 2>/dev/null)"
+  [[ -z "$url" ]] && { echo "no remote found" >&2; return 1; }
+  url="${url#git@*:}"
+  url="${url%.git}"
+  url="${url#https://*/}"
+  open "https://github.com/${url}"
+}
 
 # docker
 alias compose='docker-compose'
@@ -55,6 +63,9 @@ alias tigs="tig status"
 
 # IntelliJ
 [[ -x /snap/bin/intellij-idea-community ]] && alias ij='nohup intellij-idea-community . > /dev/null 2>&1 &'
+
+# claude
+alias yolo='claude --dangerously-skip-permissions'
 
 # local aliases
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
