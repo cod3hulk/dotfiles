@@ -1,5 +1,5 @@
 # tmux-which-key configuration
-# Custom config for dotfiles setup with Dracula theme integration
+# Minimal config: sessions / windows / panes management + Claude Code
 
 command_alias_start_index: 200
 
@@ -19,8 +19,6 @@ position:
 custom_variables:
   - name: log_info
     value: '#[fg=#50fa7b,italics] [info]#[default]#[italics]'  # Dracula green
-  - name: log_warn
-    value: '#[fg=#f1fa8c,italics] [warn]#[default]#[italics]'  # Dracula yellow
 
 macros:
   - name: reload-config
@@ -28,219 +26,63 @@ macros:
       - display "#{log_info} Reloading tmux config..."
       - source-file ~/.tmux.conf
       - display "#{log_info} Config reloaded!"
-  - name: restart-pane
-    commands:
-      - display "#{log_info} Restarting pane"
-      - 'respawnp -k -c #{pane_current_path}'
 
 items:
-  - name: Run
-    key: space
-    command: command-prompt
-  - name: Last window
-    key: tab
-    command: last-window
-  - name: Last pane
-    key: '`'
-    command: last-pane
-  - separator: true
-  - name: +Windows
-    key: w
-    menu:
-      - name: Last
-        key: tab
-        command: last-window
-      - name: Choose
-        key: w
-        command: choose-tree -Zw
-      - name: Previous
-        key: h
-        command: previous-window
-      - name: Next
-        key: l
-        command: next-window
-      - name: New
-        key: n
-        command: run-shell "bash ~/.dotfiles/tmux/scripts/window-new.sh"
-      - name: Kill
-        key: x
-        command: killw
-      - name: Kill others
-        key: o
-        command: killw -a
-      - separator: true
-      - name: +Layout
-        key: L
-        menu:
-          - name: Next
-            key: l
-            command: nextl
-            transient: true
-          - name: Tiled
-            key: t
-            command: selectnl tiled
-          - name: Horizontal
-            key: h
-            command: selectl even-horizontal
-          - name: Vertical
-            key: v
-            command: selectl even-vertical
-          - name: Horizontal main
-            key: H
-            command: selectl main-horizontal
-          - name: Vertical main
-            key: V
-            command: selectl main-vertical
-      - name: Split horizontal
-        key: '|'
-        command: 'splitw -h -c #{pane_current_path}'
-      - name: Split vertical
-        key: '-'
-        command: 'splitw -v -c #{pane_current_path}'
-      - separator: true
-      - name: Rename
-        key: r
-        command: run-shell "bash ~/.dotfiles/tmux/scripts/window-rename.sh"
-      - name: Search
-        key: s
-        command: run-shell "bash ~/.dotfiles/tmux/scripts/window-search.sh"
-  - name: +Panes
-    key: p
-    menu:
-      - name: Last
-        key: tab
-        command: lastp
-      - name: Choose
-        key: p
-        command: displayp -d 0
-      - separator: true
-      - name: Left
-        key: h
-        command: selectp -L
-      - name: Down
-        key: j
-        command: selectp -D
-      - name: Up
-        key: k
-        command: selectp -U
-      - name: Right
-        key: l
-        command: selectp -R
-      - name: New
-        key: n
-        command: 'splitw -h -c #{pane_current_path}'
-      - name: Kill
-        key: x
-        command: killp
-      - name: Kill others
-        key: o
-        command: kill-pane -a
-      - separator: true
-      - name: Zoom
-        key: z
-        command: resizep -Z
-      - name: +Resize
-        key: r
-        menu:
-          - name: Left
-            key: h
-            command: resizep -L 5
-            transient: true
-          - name: Down
-            key: j
-            command: resizep -D 5
-            transient: true
-          - name: Up
-            key: k
-            command: resizep -U 5
-            transient: true
-          - name: Right
-            key: l
-            command: resizep -R 5
-            transient: true
-          - name: Left more
-            key: H
-            command: resizep -L 10
-            transient: true
-          - name: Down more
-            key: J
-            command: resizep -D 10
-            transient: true
-          - name: Up more
-            key: K
-            command: resizep -U 10
-            transient: true
-          - name: Right more
-            key: L
-            command: resizep -R 10
-            transient: true
-      - name: Swap left
-        key: H
-        command: swapp -t "{left-of}"
-      - name: Swap down
-        key: J
-        command: swapp -t "{down-of}"
-      - name: Swap up
-        key: K
-        command: swapp -t "{up-of}"
-      - name: Swap right
-        key: L
-        command: swapp -t "{right-of}"
-      - name: Break
-        key: '!'
-        command: break-pane
-      - separator: true
-      - name: Mark
-        key: m
-        command: selectp -m
-      - name: Unmark
-        key: M
-        command: selectp -M
-      - name: Capture
-        key: c
-        command: capture-pane
-      - name: Respawn
-        key: R
-        macro: restart-pane
   - name: +Sessions
     key: s
     menu:
-      - name: Choose
+      - name: Create
         key: c
-        command: choose-tree -Zs
-      - name: New
-        key: n
         command: command-prompt -p "New session:" "new-session -s '%%'"
-      - name: Rename
-        key: r
-        command: command-prompt -p "Rename session:" -I "#S" "rename-session -- \"%%\""
       - name: Kill
         key: x
         command: kill-session
       - name: Kill others
-        key: o
+        key: m
         command: kill-session -a
+      - name: Rename
+        key: r
+        command: run-shell "bash ~/.tmux/scripts/session-rename.sh"
       - name: Search
         key: s
-        command: run-shell "bash ~/.dotfiles/tmux/scripts/session-search.sh"
-      - name: Detach
-        key: d
-        command: detach
-  - name: +Copy
-    key: c
+        command: run-shell "bash ~/.tmux/scripts/session-search.sh"
+  - name: +Windows
+    key: w
     menu:
-      - name: Copy mode
-        key: v
-        command: copy-mode
-      - name: List buffers
-        key: b
-        command: list-buffers
-      - name: Choose buffer
+      - name: Create
         key: c
-        command: choose-buffer -Z
-      - name: Paste
-        key: p
-        command: pasteb
+        command: 'new-window -c "#{pane_current_path}"'
+      - name: Kill
+        key: x
+        command: kill-window
+      - name: Kill others
+        key: m
+        command: kill-window -a
+      - name: Rename
+        key: r
+        command: run-shell "bash ~/.tmux/scripts/window-rename.sh"
+      - name: Search
+        key: s
+        command: run-shell "bash ~/.tmux/scripts/window-search.sh"
+  - name: +Panes
+    key: p
+    menu:
+      - name: Create
+        key: c
+        command: 'splitw -h -c "#{pane_current_path}"'
+      - name: Kill
+        key: x
+        command: kill-pane
+      - name: Kill others
+        key: m
+        command: kill-pane -a
+      - name: Rename
+        key: r
+        command: run-shell "bash ~/.tmux/scripts/pane-rename.sh"
+      - name: Search
+        key: s
+        command: run-shell "bash ~/.tmux/scripts/pane-search.sh"
+  - separator: true
   - name: Claude Code
     key: g
     menu:
@@ -250,55 +92,19 @@ items:
       - name: Agent picker
         key: s
         command: run-shell "bash ~/.tmux/scripts/agent-picker-popup.sh"
-  - separator: true
-  - name: +Client
-    key: C
+  - name: +Tmux
+    key: t
     menu:
-      - name: Choose
-        key: c
-        command: choose-client -Z
-      - name: Last
-        key: l
-        command: switchc -l
-      - name: Previous
-        key: p
-        command: switchc -p
-      - name: Next
-        key: n
-        command: switchc -n
-      - separator: true
-      - name: Refresh
-        key: R
-        command: refresh
-      - name: +Plugins
-        key: P
-        menu:
-          - name: Install
-            key: i
-            command: run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/install_plugins
-          - name: Update
-            key: u
-            command: run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/update_plugins
-          - name: Clean
-            key: c
-            command: run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/clean_plugins
-      - name: Suspend
-        key: Z
-        command: suspendc
-      - separator: true
       - name: Reload config
         key: r
         macro: reload-config
-      - name: Customize
-        key: ','
-        command: customize-mode -Z
-  - separator: true
-  - name: Time
-    key: T
-    command: clock-mode
-  - name: Messages
-    key: '~'
-    command: show-messages
-  - name: +Keys
-    key: '?'
-    command: list-keys -N
+      - separator: true
+      - name: Install plugins
+        key: i
+        command: run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/install_plugins
+      - name: Update plugins
+        key: u
+        command: run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/update_plugins
+      - name: Clean plugins
+        key: c
+        command: run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/clean_plugins
