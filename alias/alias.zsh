@@ -65,7 +65,7 @@ alias tigs="tig status"
 [[ -x /snap/bin/intellij-idea-community ]] && alias ij='nohup intellij-idea-community . > /dev/null 2>&1 &'
 
 # claude
-alias yolo='claude --dangerously-skip-permissions'
+alias yolo='claude --dangerously-skip-permissions --remote-control --permission-mode plan'
 
 # local aliases
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
