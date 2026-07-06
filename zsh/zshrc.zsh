@@ -72,13 +72,40 @@ if [[ -s "${DOTFILES_HOME}/function/function.zsh"  ]]; then
 fi
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
-fpath+=${ZDOTDIR:-~}/.zsh_functions
-if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
-# nvm
+# nvm — lazy load. Sourcing nvm.sh eagerly costs ~600ms per shell.
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+_load_nvm() {
+    unset -f nvm node npm npx _load_nvm
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+}
+nvm()  { _load_nvm; nvm  "$@"; }
+node() { _load_nvm; node "$@"; }
+npm()  { _load_nvm; npm  "$@"; }
+npx()  { _load_nvm; npx  "$@"; }
+# Add the default node's bin to PATH so non-interactive callers don't need the
+# shims. Resolves `default` through any chained aliases.
+_nvm_resolve_alias() {
+    local alias_target
+    alias_target="$1"
+    while [ -s "$NVM_DIR/alias/$alias_target" ]; do
+        alias_target="$(command cat "$NVM_DIR/alias/$alias_target")"
+    done
+    printf '%s' "$alias_target"
+}
+if [ -s "$NVM_DIR/alias/default" ]; then
+    _nvm_ver="$(_nvm_resolve_alias default)"
+    _nvm_ver="v${_nvm_ver#v}"
+    if [ ! -d "$NVM_DIR/versions/node/$_nvm_ver/bin" ]; then
+        _nvm_ver="$(command ls -1 "$NVM_DIR/versions/node" 2>/dev/null | \
+            command grep "^${_nvm_ver}" | command sort -V | command tail -1)"
+    fi
+    [ -n "$_nvm_ver" ] && [ -d "$NVM_DIR/versions/node/$_nvm_ver/bin" ] && \
+        export PATH="$NVM_DIR/versions/node/$_nvm_ver/bin:$PATH"
+    unset _nvm_ver
+fi
+unset -f _nvm_resolve_alias
 
 # Go binaries
 export PATH="$HOME/go/bin:$PATH"
