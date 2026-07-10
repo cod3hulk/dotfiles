@@ -21,8 +21,7 @@ if read -e prompt; then
   if [ -n \"\$prompt\" ]; then
     slug=\$(echo \"\$prompt\" | tr -cs \"a-zA-Z0-9\" \"-\" | tr \"[:upper:]\" \"[:lower:]\" | sed \"s/^-//;s/-$//\" | cut -c1-40)
     window_name=\"claude-\$slug\"
-    tmux new-window -n \"\$window_name\" -c \"#{pane_current_path}\"
-    tmux send-keys \"yolo \\\"\$prompt\\\"\" Enter
+    tmux new-window -n \"\$window_name\" -c \"#{pane_current_path}\" \"claude --dangerously-skip-permissions --remote-control --permission-mode plan \\\"\$prompt\\\"\"
   fi
 fi
 '"
