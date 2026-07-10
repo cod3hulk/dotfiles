@@ -55,5 +55,8 @@ yabai -m rule --add app="iStat Menus.*" manage=off mouse_follows_focus=off
 # Bitwarden browser extension popup (Brave/Chrome) — always float, centered
 yabai -m rule --add app="Brave Browser" title="Bitwarden" manage=off grid=3:3:1:1:1:1
 
+# nvim-anywhere popup — always float, centered (Alacritty window with fixed title)
+yabai -m rule --add app="^Alacritty$" title="^nvim-anywhere$" manage=off grid=6:6:1:1:4:4
+
 echo "yabai configuration loaded.."
 
