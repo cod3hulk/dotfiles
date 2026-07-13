@@ -54,6 +54,8 @@
     ~/.tmux/plugins/tmux-which-key/config.yaml:
       path: tmux/which-key.yaml
       force: true
+    ~/.local/bin/clipcopy:
+      path: scripts/clipcopy
     ~/.pi/agent/themes:
       path: pi/themes
     ~/.pi/agent/extensions:
