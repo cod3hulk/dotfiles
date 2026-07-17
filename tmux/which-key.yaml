@@ -89,6 +89,9 @@ items:
       - name: New Claude window
         key: n
         command: run-shell "bash ~/.tmux/scripts/claude-new-window.sh"
+      - name: Resume Claude window
+        key: r
+        command: run-shell "bash ~/.tmux/scripts/claude-resume-window.sh"
       - name: Claude popup
         key: g
         command: run-shell "bash ~/.tmux/scripts/claude-popup.sh #{pane_current_path}"
