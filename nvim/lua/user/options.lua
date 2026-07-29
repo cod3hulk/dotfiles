@@ -19,6 +19,7 @@ local opts = {
   splitright = true,
   swapfile = false,
   tabstop = 2,
+  termguicolors = true,
   undofile = true,
   wrap = false,
   writebackup = false,
