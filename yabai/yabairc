@@ -58,5 +58,8 @@ yabai -m rule --add app="Brave Browser" title="Bitwarden" manage=off grid=3:3:1:
 # nvim-anywhere popup — always float, centered (Alacritty window with fixed title)
 yabai -m rule --add app="^Alacritty$" title="^nvim-anywhere$" manage=off grid=6:6:1:1:4:4
 
+# Clawd floating avatar overlay — always float, never managed (persists across respawns, unlike --apply)
+yabai -m rule --add app="^Clawd on Desk$" manage=off mouse_follows_focus=off
+
 echo "yabai configuration loaded.."
 
