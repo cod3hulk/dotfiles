@@ -22,8 +22,9 @@
       path: nvim
     ~/.ideavimrc: 
       path: intellij/ideavimrc
-    ~/.zshrc: 
+    ~/.zshrc:
       path: zsh/zshrc.zsh
+      force: true
     ~/.zprofile: 
       path: zsh/zprofile.zsh
     ~/.hammerspoon: 
