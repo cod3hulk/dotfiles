@@ -88,7 +88,7 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 export NODE_USE_SYSTEM_CA=1
 
 [[ -f "${HOME}/.zprofile.local" ]] && source "${HOME}/.zprofile.local"
