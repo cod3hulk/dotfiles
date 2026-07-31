@@ -45,7 +45,7 @@ alias kc='kubectx'
 alias kn='kubens'
 alias kl='kubectl get deployments --no-headers -o custom-columns=":metadata.name" | sed -E "s/(.*)-[0-9a-z]{8}$/\1/" | uniq | fzf | xargs -I {} stern --color always "^{}"'
 alias kle='kl | ag -A 15 ERROR'
-alias kp='kubectl get pods | fzf --header-lines=1 | cut -d " " -f 1 | pbcopy'
+alias kp='kubectl get pods | fzf --header-lines=1 | cut -d " " -f 1 | clipcopy'
 alias kd='kubectl get deployments | fzf --header-lines=1'
 alias k='kubectl'
 
@@ -65,7 +65,7 @@ alias tigs="tig status"
 [[ -x /snap/bin/intellij-idea-community ]] && alias ij='nohup intellij-idea-community . > /dev/null 2>&1 &'
 
 # claude
-alias yolo='claude --dangerously-skip-permissions --remote-control --permission-mode plan'
+alias yolo='claude --dangerously-skip-permissions'
 
 # local aliases
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"

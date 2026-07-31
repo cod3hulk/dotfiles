@@ -1,0 +1,14 @@
+#!/bin/sh
+# Copy stdin to the clipboard, portably: pbcopy on macOS, Wayland/X11 tools on
+# Linux desktops, OSC52 escape as fallback so copying works over SSH (the
+# terminal on the local side receives the clipboard).
+if command -v pbcopy > /dev/null 2>&1; then
+  exec pbcopy
+elif [ -n "$WAYLAND_DISPLAY" ] && command -v wl-copy > /dev/null 2>&1; then
+  exec wl-copy
+elif [ -n "$DISPLAY" ] && command -v xclip > /dev/null 2>&1; then
+  exec xclip -selection clipboard
+else
+  data=$(base64 | tr -d '\n')
+  printf '\033]52;c;%s\a' "$data" > /dev/tty
+fi
