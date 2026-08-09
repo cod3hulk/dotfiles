@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "${CHEZMOI_INSTALL_PACKAGES:-0}" != "1" ]; then
+  echo "Skipping Homebrew package install. Set CHEZMOI_INSTALL_PACKAGES=1 to run it."
+  exit 0
+fi
+
+{{ if eq .chezmoi.os "darwin" }}
+BREW_COMMAND="/opt/homebrew/bin/brew"
+DOTFILES_DIR="{{ .chezmoi.homeDir }}/.dotfiles"
+COMMON_BREW_FILE="${DOTFILES_DIR}/brew/Brewfile.common"
+PROFILE_BREW_FILE="${DOTFILES_DIR}/brew/Brewfile.{{ .profile }}"
+
+if ! command -v "${BREW_COMMAND}" >/dev/null 2>&1; then
+  echo "Install homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+echo "Trust third-party taps used by managed Brewfiles"
+"${BREW_COMMAND}" trust koekeishiya/formulae 2>/dev/null || true
+"${BREW_COMMAND}" trust felixkratz/formulae 2>/dev/null || true
+
+echo "Unlink conflicting formulas"
+"${BREW_COMMAND}" unlink docker-completion 2>/dev/null || true
+
+if [ -e "${COMMON_BREW_FILE}" ]; then
+  echo "Install common Homebrew dependencies"
+  "${BREW_COMMAND}" bundle install --file="${COMMON_BREW_FILE}"
+fi
+
+if [ -e "${PROFILE_BREW_FILE}" ]; then
+  echo "Install Homebrew dependencies for profile {{ .profile }}"
+  "${BREW_COMMAND}" bundle install --file="${PROFILE_BREW_FILE}"
+else
+  echo "No profile Brewfile found at ${PROFILE_BREW_FILE}"
+fi
+{{ else }}
+echo "Skipping Homebrew install on {{ .chezmoi.os }}"
+{{ end }}

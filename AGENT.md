@@ -20,6 +20,28 @@ cd ~/.dotfiles
 3. Runs `brew/init.zsh`, `linux/init.zsh`, `zgen/init.zsh` as post-install hooks
 4. Creates `~/.hushlogin` to suppress login messages
 
+### Chezmoi Migration
+
+The `chezmoi-migration` branch contains an in-progress chezmoi migration in `chezmoi/` plus `install-chezmoi`.
+
+Safe test/apply flow:
+
+```sh
+CHEZMOI_PROFILE=private-mac ./install-chezmoi
+chezmoi diff --exclude scripts
+chezmoi apply --exclude scripts
+```
+
+Supported profiles: `private-mac`, `work-mac`, `linux-home`.
+
+Package/bootstrap scripts are intentionally opt-in:
+
+```sh
+CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
+```
+
+Do not run package bootstrap unless explicitly requested; it can invoke Homebrew or apt.
+
 ### Machine-Specific Overrides
 
 - **zsh/zprofile.local.zsh** — machine-specific env vars (not tracked in git, sourced by `zsh/zprofile.zsh` if present)
@@ -29,18 +51,24 @@ cd ~/.dotfiles
 ## Package Management
 
 ```sh
-# Install all packages from manifest
+# Legacy Dotbot manifest
 brew bundle install --file=brew/Brewfile
 
-# Add a new package (edit Brewfile, then install)
-brew bundle install --file=brew/Brewfile
+# Chezmoi split manifests
+brew bundle install --file=brew/Brewfile.common
+brew bundle install --file=brew/Brewfile.private-mac
+brew bundle install --file=brew/Brewfile.work-mac
 ```
+
+`brew/Brewfile` remains the Dotbot manifest. The split `Brewfile.*` files are used by chezmoi package bootstrap.
 
 ## Architecture
 
-### Symlink Management (Dotbot)
+### Symlink Management (Dotbot + Chezmoi Migration)
 
-All config files live in this repo and are symlinked into place by dotbot. The authoritative mapping is `install.conf.yaml`. Adding a new tool means: (1) create its config directory here, (2) add a `link:` entry to `install.conf.yaml`, (3) optionally add an `init.zsh`/`init.sh` script and reference it in the `shell:` section.
+All config files live in this repo and are symlinked into place by dotbot. The Dotbot authoritative mapping is `install.conf.yaml`. Adding a new tool for the stable installer means: (1) create its config directory here, (2) add a `link:` entry to `install.conf.yaml`, (3) optionally add an `init.zsh`/`init.sh` script and reference it in the `shell:` section.
+
+During the chezmoi migration, mirror new links into `chezmoi/` using `symlink_*` source-state entries and update `.chezmoiignore.tmpl` for OS/profile-specific applicability.
 
 ### Shell (Zsh)
 
