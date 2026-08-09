@@ -71,4 +71,12 @@ Package bootstrap scripts are present as chezmoi scripts, but they are opt-in du
 CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
 ```
 
+Homebrew dependencies are split for chezmoi:
+
+- `brew/Brewfile.common` — shared macOS CLI/apps
+- `brew/Brewfile.private-mac` — private Mac desktop/window-management apps
+- `brew/Brewfile.work-mac` — work Mac specific apps, currently intentionally small
+
+The legacy `brew/Brewfile` remains for the Dotbot installer until migration is completed.
+
 Dotbot remains the authoritative installer until the migration is completed.
