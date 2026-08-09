@@ -78,6 +78,42 @@ Config at `tmux/tmux.conf`. Prefix is `C-a`. Plugins managed by [tpm](https://gi
   - Hooks configured in `~/.claude/settings.json` for automatic state updates
   - Passthrough mode enabled for better compatibility
 
+### Pi Coding Agent
+
+Pi config lives under `pi/` and is installed by Dotbot.
+
+Install/apply profiles:
+
+```sh
+# Default shared profile
+./install
+
+# Private machine: includes pi-mcp-adapter and private MCP setup
+PI_PROFILE=private ./install
+
+# Work machine: excludes private MCP
+PI_PROFILE=work ./install
+```
+
+Dotbot installs Pi if missing with:
+
+```sh
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+```
+
+Then it runs `pi/scripts/apply-profile.sh "$PI_PROFILE"` and `pi update --extensions`.
+
+Important files:
+
+- `pi/config/settings.common.json` — shared profile without MCP
+- `pi/config/settings.work.json` — work profile without private MCP
+- `pi/config/settings.private.json` — private profile with `npm:pi-mcp-adapter`
+- `pi/packages/base/` — shared Pi package for portable extensions/skills/prompts/themes
+- `pi/mcp/private.mcp.example.json` — private MCP template using environment-variable secrets
+- `pi/AGENT.md` — detailed Pi-specific agent notes
+
+Never commit real MCP/API tokens. Keep `~/.pi/agent/auth.json`, `sessions/`, `trust.json`, `npm/`, `git/`, and `mcp-cache.json` local.
+
 ### Git Submodules
 
 | Submodule | Purpose |
