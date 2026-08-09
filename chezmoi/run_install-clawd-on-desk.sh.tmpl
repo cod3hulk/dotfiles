@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "${CHEZMOI_INSTALL_PACKAGES:-0}" != "1" ]; then
+  echo "Skipping Clawd on Desk install. Set CHEZMOI_INSTALL_PACKAGES=1 to run it."
+  exit 0
+fi
+
+REPO="rullerzhou-afk/clawd-on-desk"
+API_URL="https://api.github.com/repos/${REPO}/releases/latest"
+STATE_DIR="${HOME}/.local/state/chezmoi"
+VERSION_FILE="${STATE_DIR}/clawd-on-desk.version"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "${TMP_DIR}"' EXIT
+
+LATEST_JSON="${TMP_DIR}/latest.json"
+curl -fsSL -o "${LATEST_JSON}" "${API_URL}"
+VERSION="$(grep -m1 '"tag_name"' "${LATEST_JSON}" | sed -E 's/.*"tag_name": *"([^"]+)".*/\1/')"
+VERSION_NUMBER="${VERSION#v}"
+
+if [ -z "${VERSION}" ]; then
+  echo "Could not determine latest Clawd on Desk version from ${API_URL}" >&2
+  exit 1
+fi
+
+asset_url() {
+  local pattern="$1"
+  grep '"browser_download_url"' "${LATEST_JSON}" \
+    | sed -E 's/.*"browser_download_url": *"([^"]+)".*/\1/' \
+    | grep -E "${pattern}" \
+    | head -n 1
+}
+
+installed_version_matches() {
+  [ -f "${VERSION_FILE}" ] && [ "$(cat "${VERSION_FILE}")" = "${VERSION}" ]
+}
+
+mark_installed() {
+  mkdir -p "${STATE_DIR}"
+  printf '%s\n' "${VERSION}" > "${VERSION_FILE}"
+}
+
+{{ if eq .chezmoi.os "darwin" }}
+case "{{ .chezmoi.arch }}" in
+  arm64) CLAWD_ARCH="arm64" ;;
+  amd64|x86_64) CLAWD_ARCH="x64" ;;
+  *) echo "Unsupported macOS architecture: {{ .chezmoi.arch }}" >&2; exit 1 ;;
+esac
+
+INSTALL_DIR="${CLAWD_INSTALL_DIR:-/Applications}"
+APP_PATH="${INSTALL_DIR}/Clawd on Desk.app"
+
+if installed_version_matches && [ -d "${APP_PATH}" ]; then
+  echo "Clawd on Desk ${VERSION} is already installed at ${APP_PATH}"
+  exit 0
+fi
+
+DMG_URL="$(asset_url "Clawd-on-Desk-${VERSION_NUMBER}-${CLAWD_ARCH}\\.dmg$")"
+if [ -z "${DMG_URL}" ]; then
+  echo "No Clawd on Desk dmg found for macOS ${CLAWD_ARCH} in ${VERSION}" >&2
+  exit 1
+fi
+
+DMG_FILE="${TMP_DIR}/clawd-on-desk.dmg"
+MOUNT_DIR="${TMP_DIR}/mount"
+mkdir -p "${MOUNT_DIR}" "${INSTALL_DIR}"
+
+echo "Downloading Clawd on Desk ${VERSION} for macOS ${CLAWD_ARCH}"
+curl -fL -o "${DMG_FILE}" "${DMG_URL}"
+
+hdiutil attach "${DMG_FILE}" -nobrowse -quiet -mountpoint "${MOUNT_DIR}"
+APP_SOURCE="$(find "${MOUNT_DIR}" -maxdepth 2 -name '*.app' -type d | head -n 1)"
+if [ -z "${APP_SOURCE}" ]; then
+  hdiutil detach "${MOUNT_DIR}" -quiet || true
+  echo "No .app found in ${DMG_FILE}" >&2
+  exit 1
+fi
+
+APP_NAME="$(basename "${APP_SOURCE}")"
+APP_PATH="${INSTALL_DIR}/${APP_NAME}"
+
+echo "Installing ${APP_NAME} to ${INSTALL_DIR}"
+if [ -w "${INSTALL_DIR}" ]; then
+  rm -rf "${APP_PATH}"
+  ditto "${APP_SOURCE}" "${APP_PATH}"
+else
+  sudo rm -rf "${APP_PATH}"
+  sudo ditto "${APP_SOURCE}" "${APP_PATH}"
+fi
+
+hdiutil detach "${MOUNT_DIR}" -quiet
+mark_installed
+echo "Installed Clawd on Desk ${VERSION} at ${APP_PATH}"
+{{ else if eq .chezmoi.os "linux" }}
+case "{{ .chezmoi.arch }}" in
+  amd64|x86_64) CLAWD_ARCH="x86_64"; DEB_ARCH="amd64" ;;
+  *) echo "Unsupported Linux architecture for Clawd on Desk releases: {{ .chezmoi.arch }}" >&2; exit 1 ;;
+esac
+
+if installed_version_matches; then
+  echo "Clawd on Desk ${VERSION} is already installed"
+  exit 0
+fi
+
+if command -v apt-get >/dev/null 2>&1 && command -v dpkg >/dev/null 2>&1; then
+  DEB_URL="$(asset_url "Clawd-on-Desk-${VERSION_NUMBER}-${DEB_ARCH}\\.deb$")"
+  if [ -z "${DEB_URL}" ]; then
+    echo "No Clawd on Desk deb found for Linux ${DEB_ARCH} in ${VERSION}" >&2
+    exit 1
+  fi
+
+  DEB_FILE="${TMP_DIR}/clawd-on-desk.deb"
+  echo "Downloading Clawd on Desk ${VERSION} deb for Linux ${DEB_ARCH}"
+  curl -fL -o "${DEB_FILE}" "${DEB_URL}"
+  sudo apt-get install -y "${DEB_FILE}"
+else
+  APPIMAGE_URL="$(asset_url "Clawd-on-Desk-${VERSION_NUMBER}-${CLAWD_ARCH}\\.AppImage$")"
+  if [ -z "${APPIMAGE_URL}" ]; then
+    echo "No Clawd on Desk AppImage found for Linux ${CLAWD_ARCH} in ${VERSION}" >&2
+    exit 1
+  fi
+
+  mkdir -p "${HOME}/.local/bin"
+  echo "Downloading Clawd on Desk ${VERSION} AppImage for Linux ${CLAWD_ARCH}"
+  curl -fL -o "${HOME}/.local/bin/clawd-on-desk" "${APPIMAGE_URL}"
+  chmod +x "${HOME}/.local/bin/clawd-on-desk"
+fi
+
+mark_installed
+echo "Installed Clawd on Desk ${VERSION}"
+{{ else }}
+echo "Skipping Clawd on Desk install on {{ .chezmoi.os }}"
+{{ end }}

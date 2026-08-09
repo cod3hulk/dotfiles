@@ -8,8 +8,8 @@ Legacy Dotbot remains available via `./install-dotbot`. See `AUDIT.md` for the D
 
 Package/bootstrap scripts are selected from chezmoi's `.chezmoi.os` template data:
 
-- macOS/Darwin — Homebrew via `run_onchange_install-brew-packages.sh.tmpl`
-- Linux — apt plus upstream fzf/neovim releases via `run_once_install-linux-packages.sh.tmpl`
+- macOS/Darwin — Homebrew via `run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `run_install-clawd-on-desk.sh.tmpl`
+- Linux — apt plus upstream fzf/neovim releases via `run_once_install-linux-packages.sh.tmpl`, plus Clawd on Desk deb/AppImage releases via `run_install-clawd-on-desk.sh.tmpl`
 
 Profiles are selected by hostname during `./install-chezmoi`:
 
