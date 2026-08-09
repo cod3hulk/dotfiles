@@ -2,7 +2,7 @@
 
 This directory is the experimental chezmoi source state for this dotfiles repo.
 
-It is intended to run in parallel with the existing Dotbot setup during migration.
+It is intended to run in parallel with the existing Dotbot setup during migration. See `AUDIT.md` for the Dotbot-to-chezmoi link coverage audit.
 
 ## Profiles
 
@@ -64,6 +64,10 @@ macOS files:
 Linux files:
 
 - i3 config
+
+Intentionally not migrated yet:
+
+- Pi agent themes/extensions under `~/.pi/agent/` — these need a separate migration pass to avoid overwriting local Pi state.
 
 Package bootstrap scripts are present as chezmoi scripts, but they are opt-in during migration:
 
