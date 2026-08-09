@@ -1,7 +1,6 @@
 # Local/private material
 mcp/private.mcp.json
 local/
-extensions/clawd-on-desk/
 
 # Never store Pi runtime/auth state here
 auth.json
