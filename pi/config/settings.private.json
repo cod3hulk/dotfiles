@@ -12,5 +12,6 @@
     "npm:@raquezha/noheadroom",
     "npm:pi-vimmode"
   ],
-  "powerline": "compact"
+  "powerline": "compact",
+  "lastChangelogVersion": "0.84.1"
 }
