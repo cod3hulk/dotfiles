@@ -66,3 +66,6 @@
   - linux/init.zsh
   - zgen/init.zsh
   - "touch ~/.hushlogin"
+  - "if ! command -v pi >/dev/null 2>&1; then npm install -g --ignore-scripts @earendil-works/pi-coding-agent; fi"
+  - "profile=\"${PI_PROFILE:-common}\"; ~/.dotfiles/pi/scripts/apply-profile.sh \"$profile\""
+  - "if command -v pi >/dev/null 2>&1; then pi update --extensions || true; fi"

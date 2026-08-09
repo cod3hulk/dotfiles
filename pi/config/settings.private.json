@@ -1,0 +1,19 @@
+{
+  "theme": "dracula",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "medium",
+  "packages": [
+    "~/.dotfiles/pi/packages/base",
+    "npm:pi-mcp-adapter",
+    "npm:pi-rtk-optimizer",
+    "npm:@firstpick/pi-themes-bundle",
+    "npm:pi-powerline-footer",
+    "npm:@raquezha/noheadroom",
+    "npm:pi-vimmode"
+  ],
+  "powerline": {
+    "preset": "default",
+    "placement": "below"
+  }
+}
