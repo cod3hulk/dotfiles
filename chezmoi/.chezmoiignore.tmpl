@@ -1,0 +1,17 @@
+# Keep documentation out of the target home directory.
+README.md
+
+# These platform-/host-specific configs will be migrated later. The ignore rules
+# are intentionally prepared before the files exist in this source state.
+{{ if ne .chezmoi.os "darwin" }}
+dot_yabairc
+dot_skhdrc
+dot_hammerspoon/**
+dot_config/karabiner/**
+dot_config/borders/**
+dot_config/Code/**
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+# Linux/headless-only files can be listed here during later migration.
+{{ end }}

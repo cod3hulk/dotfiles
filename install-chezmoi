@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SOURCE_DIR="${BASEDIR}/chezmoi"
+
+if ! command -v chezmoi >/dev/null 2>&1; then
+  case "$(uname)" in
+    Darwin)
+      if ! command -v brew >/dev/null 2>&1; then
+        echo "Homebrew is required to install chezmoi on macOS. Run ./install first or install brew manually."
+        exit 1
+      fi
+      brew install chezmoi
+      ;;
+    Linux)
+      mkdir -p "${HOME}/.local/bin"
+      sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "${HOME}/.local/bin"
+      export PATH="${HOME}/.local/bin:${PATH}"
+      ;;
+    *)
+      echo "Unsupported OS: $(uname)"
+      exit 1
+      ;;
+  esac
+fi
+
+CONFIG_DIR="${HOME}/.config/chezmoi"
+CONFIG_FILE="${CONFIG_DIR}/chezmoi.toml"
+
+mkdir -p "${CONFIG_DIR}"
+
+if [ ! -e "${CONFIG_FILE}" ]; then
+  printf 'sourceDir = "%s"\n' "${SOURCE_DIR}" > "${CONFIG_FILE}"
+elif ! chezmoi dump-config | grep -q '"sourceDir": "'"${SOURCE_DIR}"'"'; then
+  echo "chezmoi already has a different sourceDir configured:"
+  chezmoi dump-config | grep '"sourceDir"' || true
+  echo "Expected: ${SOURCE_DIR}"
+  echo "Either update ${CONFIG_FILE}, or run commands with: chezmoi -S ${SOURCE_DIR} ..."
+  exit 1
+fi
+
+chezmoi -S "${SOURCE_DIR}" diff
+
+echo
+printf 'Initialized chezmoi with source %s\n' "${SOURCE_DIR}"
+echo 'Review the diff above, then run: chezmoi apply'
