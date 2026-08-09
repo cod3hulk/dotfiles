@@ -8,7 +8,7 @@ fi
 
 {{ if eq .chezmoi.os "darwin" }}
 BREW_COMMAND="/opt/homebrew/bin/brew"
-BREW_FILE="{{ .chezmoi.sourceDir }}/../brew/Brewfile"
+BREW_FILE="{{ .chezmoi.homeDir }}/.dotfiles/brew/Brewfile"
 
 if ! command -v "${BREW_COMMAND}" >/dev/null 2>&1; then
   echo "Install homebrew"
