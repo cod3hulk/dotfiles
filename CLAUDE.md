@@ -25,7 +25,7 @@ CHEZMOI_PROFILE=work-mac ./install
 Package/bootstrap scripts are opt-in:
 
 ```sh
-CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
+CHEZMOI_INSTALL_PACKAGES=1 ./install
 ```
 
 Legacy Dotbot is still available via `./install-dotbot`. It uses `install.conf.yaml` to symlink configs and run the old shell hooks.

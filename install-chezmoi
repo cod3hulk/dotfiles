@@ -26,131 +26,29 @@ if ! command -v chezmoi >/dev/null 2>&1; then
   esac
 fi
 
-CONFIG_DIR="${HOME}/.config/chezmoi"
-CONFIG_FILE="${CONFIG_DIR}/chezmoi.toml"
+CONFIG_FILE="${HOME}/.config/chezmoi/chezmoi.toml"
 
-mkdir -p "${CONFIG_DIR}"
-
-get_config_profile() {
-  [ -e "${CONFIG_FILE}" ] || return 0
-  awk -F ' *= *' '
-    /^\[data\]/ { in_data = 1; next }
-    /^\[/ { in_data = 0 }
-    in_data && /^profile *=/ { gsub(/"/, "", $2); print $2; exit }
-  ' "${CONFIG_FILE}"
-}
-
-set_config_profile() {
-  local profile="$1"
-
-  if ! grep -q '^\[data\]' "${CONFIG_FILE}"; then
-    printf '\n[data]\nprofile = "%s"\n' "${profile}" >> "${CONFIG_FILE}"
-  elif grep -q '^profile *=' "${CONFIG_FILE}"; then
-    awk -v profile="${profile}" '
-      /^profile *=/ && !done { print "profile = \"" profile "\""; done = 1; next }
-      { print }
-    ' "${CONFIG_FILE}" > "${CONFIG_FILE}.tmp"
-    mv "${CONFIG_FILE}.tmp" "${CONFIG_FILE}"
-  else
-    awk -v profile="${profile}" '
-      { print }
-      /^\[data\]/ && !done { print "profile = \"" profile "\""; done = 1 }
-    ' "${CONFIG_FILE}" > "${CONFIG_FILE}.tmp"
-    mv "${CONFIG_FILE}.tmp" "${CONFIG_FILE}"
-  fi
-}
-
-detect_cod3hulk_profile() {
-  local host
-  host="$(hostname -s 2>/dev/null || hostname)"
-
-  if [ "${host}" != "cod3hulk" ]; then
-    return 0
-  fi
-
-  case "$(uname)" in
-    Darwin) echo "private-mac" ;;
-    Linux) echo "linux-home" ;;
-  esac
-}
-
-prompt_profile() {
-  local profile_choice
-
-  case "$(uname)" in
-    Darwin)
-      cat >&2 <<'EOF'
-Choose a chezmoi profile for this Mac:
-  1) work-mac
-  2) private-mac
-EOF
-      read -r -p "Profile [work-mac]: " profile_choice
-      case "${profile_choice:-1}" in
-        1|work-mac) echo "work-mac" ;;
-        2|private-mac) echo "private-mac" ;;
-        *) echo "${profile_choice}" ;;
-      esac
-      ;;
-    Linux)
-      cat >&2 <<'EOF'
-Choose a chezmoi profile for this Linux machine:
-  1) linux-home
-EOF
-      read -r -p "Profile [linux-home]: " profile_choice
-      case "${profile_choice:-1}" in
-        1|linux-home) echo "linux-home" ;;
-        *) echo "${profile_choice}" ;;
-      esac
-      ;;
-  esac
-}
-
-if [ ! -e "${CONFIG_FILE}" ]; then
-  cat > "${CONFIG_FILE}" <<EOF
-sourceDir = "${SOURCE_DIR}"
-EOF
-else
-  if ! chezmoi dump-config | grep -q '"sourceDir": "'"${SOURCE_DIR}"'"'; then
-    echo "chezmoi already has a different sourceDir configured:"
-    chezmoi dump-config | grep '"sourceDir"' || true
-    echo "Expected: ${SOURCE_DIR}"
-    echo "Either update ${CONFIG_FILE}, or run commands with: chezmoi -S ${SOURCE_DIR} ..."
-    exit 1
-  fi
+if [ -e "${CONFIG_FILE}" ] && ! chezmoi dump-config | grep -q '"sourceDir": "'"${SOURCE_DIR}"'"'; then
+  echo "chezmoi already has a different sourceDir configured:"
+  chezmoi dump-config | grep '"sourceDir"' || true
+  echo "Expected: ${SOURCE_DIR}"
+  echo "Either update ${CONFIG_FILE}, or run commands with: chezmoi -S ${SOURCE_DIR} ..."
+  exit 1
 fi
 
-PROFILE_SOURCE="config"
-PROFILE="${CHEZMOI_PROFILE:-}"
+chezmoi init --source "${SOURCE_DIR}"
 
-if [ -n "${PROFILE}" ]; then
-  PROFILE_SOURCE="CHEZMOI_PROFILE"
-else
-  PROFILE="$(get_config_profile)"
-fi
-
-if [ -z "${PROFILE}" ]; then
-  PROFILE="$(detect_cod3hulk_profile)"
-  if [ -n "${PROFILE}" ]; then
-    PROFILE_SOURCE="hostname"
-  fi
-fi
-
-if [ -z "${PROFILE}" ]; then
-  PROFILE="$(prompt_profile)"
-  PROFILE_SOURCE="prompt"
-fi
-
-set_config_profile "${PROFILE}"
-
-chezmoi -S "${SOURCE_DIR}" diff --exclude scripts
+PROFILE="$(chezmoi -S "${SOURCE_DIR}" execute-template '{{ .profile }}')"
 
 echo
 printf 'Initialized chezmoi with source %s and profile %s\n' "${SOURCE_DIR}" "${PROFILE}"
-case "${PROFILE_SOURCE}" in
-  CHEZMOI_PROFILE) echo 'Profile was overridden by CHEZMOI_PROFILE.' ;;
-  hostname) echo 'Profile was selected automatically for hostname cod3hulk.' ;;
-  prompt) echo 'Profile was selected from user input.' ;;
-  config) echo "Profile was read from ${CONFIG_FILE}." ;;
-esac
-echo 'Review the diff above, then run: chezmoi apply'
-echo 'Package bootstrap runs only with: CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply'
+if [ -n "${CHEZMOI_PROFILE:-}" ]; then
+  echo 'Profile was overridden by CHEZMOI_PROFILE.'
+else
+  echo "Profile was read from ${CONFIG_FILE}."
+fi
+
+echo
+echo 'Applying chezmoi source state.'
+chezmoi -S "${SOURCE_DIR}" apply
+echo 'Package bootstrap runs only with: CHEZMOI_INSTALL_PACKAGES=1 ./install'

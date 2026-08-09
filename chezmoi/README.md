@@ -8,10 +8,10 @@ Legacy Dotbot remains available via `./install-dotbot`. See `AUDIT.md` for the D
 
 Package/bootstrap scripts are selected from chezmoi's `.chezmoi.os` template data:
 
-- macOS/Darwin — Homebrew via `run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `run_install-clawd-on-desk.sh.tmpl`
-- Linux — apt plus upstream fzf/neovim releases via `run_once_install-linux-packages.sh.tmpl`, plus Clawd on Desk deb/AppImage releases via `run_install-clawd-on-desk.sh.tmpl`
+- macOS/Darwin — Homebrew via `.chezmoiscripts/run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`
+- Linux — apt plus upstream fzf/neovim releases via `.chezmoiscripts/run_once_install-linux-packages.sh.tmpl`, plus Clawd on Desk deb/AppImage releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`
 
-Profiles are selected by hostname during `./install-chezmoi`:
+Profiles are selected by `chezmoi/.chezmoi.toml.tmpl`:
 
 - hostname `cod3hulk` — selects the private profile automatically (`private-mac` on macOS, `linux-home` on Linux)
 - any other hostname — prompts once, then persists `[data].profile` in `~/.config/chezmoi/chezmoi.toml`
@@ -28,17 +28,18 @@ CHEZMOI_PROFILE=work-mac ./install-chezmoi
 ./install
 ```
 
-For a setup-only/diff flow:
+`./install` and `./install-chezmoi` initialize chezmoi and apply the source state.
+
+For a preview-only flow:
 
 ```sh
-./install-chezmoi
-chezmoi diff
-chezmoi apply
+chezmoi -S ~/.dotfiles/chezmoi init
+chezmoi -S ~/.dotfiles/chezmoi diff
 ```
 
-Plain `chezmoi apply` is safe: package scripts are ignored unless `CHEZMOI_INSTALL_PACKAGES=1` is set.
+Plain `chezmoi apply` is safe: package scripts exit unless `CHEZMOI_INSTALL_PACKAGES=1` is set.
 
-`./install-chezmoi` writes `~/.config/chezmoi/chezmoi.toml` with this repo's `chezmoi/` directory as `sourceDir`. A `[data].profile` entry is written from the hostname default, prompt choice, or `CHEZMOI_PROFILE` override. If you do not want to persist that config, use explicit source commands instead:
+`./install-chezmoi` uses `chezmoi init --source`, so `~/.config/chezmoi/chezmoi.toml` is rendered from `chezmoi/.chezmoi.toml.tmpl` with a persisted `[data].profile`. If you do not want to persist that config, use explicit source commands instead:
 
 ```sh
 chezmoi -S ~/.dotfiles/chezmoi diff
@@ -58,9 +59,18 @@ Common files:
 - `~/.ideavimrc` -> `intellij/ideavimrc`
 - `~/.config/nvim` -> `nvim`
 - `~/.local/bin/clipcopy` -> `scripts/clipcopy`
+- `~/.hermes/skins/dracula.yaml` -> `hermes/skins/dracula.yaml`
 - `~/.pi/agent/settings.json` -> profile-specific `pi/config/settings.*.json`
 - `~/.pi/agent/extensions` -> `pi/extensions`
 - `~/.pi/agent/themes` -> `pi/themes`
+
+Hermes' Dracula skin is linked independently of Nous Portal / Skill Sync. The
+`.chezmoiscripts/run_onchange_after_activate-hermes-dracula.sh` script activates it with
+`hermes config set display.skin dracula` when Hermes is installed. Secrets,
+auth, memories, sessions, logs, caches, and other runtime state remain local.
+
+The shared Pi profiles already include the portable RTK/headroom packages:
+`npm:pi-rtk-optimizer` and `npm:@raquezha/noheadroom`.
 
 Private macOS profile files:
 
@@ -85,7 +95,7 @@ Private Pi files:
 Package bootstrap scripts are present as chezmoi scripts, but they are opt-in during migration:
 
 ```sh
-CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
+CHEZMOI_INSTALL_PACKAGES=1 ./install
 ```
 
 Homebrew dependencies are split for chezmoi:

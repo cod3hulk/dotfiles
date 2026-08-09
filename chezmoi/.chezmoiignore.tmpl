@@ -1,37 +1,14 @@
-{{- $profile := "" -}}
-{{- if eq .chezmoi.os "linux" -}}
-{{- $profile = "linux-home" -}}
-{{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.hostname "cod3hulk") -}}
-{{- $profile = "private-mac" -}}
-{{- else if eq .chezmoi.os "darwin" -}}
-{{- $profile = "work-mac" -}}
-{{- else -}}
-{{- $profile = "unknown" -}}
-{{- end -}}
-{{- with (index . "profile") -}}
-{{- $profile = . -}}
-{{- end }}
-
 # Keep documentation out of the target home directory.
 README.md
 AUDIT.md
 
 # Private Pi MCP config is only linked on the private Mac profile.
-{{ if ne $profile "private-mac" }}
+{{ if ne .profile "private-mac" }}
 .pi/agent/mcp.json
 {{ end }}
 
-# Package scripts are opt-in during migration. Run them explicitly with:
-# CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
-{{ if ne (env "CHEZMOI_INSTALL_PACKAGES") "1" }}
-run_once_install-linux-packages.sh
-run_onchange_install-brew-packages.sh
-install-linux-packages.sh
-install-brew-packages.sh
-{{ end }}
-
 # Private macOS window-management and local GUI automation.
-{{ if ne $profile "private-mac" }}
+{{ if ne .profile "private-mac" }}
 .yabairc
 .skhdrc
 .hammerspoon

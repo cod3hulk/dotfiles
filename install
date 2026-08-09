@@ -5,8 +5,3 @@ set -euo pipefail
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 "${BASEDIR}/install-chezmoi"
-
-# Package bootstrap scripts are ignored unless CHEZMOI_INSTALL_PACKAGES=1 is set
-# (see chezmoi/.chezmoiignore.tmpl). Non-package scripts, such as private Pi MCP
-# bootstrap, are safe to run during the default install.
-chezmoi apply
