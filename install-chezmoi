@@ -31,18 +31,57 @@ CONFIG_FILE="${CONFIG_DIR}/chezmoi.toml"
 
 mkdir -p "${CONFIG_DIR}"
 
-if [ ! -e "${CONFIG_FILE}" ]; then
-  printf 'sourceDir = "%s"\n' "${SOURCE_DIR}" > "${CONFIG_FILE}"
-elif ! chezmoi dump-config | grep -q '"sourceDir": "'"${SOURCE_DIR}"'"'; then
-  echo "chezmoi already has a different sourceDir configured:"
-  chezmoi dump-config | grep '"sourceDir"' || true
-  echo "Expected: ${SOURCE_DIR}"
-  echo "Either update ${CONFIG_FILE}, or run commands with: chezmoi -S ${SOURCE_DIR} ..."
-  exit 1
+PROFILE="${CHEZMOI_PROFILE:-}"
+if [ -z "${PROFILE}" ] && [ -e "${CONFIG_FILE}" ]; then
+  PROFILE="$(awk -F ' *= *' '/^profile *=/ { gsub(/\"/, "", $2); print $2; exit }' "${CONFIG_FILE}")"
 fi
 
-chezmoi -S "${SOURCE_DIR}" diff
+if [ -z "${PROFILE}" ]; then
+  cat <<'EOF'
+Choose a chezmoi profile:
+  1) private-mac
+  2) work-mac
+  3) linux-home
+EOF
+  read -r -p "Profile [private-mac]: " PROFILE_CHOICE
+  case "${PROFILE_CHOICE:-1}" in
+    1|private-mac) PROFILE="private-mac" ;;
+    2|work-mac) PROFILE="work-mac" ;;
+    3|linux-home) PROFILE="linux-home" ;;
+    *) PROFILE="${PROFILE_CHOICE}" ;;
+  esac
+fi
+
+if [ ! -e "${CONFIG_FILE}" ]; then
+  cat > "${CONFIG_FILE}" <<EOF
+sourceDir = "${SOURCE_DIR}"
+
+[data]
+profile = "${PROFILE}"
+EOF
+else
+  if ! chezmoi dump-config | grep -q '"sourceDir": "'"${SOURCE_DIR}"'"'; then
+    echo "chezmoi already has a different sourceDir configured:"
+    chezmoi dump-config | grep '"sourceDir"' || true
+    echo "Expected: ${SOURCE_DIR}"
+    echo "Either update ${CONFIG_FILE}, or run commands with: chezmoi -S ${SOURCE_DIR} ..."
+    exit 1
+  fi
+
+  if ! grep -q '^\[data\]' "${CONFIG_FILE}"; then
+    printf '\n[data]\nprofile = "%s"\n' "${PROFILE}" >> "${CONFIG_FILE}"
+  elif ! grep -q '^profile *=' "${CONFIG_FILE}"; then
+    awk -v profile="${PROFILE}" '
+      { print }
+      /^\[data\]/ && !done { print "profile = \"" profile "\""; done = 1 }
+    ' "${CONFIG_FILE}" > "${CONFIG_FILE}.tmp"
+    mv "${CONFIG_FILE}.tmp" "${CONFIG_FILE}"
+  fi
+fi
+
+chezmoi -S "${SOURCE_DIR}" diff --exclude scripts
 
 echo
-printf 'Initialized chezmoi with source %s\n' "${SOURCE_DIR}"
-echo 'Review the diff above, then run: chezmoi apply'
+printf 'Initialized chezmoi with source %s and profile %s\n' "${SOURCE_DIR}" "${PROFILE}"
+echo 'Review the diff above, then run: chezmoi apply --exclude scripts'
+echo 'Run package bootstrap explicitly with: CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply'
