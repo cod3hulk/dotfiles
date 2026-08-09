@@ -16,7 +16,7 @@ Status: private Mac and Linux profiles have been tested with `chezmoi diff --exc
 | `~/.zshrc` | managed | symlink to `zsh/zshrc.zsh` |
 | `~/.zprofile` | managed | symlink to `zsh/zprofile.zsh` |
 | `~/.hammerspoon` | managed for `private-mac` | ignored otherwise |
-| `~/.tmux/plugins/tpm` | managed | symlink to `tmux/tpm` |
+| `~/.tmux/plugins/tpm` | managed as external | archive from `tmux-plugins/tpm`; legacy repo submodule remains only for Dotbot/compatibility |
 | `~/.tmux/scripts` | managed | symlink to `tmux/scripts` |
 | `~/.config/alacritty/alacritty.yml` | managed on macOS | ignored on Linux |
 | `~/.config/alacritty/alacritty.toml` | managed on macOS | ignored on Linux |
@@ -39,10 +39,12 @@ Status: private Mac and Linux profiles have been tested with `chezmoi diff --exc
 | Target | Purpose |
 |---|---|
 | `~/.hushlogin` | replaces Dotbot shell hook `touch ~/.hushlogin` |
+| `~/.zgen` | external archive replaces Dotbot-only `zgen/init.zsh` clone hook |
+| `~/.local/bin/fzf` | Linux external archive replaces shell-script GitHub release parsing |
 
 ## Package bootstrap
 
-Chezmoi scripts are present but opt-in:
+Chezmoi scripts and externals are present but package-manager side effects are opt-in:
 
 ```sh
 CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply

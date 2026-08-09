@@ -6,10 +6,11 @@ Legacy Dotbot remains available via `./install-dotbot`. See `AUDIT.md` for the D
 
 ## Profiles
 
-Package/bootstrap scripts are selected from chezmoi's `.chezmoi.os` template data:
+Package/bootstrap scripts and external resources are selected from chezmoi's `.chezmoi.os` template data:
 
-- macOS/Darwin — Homebrew via `.chezmoiscripts/run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`
-- Linux — apt plus upstream fzf/neovim releases via `.chezmoiscripts/run_once_install-linux-packages.sh.tmpl`, plus Clawd on Desk deb/AppImage releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`
+- Common externals — zgen and TPM are downloaded by `.chezmoiexternal.toml.tmpl` instead of relying on legacy Dotbot hooks/submodule checkouts in the target home.
+- macOS/Darwin — Homebrew via `.chezmoiscripts/run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`.
+- Linux — apt plus upstream Neovim releases via `.chezmoiscripts/run_once_install-linux-packages.sh.tmpl`, fzf via `.chezmoiexternal.toml.tmpl`, plus Clawd on Desk deb/AppImage releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`.
 
 Profiles are selected by `chezmoi/.chezmoi.toml.tmpl`:
 
@@ -52,6 +53,8 @@ Managed files are currently symlinks back to this repo.
 
 Common files:
 
+- `~/.zgen` -> external archive `tarjoilija/zgen`
+- `~/.tmux/plugins/tpm` -> external archive `tmux-plugins/tpm`
 - `~/.zshrc` -> `zsh/zshrc.zsh`
 - `~/.zprofile` -> `zsh/zprofile.zsh`
 - `~/.tmux.conf` -> `tmux/tmux.conf`
@@ -103,6 +106,12 @@ Homebrew dependencies are split for chezmoi:
 - `brew/Brewfile.common` — shared macOS CLI/apps
 - `brew/Brewfile.private-mac` — private Mac desktop/window-management apps
 - `brew/Brewfile.work-mac` — work Mac specific apps, currently intentionally small
+
+Refresh external resources explicitly with:
+
+```sh
+chezmoi -R apply
+```
 
 The legacy `brew/Brewfile` remains for the Dotbot installer until migration is completed.
 

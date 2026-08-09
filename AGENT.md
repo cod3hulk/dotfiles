@@ -88,7 +88,7 @@ Legacy Dotbot mapping remains in `install.conf.yaml` for `./install-dotbot`, but
 
 ### Tmux
 
-Config at `tmux/tmux.conf`. Prefix is `C-a`. Plugins managed by [tpm](https://github.com/tmux-plugins/tpm) (git submodule at `tmux/tpm`). Key plugins:
+Config at `tmux/tmux.conf`. Prefix is `C-a`. TPM itself is managed by chezmoi external resources for new installs (legacy submodule remains for Dotbot compatibility). Key plugins:
 - **tmux-resurrect** — session save/restore
 - **tmux-continuum** — auto-save every 10 min
 - **vim-tmux-navigator** — seamless vim/tmux pane navigation
@@ -143,7 +143,7 @@ Never commit real MCP/API tokens. Keep `~/.pi/agent/auth.json`, `sessions/`, `tr
 |-----------|---------|
 | `dotbot/` | Installation framework |
 | `hammerspoon/` | macOS automation config |
-| `tmux/tpm` | Tmux plugin manager |
+| `tmux/tpm` | Tmux plugin manager legacy submodule; chezmoi installs TPM as an external resource |
 | `dracula/iterm`, `dracula/alfred` | Theme assets |
 
 When adding a new submodule: `git submodule add <url> <path>` and re-run `./install`.
