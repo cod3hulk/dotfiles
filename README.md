@@ -1,29 +1,30 @@
 # cod3hulk dotfiles
 
-Personal dotfiles managed with [dotbot](https://github.com/anishathalye/dotbot), with an in-progress [chezmoi](https://www.chezmoi.io/) migration, and [Homebrew](https://brew.sh). Covers terminal, editor, window management, and shell tooling for macOS (with partial Linux support).
+Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) and [Homebrew](https://brew.sh), with the previous [dotbot](https://github.com/anishathalye/dotbot) installer kept as legacy. Covers terminal, editor, window management, and shell tooling for macOS (with partial Linux support).
 
 ## Quick Start
 
-Stable Dotbot installer:
+Default chezmoi installer:
 
 ```sh
 git clone --recurse-submodules https://github.com/cod3hulk/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-./install
-```
-
-Experimental chezmoi installer on the `chezmoi-migration` branch:
-
-```sh
-git switch chezmoi-migration
-CHEZMOI_PROFILE=private-mac ./install-chezmoi
-chezmoi diff --exclude scripts
-chezmoi apply --exclude scripts
+CHEZMOI_PROFILE=private-mac ./install
 ```
 
 Supported chezmoi profiles: `private-mac`, `work-mac`, `linux-home`.
 
-The Dotbot `install` script symlinks configs, installs Homebrew packages, and initializes plugins. The chezmoi migration currently manages symlinks in parallel; package installation is opt-in with `CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply`.
+`./install` configures chezmoi and applies managed links. Package installation is opt-in:
+
+```sh
+CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
+```
+
+Legacy Dotbot installer:
+
+```sh
+./install-dotbot
+```
 
 ## What's Inside
 
@@ -105,7 +106,7 @@ The Dotbot `install` script symlinks configs, installs Homebrew packages, and in
 
 ## Symlinks Created
 
-Dotbot links the following (see `install.conf.yaml` for the full list):
+Chezmoi links the following (see `chezmoi/AUDIT.md` for the full list and profile/OS conditions):
 
 ```
 ~/.zshrc                          → zsh/zshrc.zsh
@@ -127,6 +128,9 @@ Dotbot links the following (see `install.conf.yaml` for the full list):
 ~/.config/Code/User/keybindings.json → vscode/keybindings.json
 ~/.ideavimrc                      → intellij/ideavimrc
 ~/.tigrc                          → tig/tig.conf
+~/.pi/agent/settings.json          → pi/config/settings.*.json
+~/.pi/agent/extensions             → pi/extensions/
+~/.pi/agent/themes                 → pi/themes/
 ```
 
 ## License

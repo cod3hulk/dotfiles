@@ -9,8 +9,8 @@ if ! command -v chezmoi >/dev/null 2>&1; then
   case "$(uname)" in
     Darwin)
       if ! command -v brew >/dev/null 2>&1; then
-        echo "Homebrew is required to install chezmoi on macOS. Run ./install first or install brew manually."
-        exit 1
+        echo "Install homebrew"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       fi
       brew install chezmoi
       ;;
@@ -83,5 +83,5 @@ chezmoi -S "${SOURCE_DIR}" diff --exclude scripts
 
 echo
 printf 'Initialized chezmoi with source %s and profile %s\n' "${SOURCE_DIR}" "${PROFILE}"
-echo 'Review the diff above, then run: chezmoi apply --exclude scripts'
-echo 'Run package bootstrap explicitly with: CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply'
+echo 'Review the diff above, then run: chezmoi apply'
+echo 'Package bootstrap runs only with: CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply'
