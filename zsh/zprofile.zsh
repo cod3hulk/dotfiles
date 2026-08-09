@@ -8,7 +8,12 @@
 #
 # Path
 #
-export PATH="$PATH:/usr/share:$HOME/bin:/$HOME/.local/bin:/opt/homebrew/bin"
+path=(
+  $path
+  /usr/share
+  $HOME/bin
+  $HOME/.local/bin
+)
 
 #
 # Browser
@@ -55,7 +60,9 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
+  $HOME/.cargo/bin
   $HOME/go/bin
+  $HOME/.local/bin
   $path
 )
 

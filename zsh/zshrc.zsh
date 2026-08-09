@@ -114,4 +114,3 @@ unset -f _nvm_resolve_alias
 
 # Go binaries
 export PATH="$HOME/go/bin:$PATH"
-

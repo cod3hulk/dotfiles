@@ -1,8 +1,10 @@
 # cod3hulk dotfiles
 
-Personal dotfiles managed with [dotbot](https://github.com/anishathalye/dotbot) and [Homebrew](https://brew.sh). Covers terminal, editor, window management, and shell tooling for macOS (with partial Linux support).
+Personal dotfiles managed with [dotbot](https://github.com/anishathalye/dotbot), with an in-progress [chezmoi](https://www.chezmoi.io/) migration, and [Homebrew](https://brew.sh). Covers terminal, editor, window management, and shell tooling for macOS (with partial Linux support).
 
 ## Quick Start
+
+Stable Dotbot installer:
 
 ```sh
 git clone --recurse-submodules https://github.com/cod3hulk/dotfiles ~/.dotfiles
@@ -10,7 +12,18 @@ cd ~/.dotfiles
 ./install
 ```
 
-The `install` script runs dotbot, which symlinks configs, installs Homebrew packages, and initializes plugins.
+Experimental chezmoi installer on the `chezmoi-migration` branch:
+
+```sh
+git switch chezmoi-migration
+CHEZMOI_PROFILE=private-mac ./install-chezmoi
+chezmoi diff --exclude scripts
+chezmoi apply --exclude scripts
+```
+
+Supported chezmoi profiles: `private-mac`, `work-mac`, `linux-home`.
+
+The Dotbot `install` script symlinks configs, installs Homebrew packages, and initializes plugins. The chezmoi migration currently manages symlinks in parallel; package installation is opt-in with `CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply`.
 
 ## What's Inside
 
@@ -66,7 +79,7 @@ The `install` script runs dotbot, which symlinks configs, installs Homebrew pack
 
 | Directory | Description |
 |-----------|-------------|
-| `brew/` | Homebrew manifest — dev tools (`git`, `neovim`, `tmux`, `ripgrep`, `jq`, `fzf`, `kubectl`, `go`, `nvm`) and macOS apps |
+| `brew/` | Homebrew manifests — legacy `Brewfile` for Dotbot plus split `Brewfile.common`, `Brewfile.private-mac`, `Brewfile.work-mac` for chezmoi profiles |
 | `k8s/` | Kubernetes utilities — `kubectx` (context switcher), `kubens` (namespace switcher), kubectl plugins |
 | `k9s/` | Kubernetes dashboard config with Dracula theme |
 | `tig/` | [tig](https://jonas.github.io/tig/) (text-mode git UI) config |
