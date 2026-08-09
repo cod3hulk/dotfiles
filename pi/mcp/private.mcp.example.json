@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "home-assistant": {
+      "type": "stdio",
+      "command": "${HOME}/.local/bin/uvx",
+      "args": [
+        "--python",
+        "3.13",
+        "--refresh",
+        "ha-mcp@latest"
+      ],
+      "env": {
+        "HOMEASSISTANT_URL": "http://192.168.178.54:8123",
+        "HOMEASSISTANT_TOKEN": "${HOMEASSISTANT_TOKEN}"
+      }
+    },
+    "proxmox": {
+      "type": "stdio",
+      "command": "${HOME}/.local/bin/uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/ry-ops/proxmox-mcp-server",
+        "--with",
+        "mcp<2",
+        "proxmox-mcp-server"
+      ],
+      "env": {
+        "PROXMOX_HOST": "192.168.178.100",
+        "PROXMOX_USER": "root@pam",
+        "PROXMOX_TOKEN_NAME": "claude",
+        "PROXMOX_TOKEN_VALUE": "${PROXMOX_TOKEN_VALUE}",
+        "PROXMOX_PORT": "8006",
+        "PROXMOX_VERIFY_SSL": "false"
+      }
+    }
+  }
+}
