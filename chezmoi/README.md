@@ -48,6 +48,9 @@ Common files:
 - `~/.ideavimrc` -> `intellij/ideavimrc`
 - `~/.config/nvim` -> `nvim`
 - `~/.local/bin/clipcopy` -> `scripts/clipcopy`
+- `~/.pi/agent/settings.json` -> profile-specific `pi/config/settings.*.json`
+- `~/.pi/agent/extensions` -> `pi/extensions`
+- `~/.pi/agent/themes` -> `pi/themes`
 
 Private macOS profile files:
 
@@ -65,9 +68,9 @@ Linux files:
 
 - i3 config
 
-Intentionally not migrated yet:
+Private Pi files:
 
-- Pi agent themes/extensions under `~/.pi/agent/` — these need a separate migration pass to avoid overwriting local Pi state.
+- `~/.pi/agent/mcp.json` -> `~/.config/mcp/mcp.json` on `private-mac` only. The local file is created from `pi/mcp/private.mcp.example.json` by the one-time chezmoi script if missing.
 
 Package bootstrap scripts are present as chezmoi scripts, but they are opt-in during migration:
 

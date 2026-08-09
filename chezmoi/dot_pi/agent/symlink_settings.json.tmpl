@@ -1,0 +1,7 @@
+{{- if eq .profile "private-mac" -}}
+{{ .chezmoi.homeDir }}/.dotfiles/pi/config/settings.private.json
+{{- else if eq .profile "work-mac" -}}
+{{ .chezmoi.homeDir }}/.dotfiles/pi/config/settings.work.json
+{{- else -}}
+{{ .chezmoi.homeDir }}/.dotfiles/pi/config/settings.common.json
+{{- end }}

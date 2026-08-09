@@ -11,8 +11,5 @@
     "npm:@raquezha/noheadroom",
     "npm:pi-vimmode"
   ],
-  "powerline": {
-    "preset": "default",
-    "placement": "below"
-  }
+  "powerline": "compact"
 }

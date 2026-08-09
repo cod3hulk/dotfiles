@@ -108,7 +108,7 @@ Config at `tmux/tmux.conf`. Prefix is `C-a`. Plugins managed by [tpm](https://gi
 
 ### Pi Coding Agent
 
-Pi config lives under `pi/` and is installed by Dotbot.
+Pi config lives under `pi/` and is installed by Dotbot or linked by chezmoi.
 
 Install/apply profiles:
 
@@ -136,9 +136,17 @@ Important files:
 - `pi/config/settings.common.json` — shared profile without MCP
 - `pi/config/settings.work.json` — work profile without private MCP
 - `pi/config/settings.private.json` — private profile with `npm:pi-mcp-adapter`
+- `pi/config/rtk-optimizer.json` — shared `pi-rtk-optimizer` config, exposed via `pi/extensions/pi-rtk-optimizer/config.json`
 - `pi/packages/base/` — shared Pi package for portable extensions/skills/prompts/themes
 - `pi/mcp/private.mcp.example.json` — private MCP template using environment-variable secrets
 - `pi/AGENT.md` — detailed Pi-specific agent notes
+
+Chezmoi links:
+
+- `~/.pi/agent/settings.json` -> profile-specific `pi/config/settings.*.json`
+- `~/.pi/agent/extensions` -> `pi/extensions`
+- `~/.pi/agent/themes` -> `pi/themes`
+- `~/.pi/agent/mcp.json` -> `~/.config/mcp/mcp.json` on `private-mac` only
 
 Never commit real MCP/API tokens. Keep `~/.pi/agent/auth.json`, `sessions/`, `trust.json`, `npm/`, `git/`, and `mcp-cache.json` local.
 
