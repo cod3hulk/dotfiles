@@ -6,13 +6,17 @@ Legacy Dotbot remains available via `./install-dotbot`. See `AUDIT.md` for the D
 
 ## Profiles
 
-`./install-chezmoi` configures a machine profile in `~/.config/chezmoi/chezmoi.toml`:
+Package/bootstrap scripts are selected from chezmoi's `.chezmoi.os` template data:
 
-- `private-mac`
-- `work-mac`
-- `linux-home`
+- macOS/Darwin — Homebrew via `run_onchange_install-brew-packages.sh.tmpl`
+- Linux — apt plus upstream fzf/neovim releases via `run_once_install-linux-packages.sh.tmpl`
 
-You can preselect the profile non-interactively:
+Profiles are selected by hostname during `./install-chezmoi`:
+
+- hostname `cod3hulk` — selects the private profile automatically (`private-mac` on macOS, `linux-home` on Linux)
+- any other hostname — prompts once, then persists `[data].profile` in `~/.config/chezmoi/chezmoi.toml`
+
+You can override detection/prompting non-interactively:
 
 ```sh
 CHEZMOI_PROFILE=work-mac ./install-chezmoi
@@ -34,7 +38,7 @@ chezmoi apply
 
 Plain `chezmoi apply` is safe: package scripts are ignored unless `CHEZMOI_INSTALL_PACKAGES=1` is set.
 
-`./install-chezmoi` writes `~/.config/chezmoi/chezmoi.toml` with this repo's `chezmoi/` directory as `sourceDir`. If you do not want to persist that config, use explicit source commands instead:
+`./install-chezmoi` writes `~/.config/chezmoi/chezmoi.toml` with this repo's `chezmoi/` directory as `sourceDir`. A `[data].profile` entry is written from the hostname default, prompt choice, or `CHEZMOI_PROFILE` override. If you do not want to persist that config, use explicit source commands instead:
 
 ```sh
 chezmoi -S ~/.dotfiles/chezmoi diff

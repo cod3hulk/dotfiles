@@ -9,10 +9,10 @@ Default chezmoi installer:
 ```sh
 git clone --recurse-submodules https://github.com/cod3hulk/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-CHEZMOI_PROFILE=private-mac ./install
+./install
 ```
 
-Supported chezmoi profiles: `private-mac`, `work-mac`, `linux-home`.
+Package/bootstrap scripts are selected by OS (`brew` on macOS, `apt`/upstream releases on Linux). Profile selection uses hostname: `cod3hulk` selects the private profile automatically; other hostnames prompt once and persist the choice. Override with `CHEZMOI_PROFILE=...` if needed.
 
 `./install` configures chezmoi and applies managed links. Package installation is opt-in:
 

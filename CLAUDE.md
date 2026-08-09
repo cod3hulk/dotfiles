@@ -16,10 +16,10 @@ cd ~/.dotfiles
 
 `./install` is the default [chezmoi](https://www.chezmoi.io/) installer. It runs `install-chezmoi`, configures `~/.config/chezmoi/chezmoi.toml`, and applies the source state in `chezmoi/`.
 
-Supported profiles: `private-mac`, `work-mac`, `linux-home`.
+Package/bootstrap scripts are selected by OS (`brew` on macOS, `apt`/upstream releases on Linux). Profile selection uses hostname: `cod3hulk` selects the private profile automatically; other hostnames prompt once and persist the choice. Override with `CHEZMOI_PROFILE=...` if needed.
 
 ```sh
-CHEZMOI_PROFILE=private-mac ./install
+CHEZMOI_PROFILE=work-mac ./install
 ```
 
 Package/bootstrap scripts are opt-in:
