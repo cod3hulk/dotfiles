@@ -1,0 +1,30 @@
+# External dependencies managed by chezmoi.
+# Use `chezmoi -R apply` to refresh entries with a refreshPeriod.
+
+[".zgen"]
+    type = "archive"
+    url = "https://github.com/tarjoilija/zgen/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
+    # zgen writes generated init/cache files under ~/.zgen, so do not use exact=true.
+
+[".tmux/plugins/tpm"]
+    type = "archive"
+    url = "https://github.com/tmux-plugins/tpm/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+{{ if eq .chezmoi.os "linux" -}}
+{{- $fzfArch := "amd64" -}}
+{{- if eq .chezmoi.arch "arm64" -}}
+{{- $fzfArch = "arm64" -}}
+{{- end -}}
+{{- $fzfRelease := gitHubLatestRelease "junegunn/fzf" -}}
+[".local/bin/fzf"]
+    type = "archive-file"
+    url = "{{ gitHubLatestReleaseAssetURL "junegunn/fzf" (printf "fzf-%s-linux_%s.tar.gz" (trimPrefix "v" $fzfRelease.TagName) $fzfArch) }}"
+    path = "fzf"
+    executable = true
+    refreshPeriod = "168h"
+{{ end -}}

@@ -14,7 +14,7 @@ cd ~/.dotfiles
 
 Package/bootstrap scripts are selected by OS (`brew` on macOS, `apt`/upstream releases on Linux). Profile selection uses hostname: `cod3hulk` selects the private profile automatically; other hostnames prompt once and persist the choice. Override with `CHEZMOI_PROFILE=...` if needed.
 
-`./install` configures chezmoi and applies managed links. Package installation is opt-in:
+`./install` configures chezmoi and applies managed links. Chezmoi also downloads external dotfile dependencies such as zgen, TPM, and Linux fzf. Package installation is opt-in:
 
 ```sh
 CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
@@ -74,7 +74,7 @@ Legacy Dotbot installer:
 
 | Directory | Description |
 |-----------|-------------|
-| `tmux/` | tmux config — vi-mode, `C-a` prefix, Dracula theme, plugins via [tpm](https://github.com/tmux-plugins/tpm) (copycat, yank, navigator, **agent-indicator** for Claude Code state visualization with 🤖 icon and color-coded window tabs). See `tmux/AGENT_INDICATOR.md` for integration details. |
+| `tmux/` | tmux config — vi-mode, `C-a` prefix, Dracula theme, plugins via [tpm](https://github.com/tmux-plugins/tpm) (managed by chezmoi external resources for new installs; legacy submodule kept for Dotbot compatibility). Includes copycat, yank, navigator, **agent-indicator** for Claude Code state visualization with 🤖 icon and color-coded window tabs. See `tmux/AGENT_INDICATOR.md` for integration details. |
 
 ### CLI Tools & Packages
 
@@ -113,7 +113,7 @@ Chezmoi links the following (see `chezmoi/AUDIT.md` for the full list and profil
 ~/.zprofile                       → zsh/zprofile.zsh
 ~/.config/nvim                    → nvim/
 ~/.tmux.conf                      → tmux/tmux.conf
-~/.tmux/plugins/tpm               → tmux/tpm (git submodule)
+~/.tmux/plugins/tpm               → external tmux-plugins/tpm archive
 ~/.tmux/scripts                   → tmux/scripts
 ~/.yabairc                        → yabai/yabairc
 ~/.limelight                      → limelight/limelight.sh

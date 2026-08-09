@@ -6,30 +6,15 @@ if [ "${CHEZMOI_INSTALL_PACKAGES:-0}" != "1" ]; then
   exit 0
 fi
 
-REPO="rullerzhou-afk/clawd-on-desk"
-API_URL="https://api.github.com/repos/${REPO}/releases/latest"
+{{ $repo := "rullerzhou-afk/clawd-on-desk" }}
+{{ $release := gitHubLatestRelease $repo }}
+{{ $version := $release.TagName }}
+{{ $versionNumber := trimPrefix "v" $version }}
+VERSION="{{ $version }}"
 STATE_DIR="${HOME}/.local/state/chezmoi"
 VERSION_FILE="${STATE_DIR}/clawd-on-desk.version"
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "${TMP_DIR}"' EXIT
-
-LATEST_JSON="${TMP_DIR}/latest.json"
-curl -fsSL -o "${LATEST_JSON}" "${API_URL}"
-VERSION="$(grep -m1 '"tag_name"' "${LATEST_JSON}" | sed -E 's/.*"tag_name": *"([^"]+)".*/\1/')"
-VERSION_NUMBER="${VERSION#v}"
-
-if [ -z "${VERSION}" ]; then
-  echo "Could not determine latest Clawd on Desk version from ${API_URL}" >&2
-  exit 1
-fi
-
-asset_url() {
-  local pattern="$1"
-  grep '"browser_download_url"' "${LATEST_JSON}" \
-    | sed -E 's/.*"browser_download_url": *"([^"]+)".*/\1/' \
-    | grep -E "${pattern}" \
-    | head -n 1
-}
 
 installed_version_matches() {
   [ -f "${VERSION_FILE}" ] && [ "$(cat "${VERSION_FILE}")" = "${VERSION}" ]
@@ -55,7 +40,11 @@ if installed_version_matches && [ -d "${APP_PATH}" ]; then
   exit 0
 fi
 
-DMG_URL="$(asset_url "Clawd-on-Desk-${VERSION_NUMBER}-${CLAWD_ARCH}\\.dmg$")"
+case "${CLAWD_ARCH}" in
+  arm64) DMG_URL="{{ gitHubLatestReleaseAssetURL $repo (printf "Clawd-on-Desk-%s-arm64.dmg" $versionNumber) }}" ;;
+  x64) DMG_URL="{{ gitHubLatestReleaseAssetURL $repo (printf "Clawd-on-Desk-%s-x64.dmg" $versionNumber) }}" ;;
+esac
+
 if [ -z "${DMG_URL}" ]; then
   echo "No Clawd on Desk dmg found for macOS ${CLAWD_ARCH} in ${VERSION}" >&2
   exit 1
@@ -65,13 +54,17 @@ DMG_FILE="${TMP_DIR}/clawd-on-desk.dmg"
 MOUNT_DIR="${TMP_DIR}/mount"
 mkdir -p "${MOUNT_DIR}" "${INSTALL_DIR}"
 
+cleanup_mount() {
+  hdiutil detach "${MOUNT_DIR}" -quiet >/dev/null 2>&1 || true
+}
+trap 'cleanup_mount; rm -rf "${TMP_DIR}"' EXIT
+
 echo "Downloading Clawd on Desk ${VERSION} for macOS ${CLAWD_ARCH}"
-curl -fL -o "${DMG_FILE}" "${DMG_URL}"
+curl -fL --retry 3 --retry-delay 2 -o "${DMG_FILE}" "${DMG_URL}"
 
 hdiutil attach "${DMG_FILE}" -nobrowse -quiet -mountpoint "${MOUNT_DIR}"
 APP_SOURCE="$(find "${MOUNT_DIR}" -maxdepth 2 -name '*.app' -type d | head -n 1)"
 if [ -z "${APP_SOURCE}" ]; then
-  hdiutil detach "${MOUNT_DIR}" -quiet || true
   echo "No .app found in ${DMG_FILE}" >&2
   exit 1
 fi
@@ -88,7 +81,6 @@ else
   sudo ditto "${APP_SOURCE}" "${APP_PATH}"
 fi
 
-hdiutil detach "${MOUNT_DIR}" -quiet
 mark_installed
 echo "Installed Clawd on Desk ${VERSION} at ${APP_PATH}"
 {{ else if eq .chezmoi.os "linux" }}
@@ -102,8 +94,10 @@ if installed_version_matches; then
   exit 0
 fi
 
+DEB_URL="{{ gitHubLatestReleaseAssetURL $repo (printf "Clawd-on-Desk-%s-amd64.deb" $versionNumber) }}"
+APPIMAGE_URL="{{ gitHubLatestReleaseAssetURL $repo (printf "Clawd-on-Desk-%s-x86_64.AppImage" $versionNumber) }}"
+
 if command -v apt-get >/dev/null 2>&1 && command -v dpkg >/dev/null 2>&1; then
-  DEB_URL="$(asset_url "Clawd-on-Desk-${VERSION_NUMBER}-${DEB_ARCH}\\.deb$")"
   if [ -z "${DEB_URL}" ]; then
     echo "No Clawd on Desk deb found for Linux ${DEB_ARCH} in ${VERSION}" >&2
     exit 1
@@ -111,10 +105,9 @@ if command -v apt-get >/dev/null 2>&1 && command -v dpkg >/dev/null 2>&1; then
 
   DEB_FILE="${TMP_DIR}/clawd-on-desk.deb"
   echo "Downloading Clawd on Desk ${VERSION} deb for Linux ${DEB_ARCH}"
-  curl -fL -o "${DEB_FILE}" "${DEB_URL}"
+  curl -fL --retry 3 --retry-delay 2 -o "${DEB_FILE}" "${DEB_URL}"
   sudo apt-get install -y "${DEB_FILE}"
 else
-  APPIMAGE_URL="$(asset_url "Clawd-on-Desk-${VERSION_NUMBER}-${CLAWD_ARCH}\\.AppImage$")"
   if [ -z "${APPIMAGE_URL}" ]; then
     echo "No Clawd on Desk AppImage found for Linux ${CLAWD_ARCH} in ${VERSION}" >&2
     exit 1
@@ -122,7 +115,7 @@ else
 
   mkdir -p "${HOME}/.local/bin"
   echo "Downloading Clawd on Desk ${VERSION} AppImage for Linux ${CLAWD_ARCH}"
-  curl -fL -o "${HOME}/.local/bin/clawd-on-desk" "${APPIMAGE_URL}"
+  curl -fL --retry 3 --retry-delay 2 -o "${HOME}/.local/bin/clawd-on-desk" "${APPIMAGE_URL}"
   chmod +x "${HOME}/.local/bin/clawd-on-desk"
 fi
 
