@@ -1,8 +1,8 @@
-# Chezmoi migration
+# Chezmoi source state
 
-This directory is the experimental chezmoi source state for this dotfiles repo.
+This directory is the default chezmoi source state for this dotfiles repo.
 
-It is intended to run in parallel with the existing Dotbot setup during migration. See `AUDIT.md` for the Dotbot-to-chezmoi link coverage audit.
+Legacy Dotbot remains available via `./install-dotbot`. See `AUDIT.md` for the Dotbot-to-chezmoi link coverage audit.
 
 ## Profiles
 
@@ -18,15 +18,21 @@ You can preselect the profile non-interactively:
 CHEZMOI_PROFILE=work-mac ./install-chezmoi
 ```
 
-## Try locally
+## Apply
+
+```sh
+./install
+```
+
+For a setup-only/diff flow:
 
 ```sh
 ./install-chezmoi
-chezmoi diff --exclude scripts
-chezmoi apply --exclude scripts
+chezmoi diff
+chezmoi apply
 ```
 
-Plain `chezmoi apply` is safe too: package scripts exit unless `CHEZMOI_INSTALL_PACKAGES=1` is set. During migration, `--exclude scripts` keeps diffs focused on symlinks.
+Plain `chezmoi apply` is safe: package scripts are ignored unless `CHEZMOI_INSTALL_PACKAGES=1` is set.
 
 `./install-chezmoi` writes `~/.config/chezmoi/chezmoi.toml` with this repo's `chezmoi/` directory as `sourceDir`. If you do not want to persist that config, use explicit source commands instead:
 
@@ -37,7 +43,7 @@ chezmoi -S ~/.dotfiles/chezmoi apply
 
 ## Current scope
 
-Migrated files are currently managed as symlinks back to this repo, so chezmoi can run in parallel with Dotbot.
+Managed files are currently symlinks back to this repo.
 
 Common files:
 
@@ -86,4 +92,4 @@ Homebrew dependencies are split for chezmoi:
 
 The legacy `brew/Brewfile` remains for the Dotbot installer until migration is completed.
 
-Dotbot remains the authoritative installer until the migration is completed.
+Dotbot remains available as the legacy installer via `./install-dotbot`.

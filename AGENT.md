@@ -14,25 +14,15 @@ cd ~/.dotfiles
 ./install
 ```
 
-`./install` runs [dotbot](https://github.com/anishathalye/dotbot) using `install.conf.yaml`, which:
-1. Cleans broken symlinks in `~` and `~/.config`
-2. Creates symlinks for all configs
-3. Runs `brew/init.zsh`, `linux/init.zsh`, `zgen/init.zsh` as post-install hooks
-4. Creates `~/.hushlogin` to suppress login messages
-
-### Chezmoi Migration
-
-The `chezmoi-migration` branch contains an in-progress chezmoi migration in `chezmoi/` plus `install-chezmoi`.
-
-Safe test/apply flow:
-
-```sh
-CHEZMOI_PROFILE=private-mac ./install-chezmoi
-chezmoi diff --exclude scripts
-chezmoi apply --exclude scripts
-```
+`./install` is the default chezmoi installer. It runs `install-chezmoi`, configures `~/.config/chezmoi/chezmoi.toml`, and applies the source state in `chezmoi/`.
 
 Supported profiles: `private-mac`, `work-mac`, `linux-home`.
+
+```sh
+CHEZMOI_PROFILE=private-mac ./install
+chezmoi diff
+chezmoi apply
+```
 
 Package/bootstrap scripts are intentionally opt-in:
 
@@ -41,6 +31,8 @@ CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
 ```
 
 Do not run package bootstrap unless explicitly requested; it can invoke Homebrew or apt.
+
+Legacy Dotbot is still available via `./install-dotbot`. It uses `install.conf.yaml` to symlink configs and run the old shell hooks.
 
 ### Machine-Specific Overrides
 
@@ -64,11 +56,11 @@ brew bundle install --file=brew/Brewfile.work-mac
 
 ## Architecture
 
-### Symlink Management (Dotbot + Chezmoi Migration)
+### Symlink Management (chezmoi)
 
-All config files live in this repo and are symlinked into place by dotbot. The Dotbot authoritative mapping is `install.conf.yaml`. Adding a new tool for the stable installer means: (1) create its config directory here, (2) add a `link:` entry to `install.conf.yaml`, (3) optionally add an `init.zsh`/`init.sh` script and reference it in the `shell:` section.
+All config files live in this repo and are symlinked into place by chezmoi source-state entries under `chezmoi/`. Adding a new managed link means: (1) create its config directory here, (2) add a `symlink_*` entry under `chezmoi/`, (3) update `.chezmoiignore.tmpl` for OS/profile-specific applicability.
 
-During the chezmoi migration, mirror new links into `chezmoi/` using `symlink_*` source-state entries and update `.chezmoiignore.tmpl` for OS/profile-specific applicability.
+Legacy Dotbot mapping remains in `install.conf.yaml` for `./install-dotbot`, but chezmoi is the default installer.
 
 ### Shell (Zsh)
 
@@ -113,23 +105,17 @@ Pi config lives under `pi/` and is installed by Dotbot or linked by chezmoi.
 Install/apply profiles:
 
 ```sh
-# Default shared profile
-./install
-
 # Private machine: includes pi-mcp-adapter and private MCP setup
-PI_PROFILE=private ./install
+CHEZMOI_PROFILE=private-mac ./install
 
 # Work machine: excludes private MCP
-PI_PROFILE=work ./install
+CHEZMOI_PROFILE=work-mac ./install
+
+# Linux/shared machine: common Pi profile
+CHEZMOI_PROFILE=linux-home ./install
 ```
 
-Dotbot installs Pi if missing with:
-
-```sh
-npm install -g --ignore-scripts @earendil-works/pi-coding-agent
-```
-
-Then it runs `pi/scripts/apply-profile.sh "$PI_PROFILE"` and `pi update --extensions`.
+Package installation/update is opt-in with `CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply`. Legacy Dotbot can still run `pi/scripts/apply-profile.sh "$PI_PROFILE"` via `./install-dotbot`.
 
 Important files:
 

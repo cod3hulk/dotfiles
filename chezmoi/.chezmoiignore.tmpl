@@ -12,6 +12,8 @@ AUDIT.md
 {{ if ne (env "CHEZMOI_INSTALL_PACKAGES") "1" }}
 run_once_install-linux-packages.sh
 run_onchange_install-brew-packages.sh
+install-linux-packages.sh
+install-brew-packages.sh
 {{ end }}
 
 # Private macOS window-management and local GUI automation.

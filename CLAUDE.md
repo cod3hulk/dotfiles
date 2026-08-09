@@ -14,11 +14,21 @@ cd ~/.dotfiles
 ./install
 ```
 
-`./install` runs [dotbot](https://github.com/anishathalye/dotbot) using `install.conf.yaml`, which:
-1. Cleans broken symlinks in `~` and `~/.config`
-2. Creates symlinks for all configs
-3. Runs `brew/init.zsh`, `linux/init.zsh`, `zgen/init.zsh` as post-install hooks
-4. Creates `~/.hushlogin` to suppress login messages
+`./install` is the default [chezmoi](https://www.chezmoi.io/) installer. It runs `install-chezmoi`, configures `~/.config/chezmoi/chezmoi.toml`, and applies the source state in `chezmoi/`.
+
+Supported profiles: `private-mac`, `work-mac`, `linux-home`.
+
+```sh
+CHEZMOI_PROFILE=private-mac ./install
+```
+
+Package/bootstrap scripts are opt-in:
+
+```sh
+CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
+```
+
+Legacy Dotbot is still available via `./install-dotbot`. It uses `install.conf.yaml` to symlink configs and run the old shell hooks.
 
 ### Machine-Specific Overrides
 
@@ -29,18 +39,22 @@ cd ~/.dotfiles
 ## Package Management
 
 ```sh
-# Install all packages from manifest
+# Legacy Dotbot manifest
 brew bundle install --file=brew/Brewfile
 
-# Add a new package (edit Brewfile, then install)
-brew bundle install --file=brew/Brewfile
+# Chezmoi split manifests
+brew bundle install --file=brew/Brewfile.common
+brew bundle install --file=brew/Brewfile.private-mac
+brew bundle install --file=brew/Brewfile.work-mac
 ```
 
 ## Architecture
 
-### Symlink Management (Dotbot)
+### Symlink Management (chezmoi)
 
-All config files live in this repo and are symlinked into place by dotbot. The authoritative mapping is `install.conf.yaml`. Adding a new tool means: (1) create its config directory here, (2) add a `link:` entry to `install.conf.yaml`, (3) optionally add an `init.zsh`/`init.sh` script and reference it in the `shell:` section.
+All config files live in this repo and are symlinked into place by chezmoi source-state entries under `chezmoi/`. Adding a new managed link means: (1) create its config directory here, (2) add a `symlink_*` entry under `chezmoi/`, (3) update `.chezmoiignore.tmpl` for OS/profile-specific applicability.
+
+Legacy Dotbot mapping remains in `install.conf.yaml` for `./install-dotbot`.
 
 ### Shell (Zsh)
 
