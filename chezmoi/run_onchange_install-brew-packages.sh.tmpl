@@ -10,7 +10,15 @@ fi
 BREW_COMMAND="/opt/homebrew/bin/brew"
 DOTFILES_DIR="{{ .chezmoi.homeDir }}/.dotfiles"
 COMMON_BREW_FILE="${DOTFILES_DIR}/brew/Brewfile.common"
-PROFILE_BREW_FILE="${DOTFILES_DIR}/brew/Brewfile.{{ .profile }}"
+{{- $profile := "work-mac" -}}
+{{- if eq .chezmoi.hostname "cod3hulk" -}}
+{{- $profile = "private-mac" -}}
+{{- end -}}
+{{- with (index . "profile") -}}
+{{- $profile = . -}}
+{{- end }}
+PROFILE="{{ $profile }}"
+PROFILE_BREW_FILE="${DOTFILES_DIR}/brew/Brewfile.${PROFILE}"
 
 if ! command -v "${BREW_COMMAND}" >/dev/null 2>&1; then
   echo "Install homebrew"
@@ -30,7 +38,7 @@ if [ -e "${COMMON_BREW_FILE}" ]; then
 fi
 
 if [ -e "${PROFILE_BREW_FILE}" ]; then
-  echo "Install Homebrew dependencies for profile {{ .profile }}"
+  echo "Install Homebrew dependencies for profile ${PROFILE}"
   "${BREW_COMMAND}" bundle install --file="${PROFILE_BREW_FILE}"
 else
   echo "No profile Brewfile found at ${PROFILE_BREW_FILE}"

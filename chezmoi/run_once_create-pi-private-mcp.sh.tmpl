@@ -1,7 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-{{ if eq .profile "private-mac" }}
+{{- $profile := "" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{- $profile = "linux-home" -}}
+{{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.hostname "cod3hulk") -}}
+{{- $profile = "private-mac" -}}
+{{- else if eq .chezmoi.os "darwin" -}}
+{{- $profile = "work-mac" -}}
+{{- else -}}
+{{- $profile = "unknown" -}}
+{{- end -}}
+{{- with (index . "profile") -}}
+{{- $profile = . -}}
+{{- end }}
+
+{{ if eq $profile "private-mac" }}
 DOTFILES_DIR="{{ .chezmoi.homeDir }}/.dotfiles"
 MCP_DIR="{{ .chezmoi.homeDir }}/.config/mcp"
 MCP_FILE="${MCP_DIR}/mcp.json"
@@ -16,5 +30,5 @@ else
   echo "Keeping existing ${MCP_FILE}"
 fi
 {{ else }}
-echo "Skipping private Pi MCP bootstrap for profile {{ .profile }}"
+echo "Skipping private Pi MCP bootstrap for profile {{ $profile }}"
 {{ end }}
