@@ -1,0 +1,56 @@
+name: dracula
+description: Dracula — dark purple background with cyan, pink, green, and amber accents
+
+colors:
+  background: "#282A36"
+
+  ui_accent: "#BD93F9"
+  banner_accent: "#BD93F9"
+
+  banner_title: "#8BE9FD"
+  banner_text: "#F8F8F2"
+  ui_text: "#F8F8F2"
+  banner_dim: "#6272A4"
+  banner_border: "#44475A"
+  ui_border: "#44475A"
+
+  ui_ok: "#50FA7B"
+  ui_warn: "#F1FA8C"
+  ui_error: "#FF5555"
+
+  prompt: "#50FA7B"
+  input_rule: "#BD93F9"
+  response_border: "#8BE9FD"
+  status_bar_bg: "#21222C"
+  status_bar_text: "#F8F8F2"
+  status_bar_good: "#50FA7B"
+  status_bar_warn: "#F1FA8C"
+  status_bar_critical: "#FF5555"
+  session_label: "#8BE9FD"
+  session_border: "#44475A"
+
+  ui_tool: "#FF79C6"
+  ui_thinking: "#6272A4"
+  ui_primary: "#F8F8F2"
+  ui_label: "#BD93F9"
+
+  diff_added: "#50FA7B"
+  diff_removed: "#FF5555"
+  diff_added_word: "#69FF94"
+  diff_removed_word: "#FF6E6E"
+
+  syntax_string: "#F1FA8C"
+  syntax_number: "#BD93F9"
+  syntax_keyword: "#FF79C6"
+  syntax_comment: "#6272A4"
+
+  completion_menu_bg: "#282A36"
+  completion_menu_current_bg: "#44475A"
+  completion_menu_meta_bg: "#21222C"
+
+branding:
+  agent_name: Hermes Agent
+  prompt_symbol: "❯"
+  help_header: "🧛 Commands"
+
+tool_prefix: "┊"

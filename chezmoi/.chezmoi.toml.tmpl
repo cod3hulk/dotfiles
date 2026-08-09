@@ -1,0 +1,14 @@
+{{- $defaultProfile := "work-mac" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{- $defaultProfile = "linux-home" -}}
+{{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.hostname "cod3hulk") -}}
+{{- $defaultProfile = "private-mac" -}}
+{{- end -}}
+{{- $profile := env "CHEZMOI_PROFILE" -}}
+{{- if eq $profile "" -}}
+{{- $profile = promptChoiceOnce . "profile" "Which profile" (list "work-mac" "private-mac" "linux-home") $defaultProfile -}}
+{{- end -}}
+sourceDir = "{{ .chezmoi.sourceDir }}"
+
+[data]
+profile = "{{ $profile }}"

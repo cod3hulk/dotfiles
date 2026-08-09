@@ -129,6 +129,7 @@ Important files:
 
 Chezmoi links:
 
+- `~/.hermes/skins/dracula.yaml` -> `hermes/skins/dracula.yaml`; a chezmoi onchange script activates it with `hermes config set display.skin dracula` when Hermes is installed
 - `~/.pi/agent/settings.json` -> profile-specific `pi/config/settings.*.json`
 - `~/.pi/agent/extensions` -> `pi/extensions`
 - `~/.pi/agent/themes` -> `pi/themes`

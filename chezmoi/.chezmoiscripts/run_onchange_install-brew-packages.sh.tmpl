@@ -7,17 +7,12 @@ if [ "${CHEZMOI_INSTALL_PACKAGES:-0}" != "1" ]; then
 fi
 
 {{ if eq .chezmoi.os "darwin" }}
+# Brewfile.common hash: {{ include "../brew/Brewfile.common" | sha256sum }}
+# Brewfile.{{ .profile }} hash: {{ include (printf "../brew/Brewfile.%s" .profile) | sha256sum }}
 BREW_COMMAND="/opt/homebrew/bin/brew"
-DOTFILES_DIR="{{ .chezmoi.homeDir }}/.dotfiles"
+DOTFILES_DIR="{{ .chezmoi.sourceDir | dir }}"
 COMMON_BREW_FILE="${DOTFILES_DIR}/brew/Brewfile.common"
-{{- $profile := "work-mac" -}}
-{{- if eq .chezmoi.hostname "cod3hulk" -}}
-{{- $profile = "private-mac" -}}
-{{- end -}}
-{{- with (index . "profile") -}}
-{{- $profile = . -}}
-{{- end }}
-PROFILE="{{ $profile }}"
+PROFILE="{{ .profile }}"
 PROFILE_BREW_FILE="${DOTFILES_DIR}/brew/Brewfile.${PROFILE}"
 
 if ! command -v "${BREW_COMMAND}" >/dev/null 2>&1; then

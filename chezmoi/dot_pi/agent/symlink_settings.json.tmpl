@@ -1,20 +1,7 @@
-{{- $profile := "" -}}
-{{- if eq .chezmoi.os "linux" -}}
-{{- $profile = "linux-home" -}}
-{{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.hostname "cod3hulk") -}}
-{{- $profile = "private-mac" -}}
-{{- else if eq .chezmoi.os "darwin" -}}
-{{- $profile = "work-mac" -}}
+{{- if eq .profile "private-mac" -}}
+{{ .chezmoi.sourceDir | dir }}/pi/config/settings.private.json
+{{- else if eq .profile "work-mac" -}}
+{{ .chezmoi.sourceDir | dir }}/pi/config/settings.work.json
 {{- else -}}
-{{- $profile = "common" -}}
-{{- end -}}
-{{- with (index . "profile") -}}
-{{- $profile = . -}}
-{{- end -}}
-{{- if eq $profile "private-mac" -}}
-{{ .chezmoi.homeDir }}/.dotfiles/pi/config/settings.private.json
-{{- else if eq $profile "work-mac" -}}
-{{ .chezmoi.homeDir }}/.dotfiles/pi/config/settings.work.json
-{{- else -}}
-{{ .chezmoi.homeDir }}/.dotfiles/pi/config/settings.common.json
+{{ .chezmoi.sourceDir | dir }}/pi/config/settings.common.json
 {{- end }}
