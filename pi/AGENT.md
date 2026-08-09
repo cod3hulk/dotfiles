@@ -55,6 +55,25 @@ It also links shared local resources:
 ~/.pi/agent/themes     -> ~/.dotfiles/pi/themes
 ```
 
+## Installation via chezmoi
+
+Chezmoi now manages Pi links too:
+
+```text
+~/.pi/agent/settings.json -> profile-specific pi/config/settings.*.json
+~/.pi/agent/extensions    -> ~/.dotfiles/pi/extensions
+~/.pi/agent/themes        -> ~/.dotfiles/pi/themes
+~/.pi/agent/mcp.json      -> ~/.config/mcp/mcp.json (private-mac only)
+```
+
+Profile mapping:
+
+- `private-mac` -> `settings.private.json`
+- `work-mac` -> `settings.work.json`
+- `linux-home` -> `settings.common.json`
+
+Use `chezmoi apply --exclude scripts` for symlinks only. The private MCP bootstrap script runs only when scripts are included and creates `~/.config/mcp/mcp.json` from the example if missing.
+
 ## Shared Pi Package
 
 Portable Pi resources live in:
@@ -86,10 +105,16 @@ The template is:
 pi/mcp/private.mcp.example.json
 ```
 
-On private machines, `apply-profile.sh private` creates this local file if missing:
+On private machines, `apply-profile.sh private` or the chezmoi one-time script creates this local file if missing:
 
 ```text
 ~/.config/mcp/mcp.json
+```
+
+The active Pi MCP file is linked from:
+
+```text
+~/.pi/agent/mcp.json -> ~/.config/mcp/mcp.json
 ```
 
 Never commit real tokens. Use environment variables or a secret manager:

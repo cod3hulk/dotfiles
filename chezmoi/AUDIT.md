@@ -29,8 +29,10 @@ Status: private Mac and Linux profiles have been tested with `chezmoi diff --exc
 | `~/.config/tmux-powerline/config.sh` | managed | symlink to `tmux/tmux-powerline.sh` |
 | `~/.tmux/plugins/tmux-which-key/config.yaml` | managed | symlink to `tmux/which-key.yaml` |
 | `~/.local/bin/clipcopy` | managed | symlink to `scripts/clipcopy` |
-| `~/.pi/agent/themes` | intentionally omitted | Pi package/profile management needs a separate migration pass to avoid overwriting local Pi state |
-| `~/.pi/agent/extensions` | intentionally omitted | Pi package/profile management needs a separate migration pass to avoid overwriting local Pi state |
+| `~/.pi/agent/themes` | managed | symlink to `pi/themes` |
+| `~/.pi/agent/extensions` | managed | symlink to `pi/extensions`; includes tracked `pi-rtk-optimizer` config symlink |
+| `~/.pi/agent/settings.json` | managed | profile-specific symlink to `pi/config/settings.{private,work,common}.json` |
+| `~/.pi/agent/mcp.json` | managed for `private-mac` | symlink to local secret file `~/.config/mcp/mcp.json`; ignored otherwise |
 
 ## Chezmoi additions not present as Dotbot links
 
@@ -57,5 +59,4 @@ The legacy `brew/Brewfile` remains for Dotbot until the migration becomes the de
 ## Known follow-ups
 
 1. Validate `work-mac` profile later.
-2. Migrate Pi settings/extensions/themes separately.
-3. Decide whether `./install` should become the chezmoi installer or Dotbot should remain the stable default.
+2. Decide whether `./install` should become the chezmoi installer or Dotbot should remain the stable default.

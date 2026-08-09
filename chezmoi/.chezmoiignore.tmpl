@@ -2,6 +2,11 @@
 README.md
 AUDIT.md
 
+# Private Pi MCP config is only linked on the private Mac profile.
+{{ if ne .profile "private-mac" }}
+.pi/agent/mcp.json
+{{ end }}
+
 # Package scripts are opt-in during migration. Run them explicitly with:
 # CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
 {{ if ne (env "CHEZMOI_INSTALL_PACKAGES") "1" }}
