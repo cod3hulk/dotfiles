@@ -1,6 +1,6 @@
 # Dotbot to chezmoi link audit
 
-Status: private Mac and Linux profiles have been tested with `chezmoi diff --exclude scripts` and `chezmoi apply --exclude scripts`.
+Status: private Mac and Linux profiles have been tested with `chezmoi diff --exclude scripts` and `chezmoi apply --exclude scripts`. `./install` now uses the chezmoi installer by default; Dotbot remains available only as a legacy fallback.
 
 ## Coverage
 
@@ -44,7 +44,7 @@ Status: private Mac and Linux profiles have been tested with `chezmoi diff --exc
 
 ## Package bootstrap
 
-Chezmoi scripts and externals are present but package-manager side effects are opt-in:
+Chezmoi scripts and externals are present but package-manager side effects are opt-in. Package scripts use `run_onchange_*` where the rendered content includes the `CHEZMOI_INSTALL_PACKAGES` opt-in flag, so switching the flag from `0` to `1` retriggers the relevant bootstrap while normal `chezmoi apply` stays side-effect-light:
 
 ```sh
 CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
@@ -60,5 +60,5 @@ The legacy `brew/Brewfile` remains for Dotbot until the migration becomes the de
 
 ## Known follow-ups
 
-1. Validate `work-mac` profile later.
-2. Decide whether `./install` should become the chezmoi installer or Dotbot should remain the stable default.
+1. Validate `work-mac` profile later on a macOS host.
+2. Remove Dotbot once the legacy fallback is no longer needed.
