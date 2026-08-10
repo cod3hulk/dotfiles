@@ -1,8 +1,5 @@
 {
   "theme": "dracula",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "medium",
   "packages": [
     "~/.dotfiles/pi/packages/base",
     "npm:pi-rtk-optimizer",
@@ -11,5 +8,12 @@
     "npm:@raquezha/noheadroom",
     "npm:pi-vimmode"
   ],
-  "powerline": "compact"
+  "enabledModels": [
+    "amazon-bedrock/global.anthropic.*",
+    "openai/gpt-5.*"
+  ],
+  "powerline": "compact",
+  "lastChangelogVersion": "0.80.6",
+  "defaultProvider": "amazon-bedrock",
+  "defaultModel": "global.anthropic.claude-sonnet-5"
 }
