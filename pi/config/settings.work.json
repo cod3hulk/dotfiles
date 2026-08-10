@@ -6,7 +6,8 @@
     "npm:@firstpick/pi-themes-bundle",
     "npm:pi-powerline-footer",
     "npm:@raquezha/noheadroom",
-    "npm:pi-vimmode"
+    "npm:pi-vimmode",
+    "npm:pi-mcp-adapter"
   ],
   "enabledModels": [
     "amazon-bedrock/global.anthropic.*",
