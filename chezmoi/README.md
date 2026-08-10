@@ -9,8 +9,8 @@ Legacy Dotbot remains available via `./install-dotbot`. See `AUDIT.md` for the D
 Package/bootstrap scripts and external resources are selected from chezmoi's `.chezmoi.os` template data:
 
 - Common externals — zgen and TPM are downloaded by `.chezmoiexternal.toml.tmpl` instead of relying on legacy Dotbot hooks/submodule checkouts in the target home.
-- macOS/Darwin — Homebrew via `.chezmoiscripts/run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`.
-- Linux — apt plus upstream Neovim releases via `.chezmoiscripts/run_once_install-linux-packages.sh.tmpl`, fzf via `.chezmoiexternal.toml.tmpl`, plus Clawd on Desk deb/AppImage releases via `.chezmoiscripts/run_install-clawd-on-desk.sh.tmpl`.
+- macOS/Darwin — Homebrew via `.chezmoiscripts/run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `.chezmoiscripts/run_onchange_install-clawd-on-desk.sh.tmpl`.
+- Linux — apt plus upstream Neovim releases via `.chezmoiscripts/run_onchange_install-linux-packages.sh.tmpl`, fzf via `.chezmoiexternal.toml.tmpl`, plus Clawd on Desk deb/AppImage releases via `.chezmoiscripts/run_onchange_install-clawd-on-desk.sh.tmpl`.
 
 Profiles are selected by `chezmoi/.chezmoi.toml.tmpl`:
 

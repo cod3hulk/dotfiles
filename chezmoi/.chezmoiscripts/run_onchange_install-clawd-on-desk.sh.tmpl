@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Include the opt-in flag in the rendered script so changing
+# CHEZMOI_INSTALL_PACKAGES from 0 to 1 retriggers this run_onchange script.
+# CHEZMOI_INSTALL_PACKAGES={{ env "CHEZMOI_INSTALL_PACKAGES" | default "0" }}
+
 if [ "${CHEZMOI_INSTALL_PACKAGES:-0}" != "1" ]; then
   echo "Skipping Clawd on Desk install. Set CHEZMOI_INSTALL_PACKAGES=1 to run it."
   exit 0
