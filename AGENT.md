@@ -32,8 +32,6 @@ CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
 
 Do not run package bootstrap unless explicitly requested; it can invoke Homebrew or apt.
 
-Legacy Dotbot is still available via `./install-dotbot`. It uses `install.conf.yaml` to symlink configs and run the old shell hooks.
-
 ### Machine-Specific Overrides
 
 - **zsh/zprofile.local.zsh** — machine-specific env vars (not tracked in git, sourced by `zsh/zprofile.zsh` if present)
@@ -43,24 +41,16 @@ Legacy Dotbot is still available via `./install-dotbot`. It uses `install.conf.y
 ## Package Management
 
 ```sh
-# Legacy Dotbot manifest
-brew bundle install --file=brew/Brewfile
-
-# Chezmoi split manifests
 brew bundle install --file=brew/Brewfile.common
 brew bundle install --file=brew/Brewfile.private-mac
 brew bundle install --file=brew/Brewfile.work-mac
 ```
-
-`brew/Brewfile` remains the Dotbot manifest. The split `Brewfile.*` files are used by chezmoi package bootstrap.
 
 ## Architecture
 
 ### Symlink Management (chezmoi)
 
 All config files live in this repo and are symlinked into place by chezmoi source-state entries under `chezmoi/`. Adding a new managed link means: (1) create its config directory here, (2) add a `symlink_*` entry under `chezmoi/`, (3) update `.chezmoiignore.tmpl` for OS/profile-specific applicability.
-
-Legacy Dotbot mapping remains in `install.conf.yaml` for `./install-dotbot`, but chezmoi is the default installer.
 
 ### Shell (Zsh)
 
@@ -88,7 +78,7 @@ Legacy Dotbot mapping remains in `install.conf.yaml` for `./install-dotbot`, but
 
 ### Tmux
 
-Config at `tmux/tmux.conf`. Prefix is `C-a`. TPM itself is managed by chezmoi external resources for new installs (legacy submodule remains for Dotbot compatibility). Key plugins:
+Config at `tmux/tmux.conf`. Prefix is `C-a`. TPM itself is managed by chezmoi external resources for new installs. Key plugins:
 - **tmux-resurrect** — session save/restore
 - **tmux-continuum** — auto-save every 10 min
 - **vim-tmux-navigator** — seamless vim/tmux pane navigation
@@ -100,7 +90,7 @@ Config at `tmux/tmux.conf`. Prefix is `C-a`. TPM itself is managed by chezmoi ex
 
 ### Pi Coding Agent
 
-Pi config lives under `pi/` and is installed by Dotbot or linked by chezmoi.
+Pi config lives under `pi/` and is linked by chezmoi.
 
 Install/apply profiles:
 
@@ -115,7 +105,7 @@ CHEZMOI_PROFILE=work-mac ./install
 CHEZMOI_PROFILE=linux-home ./install
 ```
 
-Package installation/update is opt-in with `CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply`. Legacy Dotbot can still run `pi/scripts/apply-profile.sh "$PI_PROFILE"` via `./install-dotbot`.
+Package installation/update is opt-in with `CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply`.
 
 Important files:
 
@@ -141,9 +131,8 @@ Never commit real MCP/API tokens. Keep `~/.pi/agent/auth.json`, `sessions/`, `tr
 
 | Submodule | Purpose |
 |-----------|---------|
-| `dotbot/` | Installation framework |
 | `hammerspoon/` | macOS automation config |
-| `tmux/tpm` | Tmux plugin manager legacy submodule; chezmoi installs TPM as an external resource |
+| `tmux/tpm` | Tmux plugin manager source snapshot retained for compatibility/reference; chezmoi installs TPM as an external resource |
 | `dracula/iterm`, `dracula/alfred` | Theme assets |
 
 When adding a new submodule: `git submodule add <url> <path>` and re-run `./install`.

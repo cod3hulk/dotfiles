@@ -1,6 +1,6 @@
 # Dotbot to chezmoi link audit
 
-Status: private Mac and Linux profiles have been tested with `chezmoi diff --exclude scripts` and `chezmoi apply --exclude scripts`. `./install` now uses the chezmoi installer by default; Dotbot remains available only as a legacy fallback.
+Status: private Mac and Linux profiles have been tested with `chezmoi diff --exclude scripts` and `chezmoi apply --exclude scripts`. `./install` now uses the chezmoi installer by default; the legacy Dotbot installer has been removed.
 
 ## Coverage
 
@@ -16,7 +16,7 @@ Status: private Mac and Linux profiles have been tested with `chezmoi diff --exc
 | `~/.zshrc` | managed | symlink to `zsh/zshrc.zsh` |
 | `~/.zprofile` | managed | symlink to `zsh/zprofile.zsh` |
 | `~/.hammerspoon` | managed for `private-mac` | ignored otherwise |
-| `~/.tmux/plugins/tpm` | managed as external | archive from `tmux-plugins/tpm`; legacy repo submodule remains only for Dotbot/compatibility |
+| `~/.tmux/plugins/tpm` | managed as external | archive from `tmux-plugins/tpm` |
 | `~/.tmux/scripts` | managed | symlink to `tmux/scripts` |
 | `~/.config/alacritty/alacritty.yml` | managed on macOS | ignored on Linux |
 | `~/.config/alacritty/alacritty.toml` | managed on macOS | ignored on Linux |
@@ -38,8 +38,8 @@ Status: private Mac and Linux profiles have been tested with `chezmoi diff --exc
 
 | Target | Purpose |
 |---|---|
-| `~/.hushlogin` | replaces Dotbot shell hook `touch ~/.hushlogin` |
-| `~/.zgen` | external archive replaces Dotbot-only `zgen/init.zsh` clone hook |
+| `~/.hushlogin` | replaces former shell hook `touch ~/.hushlogin` |
+| `~/.zgen` | external archive replaces former `zgen/init.zsh` clone hook |
 | `~/.local/bin/fzf` | Linux external archive replaces shell-script GitHub release parsing |
 
 ## Package bootstrap
@@ -56,9 +56,6 @@ Homebrew uses split manifests:
 - `brew/Brewfile.private-mac`
 - `brew/Brewfile.work-mac`
 
-The legacy `brew/Brewfile` remains for Dotbot until the migration becomes the default installer.
-
 ## Known follow-ups
 
 1. Validate `work-mac` profile later on a macOS host.
-2. Remove Dotbot once the legacy fallback is no longer needed.

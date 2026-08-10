@@ -2,29 +2,20 @@
 
 This directory contains the dotfiles-managed Pi setup.
 
-## Installation via Dotbot
+## Installation via chezmoi
 
-Pi is installed and configured by the repository bootstrap:
+Pi is linked by the repository bootstrap:
 
 ```bash
-# Default profile: common
+# Default Linux profile: common settings
 ~/.dotfiles/install
 
 # Private machine: enables pi-mcp-adapter and private MCP profile handling
-PI_PROFILE=private ~/.dotfiles/install
+CHEZMOI_PROFILE=private-mac ~/.dotfiles/install
 
 # Work machine: no private MCP
-PI_PROFILE=work ~/.dotfiles/install
+CHEZMOI_PROFILE=work-mac ~/.dotfiles/install
 ```
-
-`install.conf.yaml` runs these Pi-related steps:
-
-1. Install Pi if missing:
-   ```bash
-   npm install -g --ignore-scripts @earendil-works/pi-coding-agent
-   ```
-2. Apply the selected profile with `pi/scripts/apply-profile.sh`.
-3. Run `pi update --extensions` to install/update configured Pi packages.
 
 ## Profiles
 
@@ -55,9 +46,7 @@ It also links shared local resources:
 ~/.pi/agent/themes     -> ~/.dotfiles/pi/themes
 ```
 
-## Installation via chezmoi
-
-Chezmoi now manages Pi links too:
+Chezmoi manages these Pi links:
 
 ```text
 ~/.pi/agent/settings.json -> profile-specific pi/config/settings.*.json
