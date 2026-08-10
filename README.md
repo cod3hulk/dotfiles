@@ -1,6 +1,6 @@
 # cod3hulk dotfiles
 
-Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) and [Homebrew](https://brew.sh), with the previous [dotbot](https://github.com/anishathalye/dotbot) installer kept as legacy. Covers terminal, editor, window management, and shell tooling for macOS (with partial Linux support).
+Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/) and [Homebrew](https://brew.sh). Covers terminal, editor, window management, and shell tooling for macOS (with partial Linux support).
 
 ## Quick Start
 
@@ -18,12 +18,6 @@ Package/bootstrap scripts are selected by OS (`brew` on macOS, `apt`/upstream re
 
 ```sh
 CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
-```
-
-Legacy Dotbot installer:
-
-```sh
-./install-dotbot
 ```
 
 ## What's Inside
@@ -74,13 +68,13 @@ Legacy Dotbot installer:
 
 | Directory | Description |
 |-----------|-------------|
-| `tmux/` | tmux config — vi-mode, `C-a` prefix, Dracula theme, plugins via [tpm](https://github.com/tmux-plugins/tpm) (managed by chezmoi external resources for new installs; legacy submodule kept for Dotbot compatibility). Includes copycat, yank, navigator, **agent-indicator** for Claude Code state visualization with 🤖 icon and color-coded window tabs. See `tmux/AGENT_INDICATOR.md` for integration details. |
+| `tmux/` | tmux config — vi-mode, `C-a` prefix, Dracula theme, plugins via [tpm](https://github.com/tmux-plugins/tpm) managed by chezmoi external resources. Includes copycat, yank, navigator, **agent-indicator** for Claude Code state visualization with 🤖 icon and color-coded window tabs. See `tmux/AGENT_INDICATOR.md` for integration details. |
 
 ### CLI Tools & Packages
 
 | Directory | Description |
 |-----------|-------------|
-| `brew/` | Homebrew manifests — legacy `Brewfile` for Dotbot plus split `Brewfile.common`, `Brewfile.private-mac`, `Brewfile.work-mac` for chezmoi profiles |
+| `brew/` | Homebrew manifests split by chezmoi profile: `Brewfile.common`, `Brewfile.private-mac`, `Brewfile.work-mac` |
 | `k8s/` | Kubernetes utilities — `kubectx` (context switcher), `kubens` (namespace switcher), kubectl plugins |
 | `k9s/` | Kubernetes dashboard config with Dracula theme |
 | `tig/` | [tig](https://jonas.github.io/tig/) (text-mode git UI) config |
@@ -101,7 +95,7 @@ Legacy Dotbot installer:
 - **Alacritty** — Disabled `alt_send_esc` for proper Alt key handling in macOS
 - **Neovim** — Removed Comment.nvim plugin in favor of built-in commenting (gc operator)
 - **tmux** — Enabled passthrough mode for better terminal compatibility
-- **Go toolchain** — Added to Brewfile with environment setup
+- **Go toolchain** — Added to managed Homebrew manifests with environment setup
 - **Local configs** — Support for machine-specific overrides (`.local.*` files, git-ignored)
 
 ## Symlinks Created

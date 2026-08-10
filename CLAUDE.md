@@ -28,8 +28,6 @@ Package/bootstrap scripts are opt-in:
 CHEZMOI_INSTALL_PACKAGES=1 ./install
 ```
 
-Legacy Dotbot is still available via `./install-dotbot`. It uses `install.conf.yaml` to symlink configs and run the old shell hooks.
-
 ### Machine-Specific Overrides
 
 - **zsh/zprofile.local.zsh** — machine-specific env vars (not tracked in git, sourced by `zsh/zprofile.zsh` if present)
@@ -39,10 +37,6 @@ Legacy Dotbot is still available via `./install-dotbot`. It uses `install.conf.y
 ## Package Management
 
 ```sh
-# Legacy Dotbot manifest
-brew bundle install --file=brew/Brewfile
-
-# Chezmoi split manifests
 brew bundle install --file=brew/Brewfile.common
 brew bundle install --file=brew/Brewfile.private-mac
 brew bundle install --file=brew/Brewfile.work-mac
@@ -53,8 +47,6 @@ brew bundle install --file=brew/Brewfile.work-mac
 ### Symlink Management (chezmoi)
 
 All config files live in this repo and are symlinked into place by chezmoi source-state entries under `chezmoi/`. Adding a new managed link means: (1) create its config directory here, (2) add a `symlink_*` entry under `chezmoi/`, (3) update `.chezmoiignore.tmpl` for OS/profile-specific applicability.
-
-Legacy Dotbot mapping remains in `install.conf.yaml` for `./install-dotbot`.
 
 ### Shell (Zsh)
 
@@ -82,7 +74,7 @@ Legacy Dotbot mapping remains in `install.conf.yaml` for `./install-dotbot`.
 
 ### Tmux
 
-Config at `tmux/tmux.conf`. Prefix is `C-a`. Plugins managed by [tpm](https://github.com/tmux-plugins/tpm) (git submodule at `tmux/tpm`). Key plugins:
+Config at `tmux/tmux.conf`. Prefix is `C-a`. TPM itself is managed by chezmoi external resources for new installs. Key plugins:
 - **tmux-resurrect** — session save/restore
 - **tmux-continuum** — auto-save every 10 min
 - **vim-tmux-navigator** — seamless vim/tmux pane navigation
@@ -96,9 +88,8 @@ Config at `tmux/tmux.conf`. Prefix is `C-a`. Plugins managed by [tpm](https://gi
 
 | Submodule | Purpose |
 |-----------|---------|
-| `dotbot/` | Installation framework |
 | `hammerspoon/` | macOS automation config |
-| `tmux/tpm` | Tmux plugin manager |
+| `tmux/tpm` | Tmux plugin manager source snapshot retained for compatibility/reference; chezmoi installs TPM as an external resource |
 | `dracula/iterm`, `dracula/alfred` | Theme assets |
 
 When adding a new submodule: `git submodule add <url> <path>` and re-run `./install`.

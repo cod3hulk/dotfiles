@@ -2,13 +2,13 @@
 
 This directory is the default chezmoi source state for this dotfiles repo.
 
-Legacy Dotbot remains available via `./install-dotbot`. See `AUDIT.md` for the Dotbot-to-chezmoi link coverage audit.
+See `AUDIT.md` for the historical Dotbot-to-chezmoi link coverage audit.
 
 ## Profiles
 
 Package/bootstrap scripts and external resources are selected from chezmoi's `.chezmoi.os` template data:
 
-- Common externals — zgen and TPM are downloaded by `.chezmoiexternal.toml.tmpl` instead of relying on legacy Dotbot hooks/submodule checkouts in the target home.
+- Common externals — zgen and TPM are downloaded by `.chezmoiexternal.toml.tmpl` instead of relying on legacy shell hooks/submodule checkouts in the target home.
 - macOS/Darwin — Homebrew via `.chezmoiscripts/run_onchange_install-brew-packages.sh.tmpl`, plus Clawd on Desk dmg releases via `.chezmoiscripts/run_onchange_install-clawd-on-desk.sh.tmpl`.
 - Linux — apt plus upstream Neovim releases via `.chezmoiscripts/run_onchange_install-linux-packages.sh.tmpl`, fzf via `.chezmoiexternal.toml.tmpl`, plus Clawd on Desk deb/AppImage releases via `.chezmoiscripts/run_onchange_install-clawd-on-desk.sh.tmpl`.
 
@@ -112,7 +112,3 @@ Refresh external resources explicitly with:
 ```sh
 chezmoi -R apply
 ```
-
-The legacy `brew/Brewfile` remains for the Dotbot installer until migration is completed.
-
-Dotbot remains available as the legacy installer via `./install-dotbot`.
