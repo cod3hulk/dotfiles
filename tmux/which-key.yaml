@@ -83,6 +83,10 @@ items:
         key: s
         command: run-shell "bash ~/.tmux/scripts/pane-search.sh"
   - separator: true
+  - name: Jump to location
+    key: j
+    command: run-shell -b "~/.tmux/plugins/tmux-jump/scripts/tmux-jump.sh"
+  - separator: true
   - name: Claude Code
     key: g
     menu:
