@@ -537,6 +537,16 @@ chars = "\u0001n" # <prefix>n
 key = "}"
 mods = "Command|Shift"
 
+[[keyboard.bindings]]
+chars = "\u0001<" # <prefix><; tmux moves current window left in status bar
+key = "<"
+mods = "Command|Shift"
+
+[[keyboard.bindings]]
+chars = "\u0001>" # <prefix>>; tmux moves current window right in status bar
+key = ">"
+mods = "Command|Shift"
+
 [general]
 live_config_reload = true
 working_directory = "None"
