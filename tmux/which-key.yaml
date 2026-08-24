@@ -70,6 +70,9 @@ items:
       - name: Create
         key: c
         command: 'splitw -h -c "#{pane_current_path}"'
+      - name: Break into new window
+        key: b
+        command: 'break-pane -n "#{pane_current_command}"'
       - name: Kill
         key: x
         command: kill-pane
