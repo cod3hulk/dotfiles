@@ -63,7 +63,7 @@ Common files:
 - `~/.config/nvim` -> `nvim`
 - `~/.local/bin/clipcopy` -> `scripts/clipcopy`
 - `~/.hermes/skins/dracula.yaml` -> `hermes/skins/dracula.yaml`
-- `~/.pi/agent/settings.json` -> profile-specific `pi/config/settings.*.json`
+- `~/.pi/agent/settings.json` — created from profile-specific `pi/config/settings.*.json` when missing, then kept local/mutable
 - `~/.pi/agent/extensions` -> `pi/extensions`
 - `~/.pi/agent/themes` -> `pi/themes`
 
@@ -74,6 +74,8 @@ auth, memories, sessions, logs, caches, and other runtime state remain local.
 
 The shared Pi profiles already include the portable RTK/headroom packages:
 `npm:pi-rtk-optimizer` and `npm:@raquezha/noheadroom`.
+
+Pi settings are intentionally seeded as a regular local file instead of symlinked into the repo, because Pi updates settings at runtime. To promote local changes back into the work profile seed, copy `~/.pi/agent/settings.json` to `pi/config/settings.work.json` intentionally.
 
 Private macOS profile files:
 

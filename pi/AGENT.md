@@ -19,11 +19,13 @@ CHEZMOI_PROFILE=work-mac ~/.dotfiles/install
 
 ## Profiles
 
-Profile files live in `pi/config/`:
+Profile seed files live in `pi/config/`:
 
 - `settings.common.json` — shared default; no MCP adapter.
 - `settings.work.json` — work profile; no private MCP.
 - `settings.private.json` — private profile; includes `npm:pi-mcp-adapter`.
+
+`~/.pi/agent/settings.json` is intentionally a local mutable file, not a symlink back into Git. Chezmoi creates it from the active profile seed only when it is missing, so Pi can update local settings without dirtying this repository.
 
 Apply manually when needed:
 
@@ -33,11 +35,13 @@ Apply manually when needed:
 ~/.dotfiles/pi/scripts/apply-profile.sh private
 ```
 
-The script links the selected file to:
+The script copies the selected seed into:
 
 ```text
 ~/.pi/agent/settings.json
 ```
+
+It backs up an existing settings file first, then keeps the active file local and mutable.
 
 It also links shared local resources:
 
@@ -46,10 +50,10 @@ It also links shared local resources:
 ~/.pi/agent/themes     -> ~/.dotfiles/pi/themes
 ```
 
-Chezmoi manages these Pi links:
+Chezmoi manages these Pi entries:
 
 ```text
-~/.pi/agent/settings.json -> profile-specific pi/config/settings.*.json
+~/.pi/agent/settings.json created from profile-specific pi/config/settings.*.json when missing
 ~/.pi/agent/extensions    -> ~/.dotfiles/pi/extensions
 ~/.pi/agent/themes        -> ~/.dotfiles/pi/themes
 ~/.pi/agent/mcp.json      -> ~/.config/mcp/mcp.json (private-mac only)

@@ -46,7 +46,7 @@ brew bundle install --file=brew/Brewfile.work-mac
 
 ### Symlink Management (chezmoi)
 
-All config files live in this repo and are symlinked into place by chezmoi source-state entries under `chezmoi/`. Adding a new managed link means: (1) create its config directory here, (2) add a `symlink_*` entry under `chezmoi/`, (3) update `.chezmoiignore.tmpl` for OS/profile-specific applicability.
+Most config files live in this repo and are symlinked into place by chezmoi source-state entries under `chezmoi/`. Adding a new managed link means: (1) create its config directory here, (2) add a `symlink_*` entry under `chezmoi/`, (3) update `.chezmoiignore.tmpl` for OS/profile-specific applicability. Mutable runtime configs, such as Pi settings, should use `create_*` seeds instead of symlinks so local app changes do not dirty git.
 
 ### Shell (Zsh)
 

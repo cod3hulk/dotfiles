@@ -11,7 +11,17 @@ repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 pi_dir="$HOME/.pi/agent"
 
 mkdir -p "$pi_dir"
-ln -sfn "$repo_dir/pi/config/settings.$profile.json" "$pi_dir/settings.json"
+settings_source="$repo_dir/pi/config/settings.$profile.json"
+settings_target="$pi_dir/settings.json"
+
+if [[ -e "$settings_target" || -L "$settings_target" ]]; then
+  backup="$settings_target.bak.$(date +%Y%m%d%H%M%S)"
+  cp -p "$settings_target" "$backup"
+  echo "Backed up existing settings to $backup"
+fi
+
+rm -f "$settings_target"
+install -m 600 "$settings_source" "$settings_target"
 
 # Keep existing auto-discovered local extensions/themes available via repo links.
 ln -sfn "$repo_dir/pi/extensions" "$pi_dir/extensions"
@@ -36,4 +46,4 @@ else
   echo "Profile '$profile' does not install private MCP config."
 fi
 
-echo "Linked Pi profile '$profile'. Restart pi or run /reload."
+echo "Applied Pi profile '$profile' as local mutable settings. Restart pi or run /reload."

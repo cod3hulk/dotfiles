@@ -2,6 +2,9 @@
 mcp/private.mcp.json
 local/
 
+# Runtime-managed extension metadata
+extensions/*/.clawd-managed.json
+
 # Never store Pi runtime/auth state here
 auth.json
 sessions/
