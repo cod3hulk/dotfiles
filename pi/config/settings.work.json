@@ -11,10 +11,12 @@
   ],
   "enabledModels": [
     "amazon-bedrock/global.anthropic.*",
-    "openai/gpt-5.*"
+    "openai/gpt-5.*",
+    "anthropic/anthropic.glm-5.2",
+    "anthropic/anthropic.kimi-k3"
   ],
   "powerline": "compact",
   "lastChangelogVersion": "0.80.6",
-  "defaultProvider": "amazon-bedrock",
-  "defaultModel": "global.anthropic.claude-sonnet-5"
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.5"
 }

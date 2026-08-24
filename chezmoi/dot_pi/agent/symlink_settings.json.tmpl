@@ -1,7 +1,0 @@
-{{- if eq .profile "private-mac" -}}
-{{ .chezmoi.sourceDir | dir }}/pi/config/settings.private.json
-{{- else if eq .profile "work-mac" -}}
-{{ .chezmoi.sourceDir | dir }}/pi/config/settings.work.json
-{{- else -}}
-{{ .chezmoi.sourceDir | dir }}/pi/config/settings.common.json
-{{- end }}
