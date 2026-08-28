@@ -1,2 +1,3 @@
 #!/bin/zsh
-yabai --start-service
+# Disabled — migrated to AeroSpace (no SIP disable required)
+# yabai --start-service
