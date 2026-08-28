@@ -9,6 +9,13 @@
 // overwrite it within microseconds — faster than a single render frame
 // (~16ms at 60fps), so the corner position is never visible.
 //
+// IMPORTANT: We use NSWorkspace.shared.frontmostApplication (not AeroSpace's
+// "focused" window) for AX operations. AeroSpace's focused window can differ
+// from the macOS frontmost app when a floating window from another workspace
+// is brought to front — AeroSpace doesn't track focus for unmanaged/floating
+// windows the same way macOS does. Using the macOS frontmost app ensures we
+// always operate on the window the user actually sees and clicked on.
+//
 // Build: swiftc -O center-window.swift -o center-window
 // Usage from aerospace.toml: exec-and-forget /path/to/center-window
 
@@ -49,38 +56,6 @@ func runAero(_ args: [String]) -> String {
         .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 }
 
-// 1. Get current layout and focused window info from AeroSpace.
-//    Use AeroSpace's notion of "focused" (not NSWorkspace's "frontmost")
-//    because they can differ — especially right after workspace switches
-//    or when triggered via a hotkey while an app is mid-transition.
-let layout = runAero(["list-windows", "--focused", "--format", "%{window-layout}"])
-let focusedInfo = runAero(["list-windows", "--focused", "--format", "%{app-pid}"])
-
-log("layout='\(layout)' focusedInfo='\(focusedInfo)'")
-
-// 2. If already floating → toggle back to tiling, done.
-if layout == "floating" {
-    _ = runAero(["layout", "tiling"])
-    log("toggled back to tiling")
-    exit(0)
-}
-
-// 3. Get the focused window via AX API.
-//    Prefer the PID from AeroSpace (authoritative for which window is
-//    actually focused in the WM). Fall back to NSWorkspace.frontmostApplication
-//    only if AeroSpace doesn't return a PID.
-var pid: pid_t = 0
-if let pidVal = Int32(focusedInfo) {
-    pid = pid_t(pidVal)
-} else if let frontApp = NSWorkspace.shared.frontmostApplication {
-    pid = frontApp.processIdentifier
-} else {
-    log("ERROR: no focused window — neither AeroSpace nor NSWorkspace returned a PID")
-    exit(0)
-}
-
-let axApp = AXUIElementCreateApplication(pid)
-
 // Retry AX queries — some apps (notably Alacritty) can be slow to respond,
 // especially under load. Try up to 5 times with 50ms between attempts.
 func axQueryWithRetry(_ element: AXUIElement, _ attr: String, _ retries: Int = 5) -> CFTypeRef? {
@@ -96,22 +71,33 @@ func axQueryWithRetry(_ element: AXUIElement, _ attr: String, _ retries: Int = 5
     return nil
 }
 
+// 1. Get the macOS frontmost app — this is the window the user actually
+//    sees and interacted with. AeroSpace's "focused" window can be wrong
+//    when floating windows from other workspaces are involved.
+guard let frontApp = NSWorkspace.shared.frontmostApplication else {
+    log("ERROR: no frontmost application")
+    exit(0)
+}
+let pid = frontApp.processIdentifier
+log("frontmost: \(frontApp.localizedName ?? "?") pid=\(pid)")
+
+// 2. Get the frontmost app's window via AX API.
+let axApp = AXUIElementCreateApplication(pid)
 guard let window = axQueryWithRetry(axApp, kAXFocusedWindowAttribute as String) else {
     log("ERROR: could not get focused window via AX for pid=\(pid)")
     exit(0)
 }
 let winElement = window as! AXUIElement
 
-// Get current size (position will change when floated, size stays)
+// 3. Get current size (position will change when floated, size stays)
 guard let sizeVal = axQueryWithRetry(winElement, kAXSizeAttribute as String) else {
     log("ERROR: could not get window size via AX for pid=\(pid)")
     exit(0)
 }
-
 var size = CGSize.zero
 AXValueGetValue(sizeVal as! AXValue, .cgSize, &size)
 
-// 4. Find which screen contains the window center (using current/tiled position)
+// 4. Find which screen contains the window center (using current position)
 var pos = CGPoint.zero
 if let posVal = axQueryWithRetry(winElement, kAXPositionAttribute as String) {
     AXValueGetValue(posVal as! AXValue, .cgPoint, &pos)
@@ -146,7 +132,59 @@ let vfLeft = vf.origin.x
 
 log("window size=\(size.width)x\(size.height) screen=\(screen.localizedName) vf=\(vf.width)x\(vf.height)")
 
-// 5. Launch `aerospace layout floating` asynchronously — don't wait for it.
+// 5. Check if the window is already floating by querying AeroSpace.
+//    Try to find this window in AeroSpace's window list by PID.
+//    If AeroSpace doesn't know about this window (unmanaged/floating from
+//    another workspace), we treat it as floating and toggle it back to tiling.
+let aeroWindows = runAero(["list-windows", "--all", "--format", "%{app-pid} %{window-layout}"])
+let aeroLines = aeroWindows.split(separator: "\n")
+var isManagedByAero = false
+var aeroLayout = ""
+for line in aeroLines {
+    let parts = line.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
+    if parts.count >= 2 && Int32(parts[0]) == Int32(pid) {
+        isManagedByAero = true
+        aeroLayout = String(parts[1])
+        break
+    }
+}
+
+log("isManagedByAero=\(isManagedByAero) aeroLayout='\(aeroLayout)'")
+
+// 6. If the window is floating → toggle back to tiling, done.
+//    Two sub-cases:
+//    a) AeroSpace manages the window and says it's floating → tile it.
+//    b) AeroSpace doesn't know about this window at all (it became orphaned
+//       after being floated and the workspace was switched away). In this case
+//       the window is already floating in macOS's eyes — just center it with
+//       AX, don't call aerospace layout commands (they would fail or target
+//       the wrong window). On the next press, if AeroSpace has re-detected it,
+//       we'll tile it.
+if isManagedByAero && aeroLayout == "floating" {
+    _ = runAero(["layout", "tiling"])
+    log("toggled back to tiling (aerospace managed)")
+    exit(0)
+}
+
+if !isManagedByAero {
+    // Window is not managed by AeroSpace — it's already floating.
+    // Just center it with AX, no layout change.
+    log("window not managed by aerospace — centering with AX only")
+    let cx = vfLeft + (vf.size.width - size.width) / 2
+    let cy = vfTop + (vf.size.height - size.height) / 2
+    var centerPos = CGPoint(x: cx, y: cy)
+    let centerPosVal = AXValueCreate(.cgPoint, &centerPos)!
+    // Set position a few times to ensure it sticks
+    for _ in 0..<5 {
+        AXUIElementSetAttributeValue(winElement, kAXPositionAttribute as CFString, centerPosVal as CFTypeRef)
+        usleep(10_000) // 10ms
+    }
+    log("done — centered unmanaged window at (\(cx), \(cy)) size=\(size.width)x\(size.height)")
+    exit(0)
+}
+
+// 7. Window is tiled and managed by AeroSpace → float it.
+//    Launch `aerospace layout floating` asynchronously — don't wait for it.
 //    AeroSpace will float the window and place it at a default corner position,
 //    but we won't wait for that to happen.
 let floatTask = Process()
@@ -156,7 +194,7 @@ floatTask.standardOutput = Pipe()
 floatTask.standardError = Pipe()
 try? floatTask.run()
 
-// 6. Hammer the position to center in a tight loop for ~300ms.
+// 8. Hammer the position to center in a tight loop for ~300ms.
 //    Re-read the window size each iteration and recompute the centered
 //    position, so that if AeroSpace or the app changes the size during
 //    the float transition, we still center correctly with equal margins
@@ -181,10 +219,10 @@ while Date() < deadline {
     usleep(500) // 0.5ms
 }
 
-// 7. Wait for the float task to finish (should already be done)
+// 9. Wait for the float task to finish (should already be done)
 floatTask.waitUntilExit()
 
-// 8. Final re-read + position set to be absolutely sure
+// 10. Final re-read + position set to be absolutely sure
 if let finalSizeVal = axQueryWithRetry(winElement, kAXSizeAttribute as String, 3) {
     var finalSize = CGSize.zero
     AXValueGetValue(finalSizeVal as! AXValue, .cgSize, &finalSize)
