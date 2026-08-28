@@ -1,2 +1,3 @@
 #!/bin/zsh
-/opt/homebrew/bin/skhd --start-service
+# Disabled — migrated to AeroSpace (no SIP disable required)
+# /opt/homebrew/bin/skhd --start-service

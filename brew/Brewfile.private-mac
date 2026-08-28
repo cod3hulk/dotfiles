@@ -1,7 +1,8 @@
 brew "docker"
 brew "colima", postinstall: "#{ENV["HOME"]}/.dotfiles/colima/init.zsh"
-brew "koekeishiya/formulae/yabai", postinstall: "#{ENV["HOME"]}/.dotfiles/yabai/init.sh"
-brew "koekeishiya/formulae/skhd", postinstall: "#{ENV["HOME"]}/.dotfiles/skhd/init.sh"
+# Disabled — migrated to AeroSpace (no SIP disable required)
+#brew "koekeishiya/formulae/yabai", postinstall: "#{ENV["HOME"]}/.dotfiles/yabai/init.sh"
+#brew "koekeishiya/formulae/skhd", postinstall: "#{ENV["HOME"]}/.dotfiles/skhd/init.sh"
 brew "FelixKratz/formulae/borders", postinstall: "#{ENV["HOME"]}/.dotfiles/borders/init.sh"
 
 cask "alfred@4"
