@@ -1,0 +1,212 @@
+# AeroSpace tiling window manager config
+# Replaces yabai + skhd with a single tool — no SIP disable required.
+# Guide: https://nikitabobko.github.io/AeroSpace/guide
+
+config-version = 2
+
+# Start AeroSpace at login
+start-at-login = false
+
+# Auto-reload config on save (after one manual reload to activate)
+auto-reload-config = true
+
+# Normalizations — keep the tree clean
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Default layout: tiles (BSP equivalent)
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus when monitor changes
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Don't auto-unhide cmd-h hidden apps
+automatically-unhide-macos-hidden-apps = false
+
+# Keep all workspaces alive even when empty
+persistent-workspaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+                         'A', 'B', 'C', 'D', 'E', 'F']
+
+focus-follows-mouse.enabled = false
+
+key-mapping.preset = 'qwerty'
+
+# Gaps — mirrors yabai: 20px outer + 20px inner
+gaps.inner.horizontal = 20
+gaps.inner.vertical   = 20
+gaps.outer.left       = 20
+gaps.outer.bottom     = 20
+gaps.outer.top        = 20
+gaps.outer.right      = 20
+
+# ── App routing rules ──────────────────────────────────────────────
+# Mirrors yabai rules: manage browser/Slack main windows, float aux/popup windows
+# Syntax: if = 'test %{app-bundle-id} = <bundle-id>' (optionally && test %{window-title} ~= <substring>)
+
+# Zoom — float auxiliary windows, only tile the main meeting window
+# [[on-window-detected]]
+# if = 'test %{app-bundle-id} = us.zoom.xos'
+# check-further-callbacks = true
+# run = 'layout floating'
+#
+# [[on-window-detected]]
+# if = 'test %{app-bundle-id} = us.zoom.xos && test %{window-title} ~= "Zoom Workplace"'
+# run = 'layout tiling'
+#
+# # Bitwarden browser extension popup (Brave/Chrome) — float
+# [[on-window-detected]]
+# if = 'test %{app-bundle-id} = com.brave.Browser && test %{window-title} ~= Bitwarden'
+# run = 'layout floating'
+#
+# # nvim-anywhere popup (Alacritty with fixed title) — float
+# [[on-window-detected]]
+# if = 'test %{app-bundle-id} = org.alacritty && test %{window-title} ~= nvim-anywhere'
+# run = 'layout floating'
+#
+# # Clawd floating avatar overlay — float, never managed
+# [[on-window-detected]]
+# if = 'test %{app-bundle-id} = com.clawd.Clawd'
+# run = 'layout floating'
+#
+# # iStat Menus — never managed
+# [[on-window-detected]]
+# if = 'test %{app-bundle-id} = com.bjango.istatmenus'
+# run = 'layout floating'
+
+# ── Main mode keybindings ──────────────────────────────────────────
+# Mirrors skhdrc mappings, adapted to AeroSpace command syntax
+
+[mode.main.binding]
+
+    # Layout toggles
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+
+    # Focus — same as skhd: alt+hjkl
+    # --boundaries all-monitors-outer-frame: continue to next monitor at edge
+    # --boundaries-action wrap-around-all-monitors: wrap from last monitor back to first
+    alt-h = 'focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+    alt-j = 'focus down --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+    alt-k = 'focus up --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+    alt-l = 'focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+
+    # Move window in tree — replaces skhd alt+shift+hjkl (yabai --warp)
+    # --boundaries all-monitors-outer-frame: when window reaches monitor edge,
+    # it crosses to the next monitor (like yabai warp)
+    alt-shift-h = 'move left --boundaries all-monitors-outer-frame'
+    alt-shift-j = 'move down --boundaries all-monitors-outer-frame'
+    alt-shift-k = 'move up --boundaries all-monitors-outer-frame'
+    alt-shift-l = 'move right --boundaries all-monitors-outer-frame'
+
+    # Toggle split orientation
+    alt-shift-t = 'layout tiles horizontal vertical'
+
+    # Focus next/prev window — replaces alt-n / alt-p
+    alt-n = 'focus right'
+    alt-p = 'focus left'
+
+    # Resize — replaces alt+cmd+hjkl
+    alt-cmd-h = 'resize width -50'
+    alt-cmd-l = 'resize width +50'
+    alt-cmd-k = 'resize height -50'
+    alt-cmd-j = 'resize height +50'
+
+    # Balance sizes — replaces alt+cmd+0 (yabai --balance)
+    alt-cmd-0 = 'balance-sizes'
+
+    # Fullscreen — replaces alt-f (yabai --toggle zoom-fullscreen)
+    # Note: alt-f conflicts with workspace F, so workspace F is unbound.
+    # Use alt-g for workspace F if needed.
+    alt-f = 'fullscreen'
+
+    # Toggle floating + center — Alt+Shift+F
+    # Note: alt-shift-f conflicts with move-node-to-workspace F, so workspace F
+    # is accessible via alt-g above instead.
+    # center-window is a compiled Swift binary that handles the full toggle + center
+    # cycle itself (no visual jump to corner before centering).
+    # Build: swiftc -O center-window.swift -o center-window (in aerospace/ dir)
+    alt-shift-f = 'exec-and-forget /Users/tomas.ave/.dotfiles/aerospace/center-window'
+
+    # Close window — replaces alt-w (yabai --close)
+    alt-w = 'close'
+
+    # Minimize window — replaces alt-m (yabai --minimize)
+    alt-m = 'macos-native-minimize'
+
+    # Workspace switching — alt+number/letter
+    # alt-f is taken by fullscreen; workspace F accessible via alt-g below
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+    alt-6 = 'workspace 6'
+    alt-7 = 'workspace 7'
+    alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9'
+    alt-a = 'workspace A'
+    alt-b = 'workspace B'
+    alt-c = 'workspace C'
+    alt-d = 'workspace D'
+    alt-e = 'workspace E'
+    alt-g = 'workspace F'
+
+    # Move window to workspace — alt+shift+number/letter
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
+    alt-shift-7 = 'move-node-to-workspace 7'
+    alt-shift-8 = 'move-node-to-workspace 8'
+    alt-shift-9 = 'move-node-to-workspace 9'
+    alt-shift-a = 'move-node-to-workspace A'
+    alt-shift-b = 'move-node-to-workspace B'
+    alt-shift-c = 'move-node-to-workspace C'
+    alt-shift-d = 'move-node-to-workspace D'
+    alt-shift-e = 'move-node-to-workspace E'
+
+    # Workspace back-and-forth
+    alt-tab = 'workspace-back-and-forth'
+
+    # Move workspace to next monitor — replaces shift+cmd+z (send to next space + follow)
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    # Enter service mode
+    alt-shift-semicolon = 'mode service'
+
+    # ── App launching with hyper key (cmd+ctrl+alt+shift) ────────────
+    # Replaces skhd hyper bindings
+
+    # Open default browser
+    cmd-ctrl-alt-shift-b = '''exec-and-forget open -b "$(defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers | awk '/LSHandlerRoleAll/{gsub(/.*= "/,""); gsub(/".*$/,""); bundle=$0} /LSHandlerURLScheme = https;/{print bundle; exit}')"'''
+
+    # Open Slack
+    cmd-ctrl-alt-shift-s = '''exec-and-forget open '/Applications/Slack.app' '''
+
+    # Open Alacritty (terminal)
+    cmd-ctrl-alt-shift-t = '''exec-and-forget open '/Applications/Alacritty.app' '''
+
+    # Open IntelliJ IDEA
+    cmd-ctrl-alt-shift-i = '''exec-and-forget open '/Applications/IntelliJ IDEA.app' '''
+
+    # Open Spotify
+    cmd-ctrl-alt-shift-f1 = '''exec-and-forget open '/Applications/Spotify.app' '''
+
+    # nvim-anywhere
+    cmd-ctrl-alt-shift-v = '''exec-and-forget /Users/tomas.ave/Development/cod3hulk/nvim-anywhere/bin/nvim-anywhere'''
+
+# ── Service mode (alt+shift+; to enter, esc to exit) ───────────────
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main']    # reset layout
+    f = ['exec-and-forget /Users/tomas.ave/.dotfiles/aerospace/center-window', 'mode main']    # toggle floating + center (same as alt-shift-f in main mode)
+    backspace = ['close-all-windows-but-current', 'mode main']
+
+    # Join containers (merge adjacent tiles)
+    alt-shift-h = ['join-with left', 'mode main']
+    alt-shift-j = ['join-with down', 'mode main']
+    alt-shift-k = ['join-with up', 'mode main']
+    alt-shift-l = ['join-with right', 'mode main']
