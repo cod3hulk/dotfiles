@@ -67,8 +67,9 @@ Most config files live in this repo and are symlinked into place by chezmoi sour
 
 ### macOS Window Management
 
-- **yabai** (`yabai/yabairc`) — tiling WM, BSP layout, started via `yabai/init.sh`
-- **skhd** (`skhd/skhdrc`) — hotkey daemon for yabai control (Alt+hjkl navigation), started via `skhd/init.sh`
+- **aerospace** (`aerospace/aerospace.toml`) — tiling WM and hotkey daemon in one, no SIP disable required. Replaces yabai + skhd.
+- **aerospace/float-place.swift** — helper that positions floating windows, since AeroSpace itself refuses to `move`/`resize` them ([issue #9](https://github.com/nikitabobko/AeroSpace/issues/9)). Takes a yabai-style `--grid <rows>:<cols>:<col>:<row>:<cols-wide>:<rows-high>`; with no grid it centers the window at its current size. Invoked from `on-window-detected` rules and from `alt-shift-f`; AeroSpace exports `AEROSPACE_WINDOW_ID` and passes on its own Accessibility permission, so no separate TCC grant is needed. The binary is gitignored and rebuilt by `chezmoi/.chezmoiscripts/run_onchange_build-aerospace-float-place.sh.tmpl`; set `FLOAT_PLACE_DEBUG=1` to log placements to `/tmp/float-place.log`.
+- **yabai** (`yabai/yabairc`) and **skhd** (`skhd/skhdrc`) — superseded by AeroSpace. Still symlinked on the private-mac profile, but their init scripts and Brewfile entries are commented out, so neither service starts.
 - **hammerspoon** (`hammerspoon/`) — Lua automation, git submodule pointing to `https://github.com/cod3hulk/hammerspoon-config.git`
 - **borders** (`borders/bordersrc`) — JankyBorders window decorations, started via `borders/init.sh`
 
