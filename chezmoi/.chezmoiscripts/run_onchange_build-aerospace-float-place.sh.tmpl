@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "darwin" }}
+# float-place.swift hash: {{ include "../aerospace/float-place.swift" | sha256sum }}
+DOTFILES_DIR="{{ .chezmoi.sourceDir | dir }}"
+SOURCE_FILE="${DOTFILES_DIR}/aerospace/float-place.swift"
+BINARY_FILE="${DOTFILES_DIR}/aerospace/float-place"
+
+if [ ! -e "${SOURCE_FILE}" ]; then
+  echo "No float-place source at ${SOURCE_FILE}; skipping build."
+  exit 0
+fi
+
+if ! command -v swiftc >/dev/null 2>&1; then
+  echo "swiftc not found (needs Xcode Command Line Tools); skipping float-place build."
+  exit 0
+fi
+
+echo "Build the AeroSpace float-place helper"
+swiftc -O "${SOURCE_FILE}" -o "${BINARY_FILE}"
+{{ else }}
+echo "Skipping float-place build on {{ .chezmoi.os }}"
+{{ end }}

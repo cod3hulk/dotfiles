@@ -41,38 +41,56 @@ gaps.outer.top        = 20
 gaps.outer.right      = 20
 
 # ── App routing rules ──────────────────────────────────────────────
-# Mirrors yabai rules: manage browser/Slack main windows, float aux/popup windows
+# Mirrors the yabai rules: tile browser/Slack main windows, float aux/popup windows.
 # Syntax: if = 'test %{app-bundle-id} = <bundle-id>' (optionally && test %{window-title} ~= <substring>)
+#
+# AeroSpace cannot position floating windows itself (`move`/`resize` reject them,
+# see AeroSpace issue #9), so placement is delegated to the float-place helper.
+# AeroSpace exports AEROSPACE_WINDOW_ID to exec-and-forget and the helper inherits
+# AeroSpace's Accessibility permission, so it needs no grant of its own.
+#
+# --grid mirrors yabai's grid=<rows>:<cols>:<col>:<row>:<cols-wide>:<rows-high>.
+# Add --gaps 20 to any invocation to inset placement by the outer gap.
+#
+# Only the first matching callback runs, so specific rules come first and the
+# catch-all comes last. Rules that want placement invoke float-place themselves.
 
-# Zoom — float auxiliary windows, only tile the main meeting window
-# [[on-window-detected]]
-# if = 'test %{app-bundle-id} = us.zoom.xos'
-# check-further-callbacks = true
-# run = 'layout floating'
-#
-# [[on-window-detected]]
-# if = 'test %{app-bundle-id} = us.zoom.xos && test %{window-title} ~= "Zoom Workplace"'
-# run = 'layout tiling'
-#
-# # Bitwarden browser extension popup (Brave/Chrome) — float
-# [[on-window-detected]]
-# if = 'test %{app-bundle-id} = com.brave.Browser && test %{window-title} ~= Bitwarden'
-# run = 'layout floating'
-#
-# # nvim-anywhere popup (Alacritty with fixed title) — float
-# [[on-window-detected]]
-# if = 'test %{app-bundle-id} = org.alacritty && test %{window-title} ~= nvim-anywhere'
-# run = 'layout floating'
-#
-# # Clawd floating avatar overlay — float, never managed
-# [[on-window-detected]]
-# if = 'test %{app-bundle-id} = com.clawd.Clawd'
-# run = 'layout floating'
-#
-# # iStat Menus — never managed
-# [[on-window-detected]]
-# if = 'test %{app-bundle-id} = com.bjango.istatmenus'
-# run = 'layout floating'
+# Clawd floating avatar overlay — float where it is, never repositioned
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.clawd.on-desk'
+run = 'layout floating'
+
+# iStat Menus — float where it is, never repositioned
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.bjango.istatmenus'
+run = 'layout floating'
+
+# Zoom — only the main meeting window tiles
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = us.zoom.xos && test %{window-title} ~= "Zoom Workplace"'
+run = 'layout tiling'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = us.zoom.xos'
+run = ['layout floating', 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place"']
+
+# Bitwarden browser extension popup (Brave) — centered third of the screen
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.brave.Browser && test %{window-title} ~= Bitwarden'
+run = ['layout floating', 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --grid 3:3:1:1:1:1']
+
+# nvim-anywhere popup (Alacritty with fixed title) — centered two thirds
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = org.alacritty && test %{window-title} ~= nvim-anywhere'
+run = ['layout floating', 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --grid 6:6:1:1:4:4']
+
+# Everything else: if it ended up floating (dialogs, non-resizable popups, and
+# anything AeroSpace declined to tile), center it at its own size. Deliberately
+# no --grid here: yabai's `rule --apply app='.*' grid=8:8:1:1:6:6` only ran once
+# at config load, so force-resizing every new popup to 75% would be new behaviour.
+[[on-window-detected]]
+if = 'true'
+run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
 
 # ── Main mode keybindings ──────────────────────────────────────────
 # Mirrors skhdrc mappings, adapted to AeroSpace command syntax
@@ -123,10 +141,11 @@ gaps.outer.right      = 20
     # Toggle floating + center — Alt+Shift+F
     # Note: alt-shift-f conflicts with move-node-to-workspace F, so workspace F
     # is accessible via alt-g above instead.
-    # center-window is a compiled Swift binary that handles the full toggle + center
-    # cycle itself (no visual jump to corner before centering).
-    # Build: swiftc -O center-window.swift -o center-window (in aerospace/ dir)
-    alt-shift-f = 'exec-and-forget /Users/tomas.ave/.dotfiles/aerospace/center-window'
+    # float-place is a compiled Swift binary that handles the full toggle + place
+    # cycle itself (no visual jump to corner before centering). The grid matches
+    # the yabai default: 8x8 grid, offset 1:1, spanning 6x6 — centered at 75%.
+    # Build: swiftc -O float-place.swift -o float-place (in aerospace/ dir)
+    alt-shift-f = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --toggle --grid 8:8:1:1:6:6'
 
     # Close window — replaces alt-w (yabai --close)
     alt-w = 'close'
@@ -202,8 +221,13 @@ gaps.outer.right      = 20
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main']    # reset layout
-    f = ['exec-and-forget /Users/tomas.ave/.dotfiles/aerospace/center-window', 'mode main']    # toggle floating + center (same as alt-shift-f in main mode)
+    f = ['exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --toggle --grid 8:8:1:1:6:6', 'mode main']    # toggle floating + place (same as alt-shift-f in main mode)
     backspace = ['close-all-windows-but-current', 'mode main']
+
+    # Re-apply on-window-detected rules to every window that is already open.
+    # This is the equivalent of yabai's `rule --apply`, which ran against existing
+    # windows at config load; AeroSpace only runs the rules on newly detected ones.
+    p = ['exec-and-forget /opt/homebrew/bin/aerospace run-callback --for-every-window on-window-detected', 'mode main']
 
     # Join containers (merge adjacent tiles)
     alt-shift-h = ['join-with left', 'mode main']
