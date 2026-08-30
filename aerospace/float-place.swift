@@ -13,6 +13,9 @@
 //
 // Grid geometry mirrors yabai's `grid=<rows>:<cols>:<col>:<row>:<cols-wide>:<rows-high>`.
 //
+// --fullscreen is here for the same reason: `aerospace fullscreen` is a silent
+// no-op on floating windows, so there is otherwise no way back out of one.
+//
 // Keep the logic in functions rather than at top level: `-O` miscompiled closures
 // over top-level vars here and segfaulted.
 //
@@ -74,7 +77,7 @@ func parseGrid(_ spec: String) -> Grid? {
 func usage() -> Never {
     FileHandle.standardError.write("""
         usage: float-place [--window-id <id>] [--grid R:C:X:Y:W:H] [--gaps <px>]
-                           [--if-floating] [--toggle]
+                           [--if-floating] [--toggle] [--fullscreen]
 
           --window-id    AeroSpace window id; defaults to $AEROSPACE_WINDOW_ID,
                          then to the frontmost window.
@@ -83,6 +86,7 @@ func usage() -> Never {
           --gaps         inset the screen's visible frame by <px> before placing.
           --if-floating  do nothing unless the window is floating.
           --toggle       floating -> tiling, tiling -> floating + place.
+          --fullscreen   toggle maximize; tiling windows are handed to AeroSpace.
 
         """.data(using: .utf8)!)
     exit(2)
@@ -93,6 +97,7 @@ var grid: Grid? = nil
 var gaps: CGFloat = 0
 var ifFloating = false
 var toggle = false
+var fullscreen = false
 
 var args = Array(CommandLine.arguments.dropFirst())
 while let arg = args.first {
@@ -114,6 +119,8 @@ while let arg = args.first {
         ifFloating = true
     case "--toggle":
         toggle = true
+    case "--fullscreen":
+        fullscreen = true
     case "-h", "--help":
         usage()
     default:
@@ -243,6 +250,15 @@ func place(_ win: AXUIElement) {
 
     let target = box(in: area)
     var actual = target.size
+
+    // Move to the target origin before resizing: macOS clamps a resize to the
+    // screen edge measured from the window's current origin, so growing a window
+    // that still sits further down the screen silently truncates it.
+    if grid != nil {
+        var seed = target.origin
+        axSet(win, kAXPositionAttribute as String, &seed)
+    }
+
     let deadline = Date().addingTimeInterval(0.2)
     repeat {
         if grid != nil {
@@ -300,14 +316,131 @@ func resolveTarget() -> Target {
     }
     let element = focused as! AXUIElement
 
-    // Look the window up in AeroSpace anyway, so --toggle knows its layout.
+    // Look the window up in AeroSpace anyway, so --toggle knows its layout. The
+    // id is still worth keeping when the lookup misses: it keys --fullscreen's
+    // saved frame, and orphaned popups never appear in list-windows.
     var wid: CGWindowID = 0
-    if _AXUIElementGetWindow(element, &wid) == .success, let info = aeroWindow(id: wid) {
-        log("frontmost \(front.localizedName ?? "?") -> window \(wid) layout=\(info.layout)")
-        return Target(element: element, id: wid, layout: info.layout)
+    let id: UInt32? = _AXUIElementGetWindow(element, &wid) == .success ? wid : nil
+    let layout = id.flatMap { aeroWindow(id: $0)?.layout }
+    log("frontmost \(front.localizedName ?? "?") -> window \(id.map(String.init) ?? "?") layout=\(layout ?? "unmanaged")")
+    return Target(element: element, id: id, layout: layout)
+}
+
+// ── Fullscreen toggle ───────────────────────────────────────────────
+// `aerospace fullscreen` silently does nothing to a floating window — it even
+// reports success under --fail-if-noop — so there is no way back out of a
+// maximized float using AeroSpace alone. Do it here instead, remembering the
+// frame to restore.
+
+struct Frame: Codable {
+    var x, y, w, h: Double
+
+    init(_ rect: CGRect) {
+        x = rect.origin.x
+        y = rect.origin.y
+        w = rect.size.width
+        h = rect.size.height
     }
-    log("frontmost \(front.localizedName ?? "?") is not managed by AeroSpace")
-    return Target(element: element, id: nil, layout: nil)
+
+    var rect: CGRect { CGRect(x: x, y: y, width: w, height: h) }
+}
+
+struct SavedFrame: Codable {
+    /// Where the window was before it was maximized.
+    var restore: Frame
+    /// The frame the maximize actually achieved. Compared against on the next
+    /// press instead of the requested frame, because apps with a max size never
+    /// reach it — and then there would be no way back out, which is the bug this
+    /// whole path exists to fix.
+    var applied: Frame
+}
+
+let stateURL = FileManager.default.temporaryDirectory
+    .appendingPathComponent("float-place-fullscreen.json")
+
+func loadSavedFrames() -> [String: SavedFrame] {
+    guard let data = try? Data(contentsOf: stateURL),
+          let saved = try? JSONDecoder().decode([String: SavedFrame].self, from: data)
+    else { return [:] }
+    return saved
+}
+
+func storeSavedFrames(_ frames: [String: SavedFrame]) {
+    guard let data = try? JSONEncoder().encode(frames) else { return }
+    try? data.write(to: stateURL)
+}
+
+func matches(_ a: CGRect, _ b: CGRect) -> Bool {
+    abs(a.minX - b.minX) < 2 && abs(a.minY - b.minY) < 2
+        && abs(a.width - b.width) < 2 && abs(a.height - b.height) < 2
+}
+
+func axFrame(_ win: AXUIElement) -> CGRect? {
+    guard let origin = axOrigin(win), let size = axSize(win) else { return nil }
+    return CGRect(origin: origin, size: size)
+}
+
+/// Move and resize a window, returning the frame actually achieved.
+///
+/// Position is set before size, and again afterwards: macOS clamps a resize to
+/// the screen edge measured from the window's *current* origin, so growing a
+/// window that still sits further down the screen silently truncates it.
+@discardableResult
+func applyFrame(_ win: AXUIElement, _ rect: CGRect) -> CGRect {
+    var achieved = rect
+    let deadline = Date().addingTimeInterval(0.15)
+    repeat {
+        var origin = rect.origin
+        var size = rect.size
+        axSet(win, kAXPositionAttribute as String, &origin)
+        axSet(win, kAXSizeAttribute as String, &size)
+        axSet(win, kAXPositionAttribute as String, &origin)
+        if let current = axFrame(win) {
+            achieved = current
+            if matches(current, rect) { break }
+        }
+        usleep(5000)
+    } while Date() < deadline
+    return achieved
+}
+
+func toggleFullscreen(_ target: Target) {
+    // Tiling windows already work, and AeroSpace needs to stay the source of
+    // truth for anything in its tree.
+    if let layout = target.layout, layout != "floating" {
+        var args = ["fullscreen"]
+        if let id = target.id {
+            args.append("--window-id")
+            args.append(String(id))
+        }
+        _ = runAero(args)
+        log("delegated fullscreen to AeroSpace")
+        return
+    }
+
+    guard let area = targetArea(for: target.element), let current = axFrame(target.element) else {
+        log("ERROR: could not read window geometry")
+        return
+    }
+
+    let key = target.id.map(String.init) ?? "frontmost"
+    var frames = loadSavedFrames()
+
+    // Only restore if the window is still where the maximize left it. Window ids
+    // get recycled and the user may have moved the window since, so a stale entry
+    // must not teleport it somewhere unexpected.
+    if let saved = frames[key], matches(current, saved.applied.rect) {
+        let achieved = applyFrame(target.element, saved.restore.rect)
+        frames[key] = nil
+        storeSavedFrames(frames)
+        log("restored to \(achieved)")
+        return
+    }
+
+    let achieved = applyFrame(target.element, area)
+    frames[key] = SavedFrame(restore: Frame(current), applied: Frame(achieved))
+    storeSavedFrames(frames)
+    log("maximized to \(achieved) (asked for \(area))")
 }
 
 func setLayout(_ target: String, windowId: UInt32?) {
@@ -322,6 +455,11 @@ func setLayout(_ target: String, windowId: UInt32?) {
 func run() {
     let target = resolveTarget()
     let isFloating = target.layout == "floating"
+
+    if fullscreen {
+        toggleFullscreen(target)
+        return
+    }
 
     if toggle {
         if isFloating {
