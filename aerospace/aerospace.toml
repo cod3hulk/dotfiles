@@ -102,12 +102,14 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
     alt-comma = 'layout accordion horizontal vertical'
 
     # Focus — same as skhd: alt+hjkl
+    # --ignore-floating: directional focus stays in the tiling tree; floating
+    # windows are reached by clicking or alt-tab, as they were under yabai
     # --boundaries all-monitors-outer-frame: continue to next monitor at edge
     # --boundaries-action wrap-around-all-monitors: wrap from last monitor back to first
-    alt-h = 'focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
-    alt-j = 'focus down --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
-    alt-k = 'focus up --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
-    alt-l = 'focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+    alt-h = 'focus left --ignore-floating --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+    alt-j = 'focus down --ignore-floating --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+    alt-k = 'focus up --ignore-floating --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
+    alt-l = 'focus right --ignore-floating --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
 
     # Move window in tree — replaces skhd alt+shift+hjkl (yabai --warp)
     # --boundaries all-monitors-outer-frame: when window reaches monitor edge,
@@ -121,8 +123,8 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
     alt-shift-t = 'layout tiles horizontal vertical'
 
     # Focus next/prev window — replaces alt-n / alt-p
-    alt-n = 'focus right'
-    alt-p = 'focus left'
+    alt-n = 'focus right --ignore-floating'
+    alt-p = 'focus left --ignore-floating'
 
     # Resize — replaces alt+cmd+hjkl
     alt-cmd-h = 'resize width -50'
@@ -136,7 +138,11 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
     # Fullscreen — replaces alt-f (yabai --toggle zoom-fullscreen)
     # Note: alt-f conflicts with workspace F, so workspace F is unbound.
     # Use alt-g for workspace F if needed.
-    alt-f = 'fullscreen'
+    # Routed through float-place because `aerospace fullscreen` silently ignores
+    # floating windows, leaving no way back out of one. Tiling windows are handed
+    # straight back to AeroSpace; --gaps 20 matches the outer gap AeroSpace's own
+    # fullscreen leaves.
+    alt-f = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --fullscreen --gaps 20'
 
     # Toggle floating + center — Alt+Shift+F
     # Note: alt-shift-f conflicts with move-node-to-workspace F, so workspace F
