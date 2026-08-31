@@ -49,6 +49,13 @@ func log(_ msg: String) {
 }
 
 func runAero(_ args: [String]) -> String {
+    return runAeroWithStatus(args).output
+}
+
+/// Run an aerospace command, returning its stdout and exit status. Needed for
+/// commands like `move-node-to-monitor`, which signal "no monitor in that
+/// direction" with a non-zero exit (and a message on stderr, not stdout).
+func runAeroWithStatus(_ args: [String]) -> (output: String, status: Int) {
     let task = Process()
     task.executableURL = URL(fileURLWithPath: aerospace)
     task.arguments = args
@@ -58,8 +65,9 @@ func runAero(_ args: [String]) -> String {
     try? task.run()
     task.waitUntilExit()
     let data = try? pipe.fileHandleForReading.readToEnd()
-    return String(data: data ?? Data(), encoding: .utf8)?
+    let output = String(data: data ?? Data(), encoding: .utf8)?
         .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    return (output, Int(task.terminationStatus))
 }
 
 // ── Argument parsing ────────────────────────────────────────────────
@@ -87,6 +95,10 @@ func usage() -> Never {
           --if-floating  do nothing unless the window is floating.
           --toggle       floating -> tiling, tiling -> floating + place.
           --fullscreen   toggle maximize; tiling windows are handed to AeroSpace.
+          --move-screen  move to the next (`next`/`right`) or previous
+                         (`prev`/`left`) monitor. Tiling windows delegate to
+                         `aerospace move`; floating windows are relocated via
+                         the Accessibility API, preserving size + relative position.
 
         """.data(using: .utf8)!)
     exit(2)
@@ -98,6 +110,7 @@ var gaps: CGFloat = 0
 var ifFloating = false
 var toggle = false
 var fullscreen = false
+var moveScreenDir: Int? = nil
 
 var args = Array(CommandLine.arguments.dropFirst())
 while let arg = args.first {
@@ -119,6 +132,14 @@ while let arg = args.first {
         ifFloating = true
     case "--toggle":
         toggle = true
+    case "--move-screen":
+        guard let v = args.first else { usage() }
+        args.removeFirst()
+        switch v {
+        case "next", "right": moveScreenDir = 1
+        case "prev", "left":  moveScreenDir = -1
+        default: usage()
+        }
     case "--fullscreen":
         fullscreen = true
     case "-h", "--help":
@@ -217,6 +238,21 @@ func targetArea(for win: AXUIElement) -> CGRect? {
         }
     }
     return flip(screen.visibleFrame).insetBy(dx: gaps, dy: gaps)
+}
+
+/// All screens' visible frames in AX (top-left origin) coordinates, sorted
+/// left-to-right by minX. Matches AeroSpace's left/right monitor ordering so
+/// `next`/`prev` line up with `move right`/`move left` crossing monitors.
+func allScreenAreas() -> [CGRect] {
+    let screens = NSScreen.screens
+    guard let primary = screens.first else { return [] }
+    let primaryHeight = primary.frame.size.height
+    func flip(_ f: CGRect) -> CGRect {
+        CGRect(x: f.origin.x, y: primaryHeight - (f.origin.y + f.size.height),
+               width: f.size.width, height: f.size.height)
+    }
+    return screens.map { flip($0.visibleFrame) }
+        .sorted { $0.minX < $1.minX }
 }
 
 /// The rectangle the window should end up inside: the grid cell if a grid was
@@ -443,6 +479,96 @@ func toggleFullscreen(_ target: Target) {
     log("maximized to \(achieved) (asked for \(area))")
 }
 
+// ── Move to next/prev monitor ──────────────────────────────────────
+// AeroSpace's `move` rejects floating windows (issue #9), so alt-shift-h/l
+// can't cross monitors for a float on its own. Branch here instead:
+//  - tiling windows delegate to `aerospace move` (same --boundaries flag as
+//    the old binding, so cross-monitor behaviour for tiles is unchanged);
+//  - floating windows use `aerospace move-node-to-monitor`, which actually
+//    re-assigns the window to a workspace on the other monitor — the only
+//    way to stop AeroSpace from re-anchoring the float back to its old
+//    monitor (which is why a pure AX move just flickered and snapped back).
+//    `move-node-to-monitor` keeps the window floating and preserves its size;
+//    afterwards we AX-nudge it to the same relative position it had on the
+//    source monitor, so the move feels like the window slid over.
+
+func moveToScreen(_ target: Target, direction: Int) {
+    let dir = direction < 0 ? "left" : "right"
+
+    if target.layout != "floating" {
+        var args = ["move", dir, "--boundaries", "all-monitors-outer-frame"]
+        if let id = target.id {
+            args.append("--window-id")
+            args.append(String(id))
+        }
+        _ = runAero(args)
+        log("delegated move \(dir) to AeroSpace")
+        return
+    }
+
+    guard let id = target.id else {
+        log("ERROR: floating window has no AeroSpace id; cannot move-node-to-monitor")
+        return
+    }
+    guard let before = axFrame(target.element) else {
+        log("ERROR: could not read floating window geometry")
+        return
+    }
+
+    // Remember where the window sat relative to its current monitor, so we can
+    // reproduce that position on the target monitor after the move.
+    let areas = allScreenAreas()
+    guard areas.count > 1 else {
+        log("only one screen; nothing to move to")
+        return
+    }
+    let center = CGPoint(x: before.midX, y: before.midY)
+    var curIdx = 0
+    for (i, a) in areas.enumerated() where a.contains(center) {
+        curIdx = i
+        break
+    }
+    let curArea = areas[curIdx]
+    let relX = (before.minX - curArea.minX) / curArea.width
+    let relY = (before.minY - curArea.minY) / curArea.height
+
+    // Re-assign the window to a workspace on the other monitor. Non-zero exit
+    // (e.g. "No monitors in direction right" on stderr) means we're at the
+    // edge — same no-op as the tiled `move` at a boundary (no wrap, matching
+    // the old binding).
+    let result = runAeroWithStatus(["move-node-to-monitor", "--window-id", String(id), dir])
+    if result.status != 0 {
+        log("at \(dir) edge; no further monitor (aerospace exit \(result.status))")
+        return
+    }
+    // Give AeroSpace a moment to settle the float on the new monitor before we
+    // touch its geometry, otherwise the reposition can race the workspace switch.
+    usleep(150_000)
+
+    // Re-derive the target monitor from the window's new centre (AeroSpace may
+    // place it on any workspace on that monitor; we just need the screen area).
+    guard let after = axFrame(target.element) else {
+        log("ERROR: could not re-read window geometry after monitor move")
+        return
+    }
+    let newCenter = CGPoint(x: after.midX, y: after.midY)
+    var newArea = areas[curIdx]
+    for a in areas where a.contains(newCenter) {
+        newArea = a
+        break
+    }
+
+    var origin = CGPoint(
+        x: newArea.minX + relX * newArea.width,
+        y: newArea.minY + relY * newArea.height
+    )
+    // Clamp so the window stays fully inside the target monitor's visible frame.
+    origin.x = max(newArea.minX, min(origin.x, newArea.maxX - after.width))
+    origin.y = max(newArea.minY, min(origin.y, newArea.maxY - after.height))
+    let achieved = applyFrame(target.element, CGRect(origin: origin, size: after.size))
+    log("moved floating \(dir) to monitor area \(newArea): \(achieved)")
+}
+
 func setLayout(_ target: String, windowId: UInt32?) {
     var args = ["layout", target]
     if let id = windowId {
@@ -458,6 +584,11 @@ func run() {
 
     if fullscreen {
         toggleFullscreen(target)
+        return
+    }
+
+    if let dir = moveScreenDir {
+        moveToScreen(target, direction: dir)
         return
     }
 

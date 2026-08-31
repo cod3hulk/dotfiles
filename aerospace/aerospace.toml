@@ -112,12 +112,15 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
     alt-l = 'focus right --ignore-floating --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
 
     # Move window in tree — replaces skhd alt+shift+hjkl (yabai --warp)
-    # --boundaries all-monitors-outer-frame: when window reaches monitor edge,
-    # it crosses to the next monitor (like yabai warp)
-    alt-shift-h = 'move left --boundaries all-monitors-outer-frame'
+    # h/l route through float-place so they also move *floating* windows to the
+    # next/prev monitor (AeroSpace's `move` rejects floats, issue #9). Tiling
+    # windows delegate to `aerospace move` with the same --boundaries flag as
+    # before, so cross-monitor behaviour for tiles is unchanged. j/k stay native
+    # since vertical monitor traversal isn't meaningful here.
+    alt-shift-h = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --move-screen prev'
+    alt-shift-l = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --move-screen next'
     alt-shift-j = 'move down --boundaries all-monitors-outer-frame'
     alt-shift-k = 'move up --boundaries all-monitors-outer-frame'
-    alt-shift-l = 'move right --boundaries all-monitors-outer-frame'
 
     # Toggle split orientation
     alt-shift-t = 'layout tiles horizontal vertical'
