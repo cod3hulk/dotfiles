@@ -127,8 +127,8 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
     alt-p = 'focus left --ignore-floating'
 
     # Resize — replaces alt+cmd+hjkl
-    alt-cmd-h = 'resize width -50'
-    alt-cmd-l = 'resize width +50'
+    alt-cmd-h = 'resize width +50'
+    alt-cmd-l = 'resize width -50'
     alt-cmd-k = 'resize height -50'
     alt-cmd-j = 'resize height +50'
 
