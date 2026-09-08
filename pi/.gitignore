@@ -13,3 +13,7 @@ mcp-cache.json
 models-store.json
 npm/
 git/
+
+# pi-multi-account runtime state (cooldowns, credential fingerprints, decision log)
+provider-failover-state.json
+provider-failover-debug.log

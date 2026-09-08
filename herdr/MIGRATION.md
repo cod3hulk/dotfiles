@@ -13,9 +13,8 @@ Start Herdr explicitly with:
 herdr
 ```
 
-The Herdr prefix is `Ctrl-Space`, deliberately different from this
-repository's tmux prefix (`Ctrl-a`) so the two can be nested without
-collisions. The Herdr bindings mirror the useful tmux bindings: `prefix+h/j/k/l` moves
+The Herdr prefix is now `Ctrl-A`, matching this repository's tmux prefix.
+`Ctrl-Space` opens which-key directly. The Herdr bindings mirror the useful tmux bindings: `prefix+h/j/k/l` moves
 between panes, `prefix+c` creates a tab (tmux's new window), `prefix+n/p`
 changes tabs, and `cmd+shift+[`/`]` changes tabs backward/forward via
 Alacritty's Herdr prefix translation. `prefix+1..9` selects a tab,
@@ -26,16 +25,16 @@ Alacritty's Herdr prefix translation. `prefix+1..9` selects a tab,
 the Herdr config.
 
 Herdr's built-in `prefix+?` is the authoritative key reference. The
-`herdr-pretty-which` plugin is installed by the activation script and binds
-`prefix+Space` to a searchable, tree-style overlay generated from the actual
+`herdr-which-key` plugin is installed by the activation script and binds
+`Ctrl-Space` to a searchable, grouped overlay generated from the actual
 Herdr config. This is the closest Herdr equivalent to `tmux-which-key`.
 
 `herdr-plus` remains installed for its Projects and Quick Actions features,
-but Pretty Which owns the primary which-key shortcut.
+but herdr-which-key owns the primary which-key shortcut.
 
-The Pretty Which binary is installed from crates.io and the repository carries
-only its small Herdr manifest. This avoids syncing Rust build artifacts while
-keeping the plugin's keybinding setup reproducible.
+herdr-which-key is installed from GitHub. It uses the Python standard library,
+and its generated launcher remains local under Herdr's plugin config directory;
+only the portable Herdr binding is managed here.
 
 ## Suggested migration path
 

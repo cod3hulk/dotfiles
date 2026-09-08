@@ -31,6 +31,14 @@ ln -sfn "$repo_dir/pi/themes" "$pi_dir/themes"
 # The repo extension directory contains a tracked symlink:
 # pi/extensions/pi-rtk-optimizer/config.json -> ../../config/rtk-optimizer.json
 
+# pi-multi-account failover is codex-first and spends a personal OpenRouter key,
+# so it stays off the work profile (which defaults to amazon-bedrock).
+if [[ "$profile" == "work" ]]; then
+  rm -f "$pi_dir/provider-failover.json"
+else
+  ln -sfn "$repo_dir/pi/config/provider-failover.json" "$pi_dir/provider-failover.json"
+fi
+
 if [[ "$profile" == "private" ]]; then
   mkdir -p "$HOME/.config/mcp"
   if [[ ! -e "$HOME/.config/mcp/mcp.json" ]]; then

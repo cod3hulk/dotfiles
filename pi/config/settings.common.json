@@ -9,7 +9,13 @@
     "npm:@firstpick/pi-themes-bundle",
     "npm:pi-powerline-footer",
     "npm:@raquezha/noheadroom",
-    "npm:pi-vimmode"
+    "npm:pi-vimmode",
+    "npm:pi-multi-account"
   ],
+  "retry": {
+    "provider": {
+      "maxRetries": 0
+    }
+  },
   "powerline": "compact"
 }

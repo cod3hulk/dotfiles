@@ -20,10 +20,10 @@ shell_mode = "auto"
 new_cwd = "follow"
 
 [keys]
-# Deliberately differs from the tmux prefix (ctrl+a) so both can be nested.
-prefix = "ctrl+space"
+# Match tmux's prefix for muscle-memory compatibility.
+prefix = "ctrl+a"
 
-# Tmux which-key's prefix+Space equivalent is the Pretty Which overlay below.
+# Ctrl-Space opens herdr-which-key directly. Herdr's prefix remains Ctrl-A.
 # Keep prefix+s available for the workspace/session picker instead of Herdr's
 # default settings binding.
 settings = "prefix+shift+s"
@@ -65,13 +65,16 @@ goto = "prefix+g"
 detach = "prefix+d"
 help = "prefix+?"
 
-# Pretty Which provides a searchable, tree-style which-key overlay based on
-# the actual Herdr config, while prefix+? remains Herdr's built-in reference.
+# herdr-which-key provides a searchable, grouped overlay based on the actual
+# Herdr config, while prefix+? remains Herdr's built-in reference. The popup
+# route is required so the overlay receives an interactive TTY.
 [[keys.command]]
-key = "prefix+space"
-type = "plugin_action"
-command = "ramarivera.pretty-which.open"
-description = "which-key: pretty bindings"
+key = "ctrl+space"
+type = "popup"
+command = "sh ~/.config/herdr/plugins/config/cowboyvang.which-key/launch.sh"
+description = "which-key: show prefix bindings"
+width = "78%"
+height = "62%"
 
 [[keys.command]]
 key = "prefix+up"

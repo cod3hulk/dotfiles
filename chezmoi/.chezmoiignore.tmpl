@@ -7,6 +7,12 @@ AUDIT.md
 .pi/agent/mcp.json
 {{ end }}
 
+# pi-multi-account failover is codex-first and spends a personal OpenRouter key,
+# so it stays off the work profile (which defaults to amazon-bedrock).
+{{ if eq .profile "work-mac" }}
+.pi/agent/provider-failover.json
+{{ end }}
+
 # Private macOS window-management and local GUI automation.
 {{ if ne .profile "private-mac" }}
 .yabairc

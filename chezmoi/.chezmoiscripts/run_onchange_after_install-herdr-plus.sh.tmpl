@@ -1,19 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# which-key groups: {{ include "../herdr/which-key-groups.toml" | sha256sum }}
 
 if ! command -v herdr >/dev/null 2>&1; then
   echo "Skipping herdr-plus: herdr is not installed yet."
   exit 0
-fi
-
-if ! command -v herdr-pretty-which >/dev/null 2>&1; then
-  if ! command -v cargo >/dev/null 2>&1; then
-    echo "Skipping herdr-pretty-which: install Rust/Cargo first."
-    exit 0
-  else
-    echo "Installing herdr-pretty-which from crates.io"
-    cargo install herdr-pretty-which --locked
-  fi
 fi
 
 plugins="$(herdr plugin list 2>/dev/null || true)"
@@ -26,15 +17,55 @@ else
 fi
 
 plugins="$(herdr plugin list 2>/dev/null || true)"
-if [[ "${plugins}" == *"ramarivera.pretty-which"*"[github:"* ]]; then
-  echo "Replacing the GitHub-managed pretty-which plugin with the portable linked manifest"
+if [[ "${plugins}" == *"ramarivera.pretty-which"* ]]; then
+  echo "Removing the old Pretty Which plugin"
   herdr plugin uninstall ramarivera.pretty-which
 fi
 
 plugins="$(herdr plugin list 2>/dev/null || true)"
-if [[ "${plugins}" != *"ramarivera.pretty-which"* ]]; then
-  echo "Linking the portable herdr-pretty-which manifest"
-  herdr plugin link "{{ .chezmoi.sourceDir | dir }}/herdr/pretty-which" --enabled
+if [[ "${plugins}" != *"cowboyvang.which-key"* ]]; then
+  echo "Installing herdr-which-key"
+  herdr plugin install cowboyvang/herdr-which-key --yes
 else
-  echo "herdr-pretty-which is already installed."
+  echo "herdr-which-key is already installed."
 fi
+
+echo "Refreshing herdr-which-key launcher"
+herdr plugin action invoke which-key-install-launcher --plugin cowboyvang.which-key
+
+launcher="${HOME}/.config/herdr/plugins/config/cowboyvang.which-key/launch.sh"
+plugin_root=""
+for candidate in "${HOME}"/.config/herdr/plugins/github/cowboyvang.which-key-*/bin/which-key; do
+  if [[ -x "${candidate}" ]]; then
+    plugin_root="${candidate%/bin/which-key}"
+    break
+  fi
+done
+
+if [[ -z "${plugin_root}" ]]; then
+  echo "Could not locate the installed herdr-which-key checkout." >&2
+  exit 1
+fi
+
+python3 - "${launcher}" "${plugin_root}" <<'PY'
+from pathlib import Path
+import sys
+
+launcher = Path(sys.argv[1])
+plugin_root = sys.argv[2]
+text = launcher.read_text()
+lines = text.splitlines(keepends=True)
+for index, line in enumerate(lines):
+    if line.startswith("HERDR_PLUGIN_ROOT="):
+        lines[index] = f"HERDR_PLUGIN_ROOT={plugin_root!r}\n"
+        break
+else:
+    raise SystemExit("HERDR_PLUGIN_ROOT is missing from the generated launcher")
+launcher.write_text("".join(lines))
+PY
+
+groups_source="{{ .chezmoi.sourceDir | dir }}/herdr/which-key-groups.toml"
+groups_target="${HOME}/.config/herdr/plugins/config/cowboyvang.which-key/groups.toml"
+rm -f "${groups_target}"
+cp "${groups_source}" "${groups_target}"
+chmod 600 "${groups_target}"

@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "autoContinue": true,
+  "autoDiscover": true,
+  "includeOtherProviders": true,
+  "providerOrder": ["anthropic", "openai-codex"],
+  "preferredModels": {
+    "anthropic": ["claude-opus-5"],
+    "openai-codex": ["gpt-5.5"]
+  },
+  "fallbacks": [
+    "openrouter/deepseek/deepseek-v4-pro"
+  ]
+}

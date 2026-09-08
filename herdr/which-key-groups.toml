@@ -1,0 +1,218 @@
+# herdr-which-key groups for the tmux-to-Herdr migration.
+# These keys are local to the which-key overlay; Herdr's real bindings stay unchanged.
+hide_grouped = true
+
+[workspace]
+key = "w"
+desc = "+workspaces"
+
+  [[workspace.keys]]
+  key = "w"
+  node = "workspaces"
+  desc = "Workspace picker"
+
+  [[workspace.keys]]
+  key = "c"
+  action = "new_workspace"
+  desc = "Create workspace"
+
+  [[workspace.keys]]
+  key = "n"
+  action = "new_workspace"
+  desc = "New workspace"
+
+  [[workspace.keys]]
+  key = "r"
+  action = "rename_workspace"
+  desc = "Rename workspace"
+
+  [[workspace.keys]]
+  key = "x"
+  action = "close_workspace"
+  desc = "Close workspace"
+
+  [[workspace.keys]]
+  key = "g"
+  action = "goto"
+  desc = "Workspace navigator"
+
+[tab]
+key = "t"
+desc = "+tabs"
+
+  [[tab.keys]]
+  key = "t"
+  node = "tabs"
+  desc = "Tab picker"
+
+  [[tab.keys]]
+  key = "c"
+  action = "new_tab"
+  desc = "Create tab"
+
+  [[tab.keys]]
+  key = "n"
+  action = "next_tab"
+  desc = "Next tab"
+
+  [[tab.keys]]
+  key = "p"
+  action = "previous_tab"
+  desc = "Previous tab"
+
+  [[tab.keys]]
+  key = "r"
+  action = "rename_tab"
+  desc = "Rename tab"
+
+  [[tab.keys]]
+  key = "x"
+  action = "close_tab"
+  desc = "Close tab"
+
+  [[tab.keys]]
+  key = "h"
+  action = "move_tab_previous"
+  desc = "Move tab left"
+
+  [[tab.keys]]
+  key = "l"
+  action = "move_tab_next"
+  desc = "Move tab right"
+
+[pane]
+key = "p"
+desc = "+panes"
+
+  [[pane.keys]]
+  key = "v"
+  action = "split_vertical"
+  desc = "Split vertically"
+  section = "split"
+
+  [[pane.keys]]
+  key = "s"
+  action = "split_horizontal"
+  desc = "Split horizontally"
+  section = "split"
+
+  [[pane.keys]]
+  key = "x"
+  action = "close_pane"
+  desc = "Close pane"
+  section = "pane"
+
+  [[pane.keys]]
+  key = "z"
+  action = "zoom"
+  desc = "Zoom pane"
+  section = "pane"
+
+  [[pane.keys]]
+  key = "t"
+  action = "rename_pane"
+  desc = "Rename pane"
+  section = "pane"
+
+  [[pane.keys]]
+  key = "r"
+  action = "resize_mode"
+  desc = "Resize mode"
+  section = "pane"
+
+  [pane.move]
+  key = "m"
+  desc = "+move"
+  section = "move"
+
+    [[pane.move.keys]]
+    key = "h"
+    action = "swap_pane_left"
+    desc = "Move pane left"
+
+    [[pane.move.keys]]
+    key = "j"
+    action = "swap_pane_down"
+    desc = "Move pane down"
+
+    [[pane.move.keys]]
+    key = "k"
+    action = "swap_pane_up"
+    desc = "Move pane up"
+
+    [[pane.move.keys]]
+    key = "l"
+    action = "swap_pane_right"
+    desc = "Move pane right"
+
+[agent]
+key = "a"
+desc = "+agents"
+
+  [[agent.keys]]
+  key = "a"
+  node = "agents"
+  desc = "Agent picker"
+
+[git]
+key = "g"
+desc = "+git/worktrees"
+
+  [[git.keys]]
+  key = "c"
+  action = "new_worktree"
+  desc = "Create worktree"
+
+  [[git.keys]]
+  key = "o"
+  action = "open_worktree"
+  desc = "Open worktree"
+
+  [[git.keys]]
+  key = "x"
+  action = "remove_worktree"
+  desc = "Remove worktree"
+
+  [[git.keys]]
+  key = "l"
+  shell = "herdr pane split --direction right --command lazygit"
+  desc = "Open lazygit"
+
+[herdr]
+key = "h"
+desc = "+Herdr/tools"
+
+  [[herdr.keys]]
+  key = "p"
+  plugin_action = "cloudmanic.herdr-plus.projects"
+  desc = "Projects"
+
+  [[herdr.keys]]
+  key = "q"
+  plugin_action = "cloudmanic.herdr-plus.quick-actions"
+  desc = "Quick Actions"
+
+  [[herdr.keys]]
+  key = "a"
+  node = "agents"
+  desc = "Agents"
+
+  [[herdr.keys]]
+  key = "w"
+  node = "workspaces"
+  desc = "Workspaces"
+
+  [[herdr.keys]]
+  key = "t"
+  node = "tabs"
+  desc = "Tabs"
+
+  [[herdr.keys]]
+  key = "i"
+  node = "plugins"
+  desc = "Installed plugins"
+
+  [[herdr.keys]]
+  key = "?"
+  node = "doctor"
+  desc = "Which-key doctor"

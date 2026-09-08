@@ -527,13 +527,15 @@ chars = "\u001b[13;2u"
 key = "Return"
 mods = "Shift"
 
+# Herdr runs inside Alacritty, so its cmd+shift bracket shortcuts must be
+# translated into Herdr's ctrl+space prefix before reaching the application.
 [[keyboard.bindings]]
-chars = "\u0001p" # <prefix>p
+chars = "\u0000p" # Herdr <prefix>p: previous tab
 key = "{"
 mods = "Command|Shift"
 
 [[keyboard.bindings]]
-chars = "\u0001n" # <prefix>n
+chars = "\u0000n" # Herdr <prefix>n: next tab
 key = "}"
 mods = "Command|Shift"
 
@@ -659,4 +661,5 @@ y = 5
 TERM_PROGRAM = "alacritty"
 
 [terminal]
-shell = { program = "/bin/zsh", args = ["-l", "-c", "exec tmux new-session -A -s main"] }
+# Start a normal login shell. Tmux/Herdr startup is controlled by the shell
+# configuration instead of being forced by Alacritty.

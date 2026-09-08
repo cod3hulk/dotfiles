@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "${CHEZMOI_INSTALL_PACKAGES:-0}" != "1" ]; then
+ echo "Skipping GUI app install. Set CHEZMOI_INSTALL_PACKAGES=1 to run it."
+ exit 0
+fi
+
+{{ if eq .chezmoi.os "darwin" }}
+BREW_COMMAND="/opt/homebrew/bin/brew"
+
+if ! command -v "${BREW_COMMAND}" >/dev/null 2>&1; then
+ echo "Install homebrew"
+ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+install_cask_if_missing() {
+ local cask="$1"
+ local app_path="$2"
+
+ if "${BREW_COMMAND}" list --cask "${cask}" >/dev/null 2>&1; then
+  echo "${cask} is already Homebrew-managed; skipping"
+  return 0
+ fi
+
+ if [ -e "${app_path}" ]; then
+  echo "${app_path} already exists but is not Homebrew-managed; skipping ${cask}"
+  return 0
+ fi
+
+ echo "Installing ${cask}"
+ "${BREW_COMMAND}" install --cask "${cask}"
+}
+
+install_cask_if_missing bitwarden /Applications/Bitwarden.app
+install_cask_if_missing google-gemini /Applications/Gemini.app
+{{ else }}
+echo "Skipping GUI app install on {{ .chezmoi.os }}"
+{{ end }}

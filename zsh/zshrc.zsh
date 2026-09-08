@@ -43,8 +43,10 @@ export ZSH_PLUGINS_ALIAS_TIPS_FORCE=0
 
 unset I3SOCK
 
-# Auto-attach to tmux only when launched from Alacritty
-if [[ -z "$TMUX" ]] && [[ "$TERM_PROGRAM" == "alacritty" ]]; then
+# Auto-attach to tmux only when explicitly enabled and launched from Alacritty.
+# Herdr is now the opt-in multiplexer for new shells; set
+# ZSH_TMUX_AUTOSTART=true in ~/.zprofile.local to restore the old behavior.
+if [[ "${ZSH_TMUX_AUTOSTART:-false}" == "true" ]] && [[ -z "$TMUX" ]] && [[ "$TERM_PROGRAM" == "alacritty" ]]; then
     tmux new-session -A -s main
     exit
 fi
