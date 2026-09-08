@@ -58,6 +58,7 @@ Common files:
 - `~/.zshrc` -> `zsh/zshrc.zsh`
 - `~/.zprofile` -> `zsh/zprofile.zsh`
 - `~/.tmux.conf` -> `tmux/tmux.conf`
+- `~/.config/herdr/config.toml` -> `herdr/config.toml`
 - `~/.tigrc` -> `tig/tig.conf`
 - `~/.ideavimrc` -> `intellij/ideavimrc`
 - `~/.config/nvim` -> `nvim`
@@ -102,6 +103,10 @@ Package bootstrap scripts are present as chezmoi scripts, but they are opt-in du
 ```sh
 CHEZMOI_INSTALL_PACKAGES=1 ./install
 ```
+
+Herdr is installed in the common macOS Brewfile. Its portable config and the
+Herdr migration trial are documented in `herdr/MIGRATION.md`; plugin/runtime
+state remains local.
 
 Homebrew dependencies are split for chezmoi:
 

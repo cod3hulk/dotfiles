@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v herdr >/dev/null 2>&1; then
+  echo "Skipping herdr-plus: herdr is not installed yet."
+  exit 0
+fi
+
+if ! command -v herdr-pretty-which >/dev/null 2>&1; then
+  if ! command -v cargo >/dev/null 2>&1; then
+    echo "Skipping herdr-pretty-which: install Rust/Cargo first."
+    exit 0
+  else
+    echo "Installing herdr-pretty-which from crates.io"
+    cargo install herdr-pretty-which --locked
+  fi
+fi
+
+plugins="$(herdr plugin list 2>/dev/null || true)"
+
+if [[ "${plugins}" != *"cloudmanic.herdr-plus"* ]]; then
+  echo "Installing herdr-plus"
+  herdr plugin install cloudmanic/herdr-plus --yes
+else
+  echo "herdr-plus is already installed."
+fi
+
+plugins="$(herdr plugin list 2>/dev/null || true)"
+if [[ "${plugins}" == *"ramarivera.pretty-which"*"[github:"* ]]; then
+  echo "Replacing the GitHub-managed pretty-which plugin with the portable linked manifest"
+  herdr plugin uninstall ramarivera.pretty-which
+fi
+
+plugins="$(herdr plugin list 2>/dev/null || true)"
+if [[ "${plugins}" != *"ramarivera.pretty-which"* ]]; then
+  echo "Linking the portable herdr-pretty-which manifest"
+  herdr plugin link "{{ .chezmoi.sourceDir | dir }}/herdr/pretty-which" --enabled
+else
+  echo "herdr-pretty-which is already installed."
+fi

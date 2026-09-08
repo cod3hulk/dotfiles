@@ -1,0 +1,85 @@
+# Herdr configuration.  Runtime state, logs, and the socket stay under
+# ~/.config/herdr and are intentionally not managed by chezmoi.
+
+onboarding = false
+
+[theme]
+name = "dracula"
+
+# Built-in dracula renders inactive tabs as overlay0 (#6272a4) on surface0
+# (#44475a), a 1.9:1 contrast ratio that is effectively unreadable. Recess the
+# inactive tab surface to Dracula's darker background and lift the label to the
+# theme's own mid tone, which brings both inactive tab styles to 4.8:1 while the
+# active tab keeps its accent purple.
+[theme.custom]
+surface0 = "#21222c"
+overlay0 = "#828cb4"
+
+[terminal]
+shell_mode = "auto"
+new_cwd = "follow"
+
+[keys]
+# Deliberately differs from the tmux prefix (ctrl+a) so both can be nested.
+prefix = "ctrl+space"
+
+# Tmux which-key's prefix+Space equivalent is the Pretty Which overlay below.
+# Keep prefix+s available for the workspace/session picker instead of Herdr's
+# default settings binding.
+settings = "prefix+shift+s"
+reload_config = "prefix+shift+r"
+
+# Tmux-style navigation and tab/window operations. Herdr calls tmux windows
+# tabs and tmux sessions workspaces.
+new_tab = "prefix+c"
+rename_tab = "prefix+shift+t"
+# Cmd+Shift+[ / ] are translated by Alacritty into prefix+p/n so these
+# work reliably through the terminal input stream.
+next_tab = "prefix+n"
+previous_tab = "prefix+p"
+switch_tab = "prefix+1..9"
+close_tab = "prefix+shift+x"
+
+# Tmux-style pane operations.
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+rename_pane = "prefix+shift+p"
+close_pane = "prefix+x"
+split_horizontal = "prefix+minus"
+split_vertical = "prefix+v"
+zoom = "prefix+z"
+resize_mode = "prefix+r"
+resize_pane_up = "prefix+shift+k"
+resize_pane_down = "prefix+shift+j"
+resize_pane_left = "prefix+shift+h"
+resize_pane_right = "prefix+shift+l"
+
+# Tmux session-management equivalents.
+workspace_picker = "prefix+s"
+new_workspace = "prefix+shift+n"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+goto = "prefix+g"
+detach = "prefix+d"
+help = "prefix+?"
+
+# Pretty Which provides a searchable, tree-style which-key overlay based on
+# the actual Herdr config, while prefix+? remains Herdr's built-in reference.
+[[keys.command]]
+key = "prefix+space"
+type = "plugin_action"
+command = "ramarivera.pretty-which.open"
+description = "which-key: pretty bindings"
+
+[[keys.command]]
+key = "prefix+up"
+type = "plugin_action"
+command = "cloudmanic.herdr-plus.projects"
+description = "herdr-plus: projects"
+
+[ui]
+tab_bar_position = "bottom"
+pane_borders = true
+pane_gaps = true
