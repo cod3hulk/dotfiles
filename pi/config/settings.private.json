@@ -1,17 +1,18 @@
 {
   "theme": "dracula",
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-5",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "fallback",
+  "defaultModel": "default",
+  "defaultThinkingLevel": "medium",
   "packages": [
     "~/.dotfiles/pi/packages/base",
     "npm:pi-mcp-adapter",
     "npm:pi-rtk-optimizer",
     "npm:@firstpick/pi-themes-bundle",
     "npm:pi-powerline-footer",
+    "npm:pi-multi-account",
+    "npm:pi-fallback-provider",
     "npm:@raquezha/noheadroom",
-    "npm:pi-vimmode",
-    "npm:pi-multi-account"
+    "npm:pi-vimmode"
   ],
   "retry": {
     "provider": {
