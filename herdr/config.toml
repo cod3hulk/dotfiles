@@ -48,7 +48,11 @@ focus_pane_right = "prefix+l"
 rename_pane = "prefix+shift+p"
 close_pane = "prefix+x"
 split_horizontal = "prefix+minus"
-split_vertical = "prefix+v"
+# Match the previous tmux config: `prefix+|` splits side-by-side (vertical
+# divider), `prefix+-` splits stacked (horizontal divider). `prefix+v` is now
+# copy mode.
+split_vertical = "prefix+|"
+copy_mode = "prefix+v"
 zoom = "prefix+z"
 resize_mode = "prefix+r"
 resize_pane_up = "prefix+shift+k"
@@ -75,6 +79,103 @@ command = "sh ~/.config/herdr/plugins/config/cowboyvang.which-key/launch.sh"
 description = "which-key: show prefix bindings"
 width = "78%"
 height = "62%"
+
+# `prefix+shift+a` opens an interactive popup that prompts for an agent (pi or
+# hermes) and a prompt, then creates a new tab, launches the agent, and submits
+# the prompt. This is the Herdr-native equivalent of tmux's agent-new-window.sh:
+# it is the one route with a real interactive TTY, so it is the only place a
+# prompt can be captured. The no-prompt `prefix+a+n+(p|h)` variants live in the
+# herdr-which-key overlay's agent group, which owns the `a` key; the shifted
+# chord keeps the prompt shortcut in the agent family without shadowing that
+# group, and the overlay's root table lists it automatically as a display-only
+# `prefix+shift+a` row.
+[[keys.command]]
+key = "prefix+shift+a"
+type = "popup"
+command = "sh ~/.config/herdr/scripts/agent-new-tab-prompt.sh"
+description = "agent: new tab with prompt"
+width = "50%"
+height = "30%"
+
+# herdr-pluck is the tmux-fingers/tmux-copycat equivalent: prefix+u labels every
+# visible URL and opens the chosen one in the browser; prefix+t labels visible
+# tokens (paths, SHAs, IPs, UUIDs, k8s refs, ...) and copies the chosen one.
+[[keys.command]]
+key = "prefix+u"
+type = "plugin_action"
+command = "rmarganti.herdr-pluck.open-url"
+description = "pluck: open visible URL"
+
+[[keys.command]]
+key = "prefix+t"
+type = "plugin_action"
+command = "rmarganti.herdr-pluck.pluck"
+description = "pluck: copy visible token"
+
+# Smart ctrl+h/j/k/l pane navigation, mirroring the tmux + vim-tmux-navigator
+# setup: in a shell pane, ctrl+hjkl focuses the neighbouring herdr pane; in
+# Neovim/Vim, the key is forwarded to the editor (herdr/scripts/navigate.sh
+# checks the foreground process), so intra-nvim split navigation keeps working
+# and nvim hands off to herdr at window edges (see nvim/lua/user/navigator.lua).
+# These are `type = "shell"` so they run detached and can call the socket.
+[[keys.command]]
+key = "ctrl+h"
+type = "shell"
+command = "sh ~/.config/herdr/scripts/navigate.sh left ctrl+h"
+description = "focus pane left (smart)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "shell"
+command = "sh ~/.config/herdr/scripts/navigate.sh down ctrl+j"
+description = "focus pane down (smart)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "shell"
+command = "sh ~/.config/herdr/scripts/navigate.sh up ctrl+k"
+description = "focus pane up (smart)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "shell"
+command = "sh ~/.config/herdr/scripts/navigate.sh right ctrl+l"
+description = "focus pane right (smart)"
+
+# herdr-annotate: annotate terminal text and send feedback to the agent.
+# The README defaults `prefix+shift+a` (copy-context) and `prefix+m` (manage);
+# both are taken here (agent prompt popup; which-key pane-move group), so they
+# are remapped to prefix+ctrl+shift+a and prefix+alt+m.
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "annotate.capture"
+description = "annotate: comment on selected text"
+
+[[keys.command]]
+key = "prefix+ctrl+shift+a"
+type = "plugin_action"
+command = "annotate.copy-context"
+description = "annotate: copy annotations as context"
+
+[[keys.command]]
+key = "prefix+alt+m"
+type = "plugin_action"
+command = "annotate.manage"
+description = "annotate: manage annotations"
+
+# Document review (plannotator-tui).
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "annotate.open"
+description = "annotate: review documents in this folder"
+
+[[keys.command]]
+key = "prefix+shift+o"
+type = "plugin_action"
+command = "annotate.last"
+description = "annotate: review the agent's last reply"
 
 [[keys.command]]
 key = "prefix+up"

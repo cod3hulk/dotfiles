@@ -34,17 +34,9 @@ require("lazy").setup({
   "folke/which-key.nvim",
   "nvim-tree/nvim-tree.lua",
 
-  -- Navigation
-  {
-    "christoomey/vim-tmux-navigator",
-    config = function()
-      vim.keymap.set("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>")
-      vim.keymap.set("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>")
-      vim.keymap.set("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>")
-      vim.keymap.set("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>")
-      vim.keymap.set("n", "<c-\\>", "<cmd>TmuxNavigatePrevious<cr>")
-    end,
-  },
+  -- Smart pane navigation lives in lua/user/navigator.lua and is wired up
+  -- from init.lua. It handles Herdr (and tmux fallback) edge handoff without
+  -- a plugin, replacing christoomey/vim-tmux-navigator.
   {
     "folke/flash.nvim",
     config = function()

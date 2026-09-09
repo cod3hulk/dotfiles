@@ -1,6 +1,7 @@
 require("user.options")
 require("user.keymaps")
 require("user.plugins")
+require("user.navigator")
 require("user.colorscheme")
 require("user.which-key")
 require("user.nvim-tree")

@@ -154,6 +154,23 @@ desc = "+agents"
   node = "agents"
   desc = "Agent picker"
 
+  # New tab + launch agent, no prompt. The prompt-capturing equivalent is the
+  # direct `prefix+shift+a` popup in config.toml: the overlay's `shell` entries
+  # run detached without a TTY, so they cannot read input.
+  [agent.new]
+  key = "n"
+  desc = "+new tab"
+
+    [[agent.new.keys]]
+    key = "p"
+    shell = "sh ~/.config/herdr/scripts/agent-new-tab.sh pi"
+    desc = "Pi: new tab"
+
+    [[agent.new.keys]]
+    key = "h"
+    shell = "sh ~/.config/herdr/scripts/agent-new-tab.sh hermes"
+    desc = "Hermes: new tab"
+
 [git]
 key = "g"
 desc = "+git/worktrees"
@@ -183,6 +200,18 @@ key = "h"
 desc = "+Herdr/tools"
 
   [[herdr.keys]]
+  key = "r"
+  action = "reload_config"
+  desc = "Reload config"
+
+  # copy_mode is one of Herdr's UI modes with no socket method behind it, so the
+  # overlay marks it display-only and points at the real binding (prefix+v).
+  [[herdr.keys]]
+  key = "v"
+  action = "copy_mode"
+  desc = "Visual selection / copy mode"
+
+  [[herdr.keys]]
   key = "p"
   plugin_action = "cloudmanic.herdr-plus.projects"
   desc = "Projects"
@@ -192,6 +221,8 @@ desc = "+Herdr/tools"
   plugin_action = "cloudmanic.herdr-plus.quick-actions"
   desc = "Quick Actions"
 
+  # copy_context moved to prefix+ctrl+a; annotate.capture is the direct
+  # prefix+a binding, but keeping the node lets the overlay show both.
   [[herdr.keys]]
   key = "a"
   node = "agents"
@@ -206,6 +237,26 @@ desc = "+Herdr/tools"
   key = "t"
   node = "tabs"
   desc = "Tabs"
+
+  [[herdr.keys]]
+  key = "u"
+  plugin_action = "rmarganti.herdr-pluck.open-url"
+  desc = "Open visible URL"
+
+  [[herdr.keys]]
+  key = "k"
+  plugin_action = "rmarganti.herdr-pluck.pluck"
+  desc = "Copy visible token (pluck)"
+
+  [[herdr.keys]]
+  key = "a"
+  plugin_action = "annotate.capture"
+  desc = "Annotate selected text"
+
+  [[herdr.keys]]
+  key = "o"
+  plugin_action = "annotate.open"
+  desc = "Review documents (annotate)"
 
   [[herdr.keys]]
   key = "i"

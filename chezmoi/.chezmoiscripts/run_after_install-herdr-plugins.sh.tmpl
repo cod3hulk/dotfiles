@@ -6,6 +6,7 @@ set -euo pipefail
 # Managed inputs are included here so chezmoi also records the dependencies.
 # Herdr config: {{ include "../herdr/config.toml" | sha256sum }}
 # which-key groups: {{ include "../herdr/which-key-groups.toml" | sha256sum }}
+# agent scripts: {{ include "../herdr/scripts/agent-new-tab.sh" | sha256sum }} {{ include "../herdr/scripts/agent-new-tab-prompt.sh" | sha256sum }}
 
 if ! command -v herdr >/dev/null 2>&1; then
   echo "Skipping Herdr plugins: herdr is not installed yet."
@@ -33,6 +34,14 @@ if [[ "${plugins}" != *"cowboyvang.which-key"* ]]; then
   herdr plugin install cowboyvang/herdr-which-key --yes
 else
   echo "herdr-which-key is already installed."
+fi
+
+plugins="$(herdr plugin list 2>/dev/null || true)"
+if [[ "${plugins}" != *"rmarganti.herdr-pluck"* ]]; then
+  echo "Installing herdr-pluck"
+  herdr plugin install rmarganti/herdr-pluck --yes
+else
+  echo "herdr-pluck is already installed."
 fi
 
 echo "Refreshing herdr-which-key launcher"
