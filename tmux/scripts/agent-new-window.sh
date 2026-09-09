@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-# Create a new window, name it claude-<prompt>, and launch yolo with the prompt
+# Create a new window, name it <agent>-<prompt-slug>, and launch the agent
+# seeded with the given prompt.
+# Usage: agent-new-window.sh <pi|hermes>
 
-if [ "$1" != "--popup" ]; then
-  exec tmux display-popup -E -w 50% -h 30% "$0 --popup"
+AGENT="${1:?agent name required (pi|hermes)}"
+
+if [ "$2" != "--popup" ]; then
+  exec tmux display-popup -E -w 50% -h 30% "$0 $AGENT --popup"
 fi
 
 # Dracula theme colors
@@ -18,7 +22,7 @@ RL_RESET=$'\001\033[0m\002'
 trap "exit 0" INT
 
 printf '%s━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%s\n' "$PURPLE" "$RESET"
-printf '  %sNew Claude Window%s\n' "$CYAN" "$RESET"
+printf '  %sNew %s Window%s\n' "$CYAN" "$AGENT" "$RESET"
 printf '%s━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%s\n' "$PURPLE" "$RESET"
 printf '\n'
 printf '\n'  # reserved: readline input line
@@ -30,7 +34,12 @@ printf '\033[3A'
 if read -e -p "${RL_CYAN}Prompt:${RL_RESET} " prompt; then
   if [ -n "$prompt" ]; then
     slug=$(echo "$prompt" | tr -cs "a-zA-Z0-9" "-" | tr "[:upper:]" "[:lower:]" | sed "s/^-//;s/-$//" | cut -c1-40)
-    window_name="claude-$slug"
-    tmux new-window -n "$window_name" -c "#{pane_current_path}" "claude --dangerously-skip-permissions --remote-control --permission-mode plan \"$prompt\""
+    window_name="${AGENT}-${slug}"
+    case "$AGENT" in
+      pi)     launch_cmd="pi \"$prompt\"" ;;
+      hermes) launch_cmd="hermes chat -q \"$prompt\"" ;;
+      *) echo "Unknown agent: $AGENT" >&2; exit 1 ;;
+    esac
+    tmux new-window -n "$window_name" -c "#{pane_current_path}" "$launch_cmd"
   fi
 fi

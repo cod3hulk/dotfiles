@@ -1,5 +1,5 @@
 # tmux-which-key configuration
-# Minimal config: sessions / windows / panes management + Claude Code
+# Minimal config: sessions / windows / panes management + AI agents (Hermes / Pi)
 
 command_alias_start_index: 200
 
@@ -90,18 +90,34 @@ items:
     key: j
     command: run-shell -b "~/.tmux/plugins/tmux-jump/scripts/tmux-jump.sh"
   - separator: true
-  - name: Claude Code
-    key: g
+  - name: +Agents
+    key: a
     menu:
-      - name: New Claude window
-        key: n
-        command: run-shell "bash ~/.tmux/scripts/claude-new-window.sh"
-      - name: Resume Claude window
-        key: r
-        command: run-shell "bash ~/.tmux/scripts/claude-resume-window.sh"
-      - name: Claude popup
-        key: g
-        command: run-shell "bash ~/.tmux/scripts/claude-popup.sh #{pane_current_path}"
+      - name: +Hermes
+        key: h
+        menu:
+          - name: New window
+            key: n
+            command: run-shell "bash ~/.tmux/scripts/agent-new-window.sh hermes"
+          - name: Resume
+            key: r
+            command: run-shell "bash ~/.tmux/scripts/agent-resume-window.sh hermes"
+          - name: Popup
+            key: h
+            command: run-shell "bash ~/.tmux/scripts/agent-popup.sh hermes #{pane_current_path}"
+      - name: +Pi
+        key: p
+        menu:
+          - name: New window
+            key: n
+            command: run-shell "bash ~/.tmux/scripts/agent-new-window.sh pi"
+          - name: Resume
+            key: r
+            command: run-shell "bash ~/.tmux/scripts/agent-resume-window.sh pi"
+          - name: Popup
+            key: p
+            command: run-shell "bash ~/.tmux/scripts/agent-popup.sh pi #{pane_current_path}"
+      - separator: true
       - name: Agent picker
         key: s
         command: run-shell "bash ~/.tmux/scripts/agent-picker-popup.sh"
