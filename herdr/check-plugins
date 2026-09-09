@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+failures=0
+home_config="${HERDR_CONFIG_PATH:-${HOME}/.config/herdr}"
+launcher="${home_config}/plugins/config/cowboyvang.which-key/launch.sh"
+groups="${home_config}/plugins/config/cowboyvang.which-key/groups.toml"
+
+check() {
+  if "$@"; then
+    printf '  OK  %s\n' "$*"
+  else
+    printf '  ERR %s\n' "$*" >&2
+    failures=$((failures + 1))
+  fi
+}
+
+printf 'Herdr installation check\n\n'
+check command -v herdr
+check herdr config check >/dev/null
+
+if command -v herdr >/dev/null 2>&1; then
+  plugins="$(herdr plugin list 2>/dev/null || true)"
+  check grep -q 'cloudmanic.herdr-plus' <<<"${plugins}"
+  check grep -q 'cowboyvang.which-key' <<<"${plugins}"
+fi
+
+check test -x "${launcher}"
+check test -f "${groups}"
+
+if [[ -f "${launcher}" ]]; then
+  plugin_root="$(grep '^HERDR_PLUGIN_ROOT=' "${launcher}" | head -1)"
+  plugin_root="${plugin_root#*=}"
+  plugin_root="${plugin_root#\'}"
+  plugin_root="${plugin_root%\'}"
+  plugin_root="${plugin_root#\"}"
+  plugin_root="${plugin_root%\"}"
+  check test -n "${plugin_root}"
+  [[ -n "${plugin_root}" ]] && check test -x "${plugin_root}/bin/which-key"
+fi
+
+if (( failures > 0 )); then
+  printf '\n%d check(s) failed. Run `chezmoi apply` to reconcile the installation.\n' "${failures}" >&2
+  exit 1
+fi
+
+printf '\nAll required Herdr components are installed.\n'

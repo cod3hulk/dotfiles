@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# This is intentionally a run_after_ script rather than run_onchange_. Plugin
+# installation is machine state: a previous apply may have run before Herdr
+# was installed, and a later apply must still repair the missing plugins.
+# Managed inputs are included here so chezmoi also records the dependencies.
+# Herdr config: {{ include "../herdr/config.toml" | sha256sum }}
 # which-key groups: {{ include "../herdr/which-key-groups.toml" | sha256sum }}
 
 if ! command -v herdr >/dev/null 2>&1; then
-  echo "Skipping herdr-plus: herdr is not installed yet."
+  echo "Skipping Herdr plugins: herdr is not installed yet."
   exit 0
 fi
 

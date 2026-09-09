@@ -50,3 +50,21 @@ only the portable Herdr binding is managed here.
 
 The two multiplexers should not be nested during the trial: start Herdr from
 the regular shell, not from inside a tmux pane.
+
+## Plugin bootstrap and verification
+
+Herdr itself is installed through `brew/Brewfile.common`. Required Herdr plugins
+are reconciled by the chezmoi `run_after_` script on every `chezmoi apply`, so a
+new machine can be bootstrapped with:
+
+```sh
+./install
+chezmoi apply
+herdr/check-plugins
+```
+
+The plugin setup is idempotent: existing plugins are left alone, missing plugins
+are installed, the which-key launcher is regenerated, and the managed groups
+file is refreshed. If Herdr was installed after the first chezmoi run, simply run
+`chezmoi apply` again. `herdr/check-plugins` verifies the binary, configuration,
+required plugins, launcher, and launcher target.
