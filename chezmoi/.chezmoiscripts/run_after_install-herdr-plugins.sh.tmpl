@@ -13,7 +13,49 @@ if ! command -v herdr >/dev/null 2>&1; then
   exit 0
 fi
 
-plugins="$(herdr plugin list 2>/dev/null || true)"
+# Plugin commands are routed through the running Herdr server. When the same
+# apply also upgraded the herdr binary, the session that is still running speaks
+# the previous socket protocol and every plugin call fails with
+# protocol_mismatch. Skip in that case instead of aborting the apply: stopping
+# the server here would kill the user's panes.
+server_state="$(herdr status --json 2>/dev/null | python3 -c '
+import json
+import sys
+
+try:
+    server = json.load(sys.stdin)["server"]
+except Exception:
+    print("unknown")
+    sys.exit(0)
+
+if not server.get("running"):
+    print("stopped")
+elif server.get("compatible") is False or server.get("restart_needed"):
+    print("stale")
+else:
+    print("ok")
+' 2>/dev/null || true)"
+
+if [[ "${server_state}" == "stale" ]]; then
+  echo "Skipping Herdr plugins: the running Herdr server predates $(herdr --version)."
+  echo "Detach every client, run 'herdr server stop', then re-run 'chezmoi apply'."
+  exit 0
+fi
+
+# A failing plugin list used to be swallowed into an empty string, which made
+# every check below believe nothing was installed and turned a transient socket
+# error into a reinstall attempt that aborted the apply.
+plugin_list() {
+  local output
+  if ! output="$(herdr plugin list 2>&1)"; then
+    echo "herdr plugin list failed:" >&2
+    printf '%s\n' "${output}" >&2
+    return 1
+  fi
+  printf '%s\n' "${output}"
+}
+
+plugins="$(plugin_list)"
 
 if [[ "${plugins}" != *"cloudmanic.herdr-plus"* ]]; then
   echo "Installing herdr-plus"
@@ -22,13 +64,13 @@ else
   echo "herdr-plus is already installed."
 fi
 
-plugins="$(herdr plugin list 2>/dev/null || true)"
+plugins="$(plugin_list)"
 if [[ "${plugins}" == *"ramarivera.pretty-which"* ]]; then
   echo "Removing the old Pretty Which plugin"
   herdr plugin uninstall ramarivera.pretty-which
 fi
 
-plugins="$(herdr plugin list 2>/dev/null || true)"
+plugins="$(plugin_list)"
 if [[ "${plugins}" != *"cowboyvang.which-key"* ]]; then
   echo "Installing herdr-which-key"
   herdr plugin install cowboyvang/herdr-which-key --yes
@@ -36,7 +78,7 @@ else
   echo "herdr-which-key is already installed."
 fi
 
-plugins="$(herdr plugin list 2>/dev/null || true)"
+plugins="$(plugin_list)"
 if [[ "${plugins}" != *"rmarganti.herdr-pluck"* ]]; then
   echo "Installing herdr-pluck"
   herdr plugin install rmarganti/herdr-pluck --yes
@@ -44,10 +86,25 @@ else
   echo "herdr-pluck is already installed."
 fi
 
-echo "Refreshing herdr-which-key launcher"
-herdr plugin action invoke which-key-install-launcher --plugin cowboyvang.which-key
-
+# Unlike the plugin install commands, invoking an action needs a live server.
+# On a fresh machine, or whenever this apply runs outside a Herdr session, that
+# step cannot run; report it rather than aborting the apply. `herdr/check-plugins`
+# reports the resulting gap.
 launcher="${HOME}/.config/herdr/plugins/config/cowboyvang.which-key/launch.sh"
+
+echo "Refreshing herdr-which-key launcher"
+if ! invoke_output="$(herdr plugin action invoke which-key-install-launcher --plugin cowboyvang.which-key 2>&1)"; then
+  echo "Could not refresh the launcher; Herdr has to be running for this step:" >&2
+  printf '%s\n' "${invoke_output}" >&2
+  if [[ ! -x "${launcher}" ]]; then
+    echo "Start Herdr, then re-run 'chezmoi apply' to finish the which-key setup." >&2
+    exit 0
+  fi
+  echo "Keeping the existing launcher." >&2
+else
+  printf '%s\n' "${invoke_output}"
+fi
+
 plugin_root=""
 for candidate in "${HOME}"/.config/herdr/plugins/github/cowboyvang.which-key-*/bin/which-key; do
   if [[ -x "${candidate}" ]]; then
