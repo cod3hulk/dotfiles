@@ -272,8 +272,43 @@ func centered(_ size: CGSize, in box: CGRect) -> CGPoint {
             y: box.minY + (box.height - size.height) / 2)
 }
 
+/// Wait for AeroSpace to stop re-anchoring a freshly floated window.
+/// Polls the AX frame until it stays within 1px for `stable` consecutive
+/// checks, or `timeout` elapses. Returns the last frame seen.
+@discardableResult
+func waitForFloatToSettle(_ win: AXUIElement, stable: Int = 6, timeout: TimeInterval = 1.0) -> CGRect? {
+    var last: CGRect? = axFrame(win)
+    var stableCount = 0
+    let deadline = Date().addingTimeInterval(timeout)
+    while Date() < deadline {
+        usleep(20_000) // 20ms between checks
+        let cur = axFrame(win)
+        guard let c = cur else { continue }
+        if let l = last, abs(c.minX - l.minX) < 1, abs(c.minY - l.minY) < 1,
+           abs(c.width - l.width) < 1, abs(c.height - l.height) < 1 {
+            stableCount += 1
+            if stableCount >= stable {
+                return c
+            }
+        } else {
+            stableCount = 0
+        }
+        last = c
+    }
+    return last
+}
+
 /// Apps resist geometry changes while a float transition or their own layout
 /// pass is still running, so keep reapplying briefly until it sticks.
+///
+/// Order matters and is the whole reason this loop exists: macOS clamps a
+/// resize to the screen edge measured from the window's *current* origin, so
+/// growing a window that still sits on the right of the screen silently
+/// truncates its width to `screenMaxX - oldOriginX` (e.g. a tiled-then-floated
+/// browser ending up narrow instead of widescreen). Setting the origin first
+/// and *waiting for it to land* before resizing is what avoids that. AX sets
+/// are asynchronous, so we re-assert origin -> size -> origin each pass and
+/// bail out once the achieved frame is within tolerance of the target.
 func place(_ win: AXUIElement) {
     guard let area = targetArea(for: win) else {
         log("ERROR: no screen found")
@@ -285,35 +320,79 @@ func place(_ win: AXUIElement) {
     }
 
     let target = box(in: area)
-    var actual = target.size
+    let useGrid = grid != nil
 
-    // Move to the target origin before resizing: macOS clamps a resize to the
-    // screen edge measured from the window's current origin, so growing a window
-    // that still sits further down the screen silently truncates it.
-    if grid != nil {
-        var seed = target.origin
-        axSet(win, kAXPositionAttribute as String, &seed)
+    // Without a grid we just center the window at its current size — nothing
+    // to resize, so no settle/retry dance is needed.
+    if !useGrid {
+        guard let size = axSize(win) else { return }
+        var origin = centered(size, in: target)
+        axSet(win, kAXPositionAttribute as String, &origin)
+        log("centered \(size.width)x\(size.height) in \(target) within \(area)")
+        return
     }
 
-    let deadline = Date().addingTimeInterval(0.2)
-    repeat {
-        if grid != nil {
-            var wanted = target.size
-            axSet(win, kAXSizeAttribute as String, &wanted)
+    // Two interacting things make placing a freshly floated window hard:
+    //  1. macOS clamps a resize to the screen edge measured from the window's
+    //     *current* origin, so growing a window that still sits on the right of
+    //     the screen silently truncates its width to `screenMaxX - oldOriginX`.
+    //     We must move the origin to the target first AND wait for it to land.
+    //  2. AeroSpace re-anchors a freshly floated window to its own computed
+    //     frame for a short while after `layout floating`, reverting our geometry
+    //     changes. It only re-anchors once, though, so re-asserting the frame
+    //     until it sticks is enough — this is what fixes a tiled-then-floated
+    //     browser ending up narrow (tall-looking) instead of widescreen.
+    //
+    // So: repeatedly move origin -> resize -> center, verifying the achieved
+    // frame matches the target, until it sticks or the deadline passes.
+    var achieved = target.size
+    let deadline = Date().addingTimeInterval(2.0)
+    var lastLogged = false
+    while Date() < deadline {
+        // 1. Move to the target origin and wait for it to land (AX sets are
+        //    asynchronous). Cap the wait so a window that can't be moved (e.g.
+        //    still mid-transition) doesn't stall us indefinitely.
+        let moveDeadline = Date().addingTimeInterval(0.2)
+        repeat {
+            var origin = target.origin
+            axSet(win, kAXPositionAttribute as String, &origin)
+            if let cur = axOrigin(win),
+               abs(cur.x - target.origin.x) < 2,
+               abs(cur.y - target.origin.y) < 2 {
+                break
+            }
+            usleep(3000)
+        } while Date() < moveDeadline
+
+        // 2. Resize now that the origin has landed. Apps may clamp to their own
+        //    min/max; we center whatever we actually get.
+        var wanted = target.size
+        axSet(win, kAXSizeAttribute as String, &wanted)
+
+        // 3. Re-read the achieved size and re-center on the target cell.
+        if let current = axSize(win) { achieved = current }
+        var center = centered(achieved, in: target)
+        axSet(win, kAXPositionAttribute as String, &center)
+
+        // 4. Verify. Give AeroSpace a moment to potentially revert, then re-read.
+        usleep(80_000)
+        if let cur = axFrame(win) {
+            achieved = cur.size
+            if abs(cur.size.width - target.size.width) < 2,
+               abs(cur.size.height - target.size.height) < 2,
+               abs(cur.minX - center.x) < 4,
+               abs(cur.minY - center.y) < 4 {
+                log("placed \(achieved.width)x\(achieved.height) in \(target) within \(area)")
+                return
+            }
+            if !lastLogged {
+                log("frame not yet stuck (got \(Int(cur.size.width))x\(Int(cur.size.height)) @ \(Int(cur.minX)),\(Int(cur.minY))); re-asserting")
+                lastLogged = true
+            }
         }
-        // Re-read the size each pass: it changes during the float transition, and
-        // apps clamp the requested size to their own min/max. Centering whatever
-        // we actually got keeps windows that refuse to resize centered in the
-        // grid cell rather than pinned to its top-left corner.
-        if let current = axSize(win) { actual = current }
-        var origin = centered(actual, in: target)
-        axSet(win, kAXPositionAttribute as String, &origin)
-        usleep(2000)
-    } while Date() < deadline
-
-    log("placed \(actual.width)x\(actual.height) in \(target) within \(area)")
+    }
+    log("placed \(achieved.width)x\(achieved.height) in \(target) within \(area) (deadline hit)")
 }
-
 // ── Main ────────────────────────────────────────────────────────────
 
 /// The window to act on, plus what AeroSpace knows about it. `id` and `layout`
@@ -602,9 +681,29 @@ func run() {
         }
         if target.layout != nil {
             setLayout("floating", windowId: target.id)
-            usleep(300_000) // let AeroSpace settle the float before touching geometry
+            // Wait for AeroSpace to finish settling the float before we touch
+            // geometry. AeroSpace re-anchors a freshly floated window to its
+            // own computed frame for some time after `layout floating`, and if
+            // we place() while that is still happening our origin/size sets get
+            // reverted — which is why a tiled-then-floated browser ended up
+            // narrow (its tiled width got re-clamped) instead of widescreen.
+            // A fixed sleep was unreliable; instead poll until the window's
+            // frame stops changing for ~120ms, up to a 1s cap.
+            waitForFloatToSettle(target.element)
+        } else if let id = target.id {
+            // AeroSpace never managed the window (e.g. it launched before
+            // AeroSpace started, or got orphaned). Try to adopt it back into
+            // the tiling tree; if aerospace refuses ("doesn't belong to any
+            // monitor"), there is no command-side recovery — reopen the window
+            // or restart AeroSpace — so fall through to place() to at least
+            // center it.
+            let (_, status) = runAeroWithStatus(["layout", "tiling", "--window-id", String(id)])
+            if status == 0 {
+                log("adopted unmanaged window \(id) back into tiling tree")
+                return
+            }
+            log("window \(id) unmanaged; aerospace refused to adopt it — reopen or restart AeroSpace")
         }
-        // A nil layout means AeroSpace never managed it: it is already free-floating.
     } else if ifFloating && !isFloating {
         log("not floating, skipping")
         return

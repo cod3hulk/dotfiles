@@ -4,8 +4,11 @@
 
 config-version = 2
 
-# Start AeroSpace at login
-start-at-login = false
+# Start AeroSpace at login — ensures it launches before apps so every window
+# is detected and managed. With `false`, windows opened before AeroSpace starts
+# (e.g. Alacritty launched at login) are never captured and float unmanaged,
+# which leaves alt-shift-f unable to toggle them back into the tiling tree.
+start-at-login = true
 
 # Auto-reload config on save (after one manual reload to activate)
 auto-reload-config = true
