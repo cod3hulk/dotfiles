@@ -73,12 +73,12 @@ desc = "+tabs"
   [[tab.keys]]
   key = "h"
   action = "move_tab_previous"
-  desc = "Move tab left"
+  desc = "Move tab left (prefix+<)"
 
   [[tab.keys]]
   key = "l"
   action = "move_tab_next"
-  desc = "Move tab right"
+  desc = "Move tab right (prefix+>)"
 
 [pane]
 key = "p"

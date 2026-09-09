@@ -19,7 +19,8 @@ between panes, `prefix+c` creates a tab (tmux's new window), `prefix+n/p`
 changes tabs, and `cmd+shift+[`/`]` changes tabs backward/forward via
 Alacritty's Herdr prefix translation. `prefix+1..9` selects a tab,
 `prefix+-` and `prefix+|` split, `prefix+x` closes a pane,
-`prefix+shift+x` closes a tab, `prefix+s` opens the workspace picker, and
+`prefix+shift+x` closes a tab, `prefix+<`/`prefix+>` move the active tab toward the
+front/back (matching the previous tmux `swap-window` bindings), `prefix+s` opens the workspace picker, and
 `prefix+z` zooms. `prefix+r` enters Herdr's resize mode; the tmux-style
 `prefix+shift+h/j/k/l` bindings also resize directly. `prefix+shift+r` reloads
 the Herdr config. Beyond these prefix chords, `ctrl+h/j/k/l` is bound for smart

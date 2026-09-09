@@ -33,6 +33,10 @@ reload_config = "prefix+shift+r"
 # tabs and tmux sessions workspaces.
 new_tab = "prefix+c"
 rename_tab = "prefix+shift+t"
+# Reorder tabs, matching the previous tmux swap-window bindings
+# (`bind-key < / > swap-window -d -t :-1 / :+1`).
+move_tab_previous = "prefix+<"
+move_tab_next = "prefix+>"
 # Cmd+Shift+[ / ] are translated by Alacritty into prefix+p/n so these
 # work reliably through the terminal input stream.
 next_tab = "prefix+n"
