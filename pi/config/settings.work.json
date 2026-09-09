@@ -7,8 +7,7 @@
     "npm:pi-powerline-footer",
     "npm:@raquezha/noheadroom",
     "npm:pi-vimmode",
-    "npm:pi-mcp-adapter",
-    "git:github.com/REDACTED/pi-REDACTED"
+    "npm:pi-mcp-adapter"
   ],
   "enabledModels": [
     "amazon-bedrock/global.anthropic.*",
