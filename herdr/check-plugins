@@ -23,6 +23,7 @@ if command -v herdr >/dev/null 2>&1; then
   plugins="$(herdr plugin list 2>/dev/null || true)"
   check grep -q 'cloudmanic.herdr-plus' <<<"${plugins}"
   check grep -q 'cowboyvang.which-key' <<<"${plugins}"
+  check grep -q 'rmarganti.herdr-pluck' <<<"${plugins}"
 fi
 
 check test -x "${launcher}"
