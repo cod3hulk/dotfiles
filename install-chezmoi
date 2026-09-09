@@ -51,4 +51,3 @@ fi
 echo
 echo 'Applying chezmoi source state.'
 chezmoi -S "${SOURCE_DIR}" apply
-echo 'Package bootstrap runs only with: CHEZMOI_INSTALL_PACKAGES=1 ./install'

@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-if [ "${CHEZMOI_INSTALL_PACKAGES:-0}" != "1" ]; then
-  echo "Skipping Homebrew package install. Set CHEZMOI_INSTALL_PACKAGES=1 to run it."
-  exit 0
-fi
+set -uo pipefail
 
 {{ if eq .chezmoi.os "darwin" }}
 # Brewfile.common hash: {{ include "../brew/Brewfile.common" | sha256sum }}
@@ -27,16 +22,24 @@ echo "Trust third-party taps used by managed Brewfiles"
 echo "Unlink conflicting formulas"
 "${BREW_COMMAND}" unlink docker-completion 2>/dev/null || true
 
+# Run `brew bundle` but never let a single formula/cask failure abort the whole
+# chezmoi apply (e.g. a flaky cask upgrade should not block config changes).
+# brew bundle exits non-zero if any dependency failed; report it but move on.
+BREW_BUNDLE_FAILED=0
 if [ -e "${COMMON_BREW_FILE}" ]; then
   echo "Install common Homebrew dependencies"
-  "${BREW_COMMAND}" bundle install --file="${COMMON_BREW_FILE}"
+  "${BREW_COMMAND}" bundle install --file="${COMMON_BREW_FILE}" || BREW_BUNDLE_FAILED=1
 fi
 
 if [ -e "${PROFILE_BREW_FILE}" ]; then
   echo "Install Homebrew dependencies for profile ${PROFILE}"
-  "${BREW_COMMAND}" bundle install --file="${PROFILE_BREW_FILE}"
+  "${BREW_COMMAND}" bundle install --file="${PROFILE_BREW_FILE}" || BREW_BUNDLE_FAILED=1
 else
   echo "No profile Brewfile found at ${PROFILE_BREW_FILE}"
+fi
+
+if [ "${BREW_BUNDLE_FAILED}" -ne 0 ]; then
+  echo "Warning: one or more Homebrew dependencies failed to install (see above)." >&2
 fi
 {{ else }}
 echo "Skipping Homebrew install on {{ .chezmoi.os }}"

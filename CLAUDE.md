@@ -22,11 +22,7 @@ Package/bootstrap scripts are selected by OS (`brew` on macOS, `apt`/upstream re
 CHEZMOI_PROFILE=work-mac ./install
 ```
 
-Package/bootstrap scripts are opt-in:
-
-```sh
-CHEZMOI_INSTALL_PACKAGES=1 ./install
-```
+Package/bootstrap scripts run automatically as `run_onchange_` chezmoi scripts: `brew bundle install` runs on macOS whenever a Brewfile changes, and the Linux installer runs when its inputs change. A single formula/cask failure is reported but does not abort the rest of `./install`.
 
 ### Machine-Specific Overrides
 
