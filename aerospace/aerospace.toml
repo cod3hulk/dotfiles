@@ -47,16 +47,7 @@ gaps.outer.right      = 20
 # Mirrors the yabai rules: tile browser/Slack main windows, float aux/popup windows.
 # Syntax: if = 'test %{app-bundle-id} = <bundle-id>' (optionally && test %{window-title} ~= <substring>)
 #
-# AeroSpace cannot position floating windows itself (`move`/`resize` reject them,
-# see AeroSpace issue #9), so placement is delegated to the float-place helper.
-# AeroSpace exports AEROSPACE_WINDOW_ID to exec-and-forget and the helper inherits
-# AeroSpace's Accessibility permission, so it needs no grant of its own.
-#
-# --grid mirrors yabai's grid=<rows>:<cols>:<col>:<row>:<cols-wide>:<rows-high>.
-# Add --gaps 20 to any invocation to inset placement by the outer gap.
-#
-# Only the first matching callback runs, so specific rules come first and the
-# catch-all comes last. Rules that want placement invoke float-place themselves.
+# Only the first matching callback runs, so specific rules come first.
 
 # Clawd floating avatar overlay — float where it is, never repositioned
 [[on-window-detected]]
@@ -75,25 +66,17 @@ run = 'layout tiling'
 
 [[on-window-detected]]
 if = 'test %{app-bundle-id} = us.zoom.xos'
-run = ['layout floating', 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place"']
+run = 'layout floating'
 
-# Bitwarden browser extension popup (Brave) — centered third of the screen
+# Bitwarden browser extension popup (Brave)
 [[on-window-detected]]
 if = 'test %{app-bundle-id} = com.brave.Browser && test %{window-title} ~= Bitwarden'
-run = ['layout floating', 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --grid 3:3:1:1:1:1']
+run = 'layout floating'
 
-# nvim-anywhere popup (Alacritty with fixed title) — centered two thirds
+# nvim-anywhere popup (Alacritty with fixed title)
 [[on-window-detected]]
 if = 'test %{app-bundle-id} = org.alacritty && test %{window-title} ~= nvim-anywhere'
-run = ['layout floating', 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --grid 6:6:1:1:4:4']
-
-# Everything else: if it ended up floating (dialogs, non-resizable popups, and
-# anything AeroSpace declined to tile), center it at its own size. Deliberately
-# no --grid here: yabai's `rule --apply app='.*' grid=8:8:1:1:6:6` only ran once
-# at config load, so force-resizing every new popup to 75% would be new behaviour.
-[[on-window-detected]]
-if = 'true'
-run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
+run = 'layout floating'
 
 # ── Main mode keybindings ──────────────────────────────────────────
 # Mirrors skhdrc mappings, adapted to AeroSpace command syntax
@@ -115,13 +98,8 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
     alt-l = 'focus right --ignore-floating --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors'
 
     # Move window in tree — replaces skhd alt+shift+hjkl (yabai --warp)
-    # h/l route through float-place so they also move *floating* windows to the
-    # next/prev monitor (AeroSpace's `move` rejects floats, issue #9). Tiling
-    # windows delegate to `aerospace move` with the same --boundaries flag as
-    # before, so cross-monitor behaviour for tiles is unchanged. j/k stay native
-    # since vertical monitor traversal isn't meaningful here.
-    alt-shift-h = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --move-screen prev'
-    alt-shift-l = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --move-screen next'
+    alt-shift-h = 'move left --boundaries all-monitors-outer-frame'
+    alt-shift-l = 'move right --boundaries all-monitors-outer-frame'
     alt-shift-j = 'move down --boundaries all-monitors-outer-frame'
     alt-shift-k = 'move up --boundaries all-monitors-outer-frame'
 
@@ -144,20 +122,12 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
     # Fullscreen — replaces alt-f (yabai --toggle zoom-fullscreen)
     # Note: alt-f conflicts with workspace F, so workspace F is unbound.
     # Use alt-g for workspace F if needed.
-    # Routed through float-place because `aerospace fullscreen` silently ignores
-    # floating windows, leaving no way back out of one. Tiling windows are handed
-    # straight back to AeroSpace; --gaps 20 matches the outer gap AeroSpace's own
-    # fullscreen leaves.
-    alt-f = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --fullscreen --gaps 20'
+    alt-f = 'fullscreen'
 
-    # Toggle floating + center — Alt+Shift+F
+    # Toggle floating/tiling — Alt+Shift+F
     # Note: alt-shift-f conflicts with move-node-to-workspace F, so workspace F
     # is accessible via alt-g above instead.
-    # float-place is a compiled Swift binary that handles the full toggle + place
-    # cycle itself (no visual jump to corner before centering). The grid matches
-    # the yabai default: 8x8 grid, offset 1:1, spanning 6x6 — centered at 75%.
-    # Build: swiftc -O float-place.swift -o float-place (in aerospace/ dir)
-    alt-shift-f = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --toggle --grid 8:8:1:1:6:6'
+    alt-shift-f = 'layout floating tiling'
 
     # Close window — replaces alt-w (yabai --close)
     alt-w = 'close'
@@ -233,7 +203,7 @@ run = 'exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --if-floating'
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main']    # reset layout
-    f = ['exec-and-forget "$HOME/.dotfiles/aerospace/float-place" --toggle --grid 8:8:1:1:6:6', 'mode main']    # toggle floating + place (same as alt-shift-f in main mode)
+    f = ['layout floating tiling', 'mode main']    # toggle floating/tiling (same as alt-shift-f in main mode)
     backspace = ['close-all-windows-but-current', 'mode main']
 
     # Re-apply on-window-detected rules to every window that is already open.
