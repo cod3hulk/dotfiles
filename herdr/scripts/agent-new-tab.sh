@@ -30,19 +30,14 @@ WS="${HERDR_ACTIVE_WORKSPACE_ID:-}"
 ws_flag=()
 [ -n "$WS" ] && ws_flag=(--workspace "$WS")
 
-if [ -n "$PROMPT" ]; then
-  slug=$(printf '%s' "$PROMPT" | tr -cs 'a-zA-Z0-9' '-' \
-         | tr '[:upper:]' '[:lower:]' | sed 's/^-//;s/-$//' | cut -c1-40)
-  label="${AGENT}-${slug}"
-else
-  label="$AGENT"
-fi
+# No --label: the herdr-auto-title plugin names tabs from live agent state,
+# and a manually set label would lock the tab out of auto-titling.
 
 # Snapshot existing tabs before the create so we can identify the new tab
 # regardless of the shape `herdr tab create` returns.
 before=$(herdr tab list "${ws_flag[@]}" 2>/dev/null || true)
 
-herdr tab create --cwd "$CWD" --label "$label" --focus "${ws_flag[@]}" >/dev/null
+herdr tab create --cwd "$CWD" --focus "${ws_flag[@]}" >/dev/null
 
 after=$(herdr tab list "${ws_flag[@]}" 2>/dev/null || true)
 tab_id=$(python3 -c '
