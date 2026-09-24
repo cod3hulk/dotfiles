@@ -26,6 +26,7 @@ Status: private Mac and Linux profiles have been tested with `chezmoi diff --exc
 | `~/.config/karabiner` | managed for `private-mac` | ignored otherwise |
 | `~/.config/kitty` | managed on macOS | ignored on Linux |
 | `~/.config/borders/bordersrc` | managed for `private-mac` | ignored otherwise |
+| `~/.config/sketchybar` | managed on macOS | symlink to `sketchybar/`; ignored on Linux |
 | `~/.config/tmux-powerline/config.sh` | managed | symlink to `tmux/tmux-powerline.sh` |
 | `~/.tmux/plugins/tmux-which-key/config.yaml` | managed | symlink to `tmux/which-key.yaml` |
 | `~/.local/bin/clipcopy` | managed | symlink to `scripts/clipcopy` |

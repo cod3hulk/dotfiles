@@ -25,7 +25,10 @@ AUDIT.md
 {{ end }}
 
 # macOS-only desktop/editor configuration.
+# SketchyBar pairs with AeroSpace, which is installed on every macOS profile via
+# Brewfile.common, so it is gated by OS rather than by profile.
 {{ if ne .chezmoi.os "darwin" }}
+.config/sketchybar
 .config/alacritty/**
 .config/kitty
 .config/Code/**

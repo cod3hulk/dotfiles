@@ -24,6 +24,26 @@ default-root-container-orientation = 'auto'
 # Mouse follows focus when monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# ── SketchyBar integration ─────────────────────────────────────────
+# Start the bar with AeroSpace so the two always agree on state. Prefer the brew
+# service; fall back to the bare binary, which is how sketchybar is installed on
+# machines where the formula cannot be fetched (see sketchybar/README.md).
+after-startup-command = ['exec-and-forget /bin/bash -c "pgrep -x sketchybar >/dev/null || /opt/homebrew/bin/brew services start sketchybar 2>/dev/null || /opt/homebrew/bin/sketchybar"']
+
+# Push workspace changes to the bar instead of letting it poll. AeroSpace exports
+# $AEROSPACE_FOCUSED_WORKSPACE, which plugins/aerospace.sh reads as
+# $FOCUSED_WORKSPACE to avoid an extra `aerospace list-workspaces` subprocess.
+exec-on-workspace-change = ['/bin/bash', '-c',
+  '/opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE'
+]
+
+# Also refresh on focus change. Moving a window to another workspace
+# (alt-shift-<key>) does not change the focused workspace, so
+# exec-on-workspace-change alone would leave a newly occupied workspace hidden
+# in the bar. on-focus-changed does fire for those moves. No env var is passed
+# here, so plugins/aerospace.sh falls back to querying the focused workspace.
+on-focus-changed = ['exec-and-forget /opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change']
+
 # Don't auto-unhide cmd-h hidden apps
 automatically-unhide-macos-hidden-apps = false
 
@@ -40,7 +60,8 @@ gaps.inner.horizontal = 20
 gaps.inner.vertical   = 20
 gaps.outer.left       = 20
 gaps.outer.bottom     = 20
-gaps.outer.top        = 20
+# top: 30px bar + 10px breathing room (was 20 before SketchyBar)
+gaps.outer.top        = 40
 gaps.outer.right      = 20
 
 # ── App routing rules ──────────────────────────────────────────────
