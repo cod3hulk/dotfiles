@@ -13,6 +13,10 @@ chezmoi symlink + Brewfile `postinstall` pattern already used by `borders/`
 | `sketchybarrc` | bar geometry, item definitions, event registration |
 | `colors.sh` | Dracula palette; `ACTIVE`/`INACTIVE` mirror `borders/bordersrc` |
 | `icons.sh` | Hack Nerd Font glyphs (font already in `Brewfile.common`) |
+
+Glyphs in `icons.sh` must be literal UTF-8 bytes. macOS ships bash 3.2, which
+does not support `$'\uXXXX'` escapes — they pass through as the literal text
+`\uf017` and the icon silently vanishes.
 | `plugins/aerospace.sh` | workspace highlight + hide-empty logic |
 | `plugins/front_app.sh` | focused app name |
 | `plugins/clock.sh` | date and 24h time |
@@ -72,22 +76,29 @@ MeetingBar.
 Like the workspace items, this needs `updates=on`: with the `when_shown` default
 the hidden item would never run its script and so could never un-hide itself.
 
-Two `icalBuddy` details that are easy to get wrong:
+Three `icalBuddy` details that are easy to get wrong:
 
 - in `-ps` the pipes are delimiters, not part of the separator, so `"|@@|"`
   produces a literal `@@`
 - datetimes render as `2026-09-24 at 13:57`, not `2026-09-24 13:57`, so date and
   time are extracted separately rather than parsed as one string
+- `to:` is **day-granular** and silently ignores any time component, so
+  `to:"2026-09-25 10:00"` and `to:"2026-09-25 23:00"` return identical results.
+  The lookahead is therefore `LOOKAHEAD_DAYS`, not hours. `1` means "today and
+  tomorrow", so tomorrow's first meeting still shows late in the evening rather
+  than the item going blank.
 
-### The work calendar is not visible yet
+All-day events are filtered by `-ea`, which correctly excludes entries like a
+full-day `OOO` block so they cannot occupy the slot ahead of a real meeting.
 
-EventKit currently holds only personal iCloud calendars (`Privat`, `Inbox`,
-`Deutsche Feiertage`, ...). `tomas.ave@zendesk.com` is **not** among them, so the
-item stays hidden for work meetings.
+### Calendar source
 
-To fix, add the Google account under **System Settings → Internet Accounts** with
-Calendars enabled. No config change is needed afterwards — the plugin picks it up
-automatically. Verify with:
+EventKit holds both the personal iCloud calendars and, since the Google account
+was added under **System Settings → Internet Accounts**, the work ones
+(`tomas.ave@zendesk.com`, `Bridge Team`). No plugin change was needed — it picked
+them up automatically.
+
+Verify the work calendars are present with:
 
 ```sh
 icalBuddy calendars | grep -i zendesk

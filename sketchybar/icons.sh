@@ -13,5 +13,5 @@ export BATT_25=󰁻
 export BATT_0=󰂎
 export BATT_CHARGING=󰂄
 
-export ICON_CLOCK=
-export ICON_CALENDAR=
+export ICON_CLOCK=
+export ICON_CALENDAR=

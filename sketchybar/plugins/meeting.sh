@@ -13,7 +13,10 @@
 source "$HOME/.config/sketchybar/colors.sh"
 source "$HOME/.config/sketchybar/icons.sh"
 
-LOOKAHEAD_HOURS=12
+# icalBuddy's to: is day-granular — it ignores any time component — so the window
+# is expressed in days. 1 means "today and tomorrow", which keeps tomorrow's
+# first meeting visible late in the evening instead of showing nothing.
+LOOKAHEAD_DAYS=1
 # Keep showing a meeting this long after it started, then move to the next one.
 STALE_AFTER_MIN=15
 # Truncate long meeting titles so one bad invite can't push the clock offscreen.
@@ -25,7 +28,7 @@ if [ ! -x "$ICALBUDDY" ]; then
   exit 0
 fi
 
-end_time="$(date -v+${LOOKAHEAD_HOURS}H '+%Y-%m-%d %H:%M')"
+end_date="$(date -v+${LOOKAHEAD_DAYS}d '+%Y-%m-%d')"
 
 # -npn drops property names, -ea excludes all-day events, -nc drops calendar
 # names, -eed excludes end datetimes. Fetch several events so stale in-progress
@@ -39,7 +42,7 @@ raw="$("$ICALBUDDY" -npn -nc -nrd -ea -eed -li 5 \
   -df "%Y-%m-%d" -tf "%H:%M" \
   -iep "title,datetime" \
   -ps "|@@|" \
-  eventsFrom:"now" to:"$end_time" 2>/dev/null)"
+  eventsFrom:"now" to:"$end_date" 2>/dev/null)"
 
 if [ -z "$raw" ]; then
   sketchybar --set "$NAME" drawing=off
