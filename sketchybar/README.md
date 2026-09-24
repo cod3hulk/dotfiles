@@ -45,9 +45,30 @@ AeroSpace has no window-moved callback, and SketchyBar's built-in
 `space_windows_change` does not help — it tracks macOS spaces, while AeroSpace
 keeps everything on one space and hides windows instead.
 
-Workspace items use `updates=on`, not the `when_shown` default: a hidden item
-with `when_shown` never runs its script, so an empty workspace could never
-discover it had become occupied.
+### Why one driver item instead of per-item scripts
+
+The workspace items carry no script. A single hidden `space_driver` item owns the
+subscription and repaints all of them in one batched `sketchybar` message.
+
+The first version gave every workspace item its own script, which meant one
+`aerospace list-workspaces --focused` plus one `aerospace list-windows --count`
+per item. Each `aerospace` CLI call costs ~45ms, so a switch on this
+16-workspace setup cost ~1.33s and lagged visibly.
+
+The driver makes two aerospace calls total, or one when
+`$FOCUSED_WORKSPACE` arrives via `exec-on-workspace-change`. Measured on a
+16-workspace setup:
+
+| Path | Before | After |
+|---|---|---|
+| workspace switch (env var) | ~1330ms | ~70ms |
+| focus change / window move | ~1330ms | ~120ms |
+
+`list-windows --all --format '%{workspace}'` returns the workspace of every
+window in one call, which replaces the per-workspace count queries.
+
+`space_driver` needs `updates=on`: it is permanently `drawing=off`, and with the
+`when_shown` default a hidden item never runs its script at all.
 
 Workspace items are built from `aerospace list-workspaces --all`, so
 non-persistent workspaces appear too. Adding a workspace to
