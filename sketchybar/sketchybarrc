@@ -71,6 +71,18 @@ for sid in $(aerospace list-workspaces --all); do
 done
 
 # ── Right side ─────────────────────────────────────────────────────
+# Next meeting, left of the clock. Hides itself when there is nothing upcoming,
+# or when EventKit has no work calendar (see sketchybar/README.md).
+sketchybar --add item meeting right \
+  --subscribe meeting system_woke \
+  --set meeting \
+  updates=on \
+  update_freq=60 \
+  icon.color="$CYAN" \
+  label.color="$WHITE" \
+  script="$PLUGIN_DIR/meeting.sh" \
+  click_script="open -a MeetingBar"
+
 sketchybar --add item clock right \
   --set clock \
   update_freq=10 \

@@ -36,3 +36,5 @@ cask "nikitabobko/tap/aerospace"
 # AeroSpace workspace indicator — lives here rather than in a profile Brewfile
 # because AeroSpace itself is common. See sketchybar/README.md.
 brew "FelixKratz/formulae/sketchybar", postinstall: "#{ENV["HOME"]}/.dotfiles/sketchybar/init.sh"
+# Feeds sketchybar's next-meeting item from EventKit.
+brew "ical-buddy"

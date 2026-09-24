@@ -1,6 +1,6 @@
 # SketchyBar
 
-AeroSpace workspace indicator for the private Mac profile. Chosen over
+AeroSpace workspace indicator plus a next-meeting item. Chosen over
 [simple-bar](https://github.com/Jean-Tinland/simple-bar) because it needs no
 Übersicht dependency and its config is plain shell, so it fits the existing
 chezmoi symlink + Brewfile `postinstall` pattern already used by `borders/`
@@ -17,6 +17,7 @@ chezmoi symlink + Brewfile `postinstall` pattern already used by `borders/`
 | `plugins/front_app.sh` | focused app name |
 | `plugins/clock.sh` | date and 24h time |
 | `plugins/battery.sh` | battery ramp, warns below 20% |
+| `plugins/meeting.sh` | next meeting from EventKit via `icalBuddy` |
 | `init.sh` | Brewfile `postinstall` hook — restarts the service |
 
 ## Workspace behaviour
@@ -49,22 +50,67 @@ non-persistent workspaces appear too. Adding a workspace to
 `persistent-workspaces` requires a `sketchybar --reload` (or a relogin) to
 register a new item.
 
+## Next meeting
+
+`plugins/meeting.sh` reads EventKit through `icalBuddy` (`brew "ical-buddy"` in
+`Brewfile.common`). Display escalates with urgency:
+
+| Time until | Colour | Example |
+|---|---|---|
+| > 60 min | white | `Standup · 2h15m` |
+| 16–60 min | white | `Standup · 42m` |
+| ≤ 15 min | orange | `Standup · 12m` |
+| ≤ 5 min | red | `Standup · 4m` |
+| in progress | red | `Standup · now` |
+| none upcoming | hidden | — |
+
+A meeting stops showing 15 minutes after it starts (`STALE_AFTER_MIN`), then the
+next one takes over. Titles truncate at 28 chars so a long invite can't push the
+clock offscreen. All-day events are excluded (`-ea`). Clicking the item opens
+MeetingBar.
+
+Like the workspace items, this needs `updates=on`: with the `when_shown` default
+the hidden item would never run its script and so could never un-hide itself.
+
+Two `icalBuddy` details that are easy to get wrong:
+
+- in `-ps` the pipes are delimiters, not part of the separator, so `"|@@|"`
+  produces a literal `@@`
+- datetimes render as `2026-09-24 at 13:57`, not `2026-09-24 13:57`, so date and
+  time are extracted separately rather than parsed as one string
+
+### The work calendar is not visible yet
+
+EventKit currently holds only personal iCloud calendars (`Privat`, `Inbox`,
+`Deutsche Feiertage`, ...). `tomas.ave@zendesk.com` is **not** among them, so the
+item stays hidden for work meetings.
+
+To fix, add the Google account under **System Settings → Internet Accounts** with
+Calendars enabled. No config change is needed afterwards — the plugin picks it up
+automatically. Verify with:
+
+```sh
+icalBuddy calendars | grep -i zendesk
+```
+
+Note that `~/Library/Calendars` being empty is *not* a reliable emptiness check;
+it stays empty even when EventKit has calendars. Ask `icalBuddy` instead.
+
 ## Interaction with the native menu bar
 
-**MeetingBar stays in the native macOS menu bar.** It cannot be integrated here:
+**MeetingBar stays in the native macOS menu bar** and is not replaced by the item
+above. It cannot be driven from here:
 
-- `eventStoreProvider = "Google Calendar API"` — it bypasses macOS Calendar
-  (EventKit), so `~/Library/Calendars` is empty and `icalBuddy` sees nothing
+- `eventStoreProvider = "Google Calendar API"` — it bypasses EventKit entirely,
+  so it and `meeting.sh` read different sources
 - its only URL scheme command is `meetingbar://preferences` — no next-event query
 - it is sandboxed (`~/Library/Containers/leits.MeetingBar`) and ships no CLI or
   AppleScript dictionary
 
-Keep `jordanbaird-ice` installed to tidy the native bar around it.
-
-To render meetings here instead, add the Google account under System Settings →
-Internet Accounts (populating EventKit), then `brew install ical-buddy` and add
-a plugin. MeetingBar is unaffected by that change — it stays on the Google API
-path.
+Adding the account to Internet Accounts does not affect MeetingBar — it stays on
+the Google API path. Once the bar item shows work meetings reliably, MeetingBar
+becomes redundant unless its notifications and auto-join are wanted, at which
+point `jordanbaird-ice` could go too.
 
 ## Commands
 
