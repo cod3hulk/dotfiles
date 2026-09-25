@@ -75,11 +75,6 @@ gaps.outer.right      = 20
 if = 'test %{app-bundle-id} = com.clawd.on-desk'
 run = 'layout floating'
 
-# iStat Menus — float where it is, never repositioned
-[[on-window-detected]]
-if = 'test %{app-bundle-id} = com.bjango.istatmenus'
-run = 'layout floating'
-
 # Zoom — only the main meeting window tiles
 [[on-window-detected]]
 if = 'test %{app-bundle-id} = us.zoom.xos && test %{window-title} ~= "Zoom Workplace"'
