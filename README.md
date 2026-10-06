@@ -46,6 +46,7 @@ CHEZMOI_INSTALL_PACKAGES=1 chezmoi apply
 |-----------|-------------|
 | `alacritty/` | GPU-accelerated terminal — keybindings, colors, display (TOML + YAML) |
 | `kitty/` | Terminal with split layouts, nvim scrollback integration, remote control |
+| `wezterm/` | GPU-accelerated terminal under evaluation as an Alacritty replacement — Dracula colors, Hack Nerd Font, Herdr prefix key translation |
 
 ### macOS Window Management
 
