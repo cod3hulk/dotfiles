@@ -264,7 +264,7 @@ run = 'move-node-to-workspace "5-💬-Comms"; layout --workspace "5-💬-Comms" 
     cmd-ctrl-alt-shift-b = '''exec-and-forget open -b "$(defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers | awk '/LSHandlerRoleAll/{gsub(/.*= "/,""); gsub(/".*$/,""); bundle=$0} /LSHandlerURLScheme = https;/{print bundle; exit}')"'''
 
     # Launch or focus Hermes
-    cmd-ctrl-alt-shift-h = 'exec-and-forget open -b com.nousresearch.hermes-bundled'
+    cmd-ctrl-alt-shift-e = 'exec-and-forget open -b com.nousresearch.hermes-bundled'
 
     # Open Slack
     cmd-ctrl-alt-shift-s = '''exec-and-forget open '/Applications/Slack.app' '''

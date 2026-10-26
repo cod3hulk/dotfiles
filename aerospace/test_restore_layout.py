@@ -10,7 +10,8 @@ class ConfigTests(unittest.TestCase):
     def test_hermes_bundled_launcher_and_routing(self):
         config = tomllib.loads((HERE / 'aerospace.toml').read_text())
         bundle = 'com.nousresearch.hermes-bundled'
-        self.assertEqual(config['mode']['main']['binding']['cmd-ctrl-alt-shift-h'],
+        self.assertNotIn('cmd-ctrl-alt-shift-h', config['mode']['main']['binding'])
+        self.assertEqual(config['mode']['main']['binding']['cmd-ctrl-alt-shift-e'],
                          f'exec-and-forget open -b {bundle}')
         rules = [r for r in config['on-window-detected'] if bundle in r['if']]
         self.assertEqual(len(rules), 1)

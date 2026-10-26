@@ -6,7 +6,7 @@
 - Alt+4 `4-🏡-Personal`, LG: Brave, Telegram, WhatsApp, Spotify, Raindrop.io.
 - Alt+5 `5-💬-Comms`, built-in: Slack.
 - Alt+Shift+R: reroute open apps and rebuild layouts without launching or closing apps.
-- Hyper+H (Cmd+Ctrl+Alt+Shift+H): launch/focus Hermes Agent using `com.nousresearch.hermes-bundled`. Newly detected windows route to Agents.
+- Hyper+E (Cmd+Ctrl+Alt+Shift+E): launch/focus Hermes Agent using `com.nousresearch.hermes-bundled`. Newly detected windows route to Agents. Hyper+H/J/K/L remain reserved for arrow-key navigation in Karabiner.
 
 Workspaces 1–4 prefer `LG HDR WQHD`, falling back to `built-in`; workspace 5 is pinned to `built-in`. Forced assignments prevent moving these workspaces with Alt+Shift+Tab. Disconnect/reconnect behavior is configured, not physically tested. Unused workspaces 6–9/A–F remain available.
 
