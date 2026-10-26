@@ -1,0 +1,11 @@
+{
+  "size": 15,
+  "font": null,
+  "workspaces": [
+    {"name": "1-💼-Work", "label": "1 💼 Work"},
+    {"name": "2-📅-Plan", "label": "2 📅 Plan"},
+    {"name": "3-🤖-Agents", "label": "3 🤖 Agents"},
+    {"name": "4-🏡-Personal", "label": "4 🏡 Personal"},
+    {"name": "5-💬-Comms", "label": "5 💬 Comms"}
+  ]
+}

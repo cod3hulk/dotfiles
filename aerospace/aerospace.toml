@@ -24,31 +24,24 @@ default-root-container-orientation = 'auto'
 # Mouse follows focus when monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-# ── SketchyBar integration ─────────────────────────────────────────
-# Start the bar with AeroSpace so the two always agree on state. Prefer the brew
-# service; fall back to the bare binary, which is how sketchybar is installed on
-# machines where the formula cannot be fetched (see sketchybar/README.md).
-after-startup-command = ['exec-and-forget /bin/bash -c "pgrep -x sketchybar >/dev/null || /opt/homebrew/bin/brew services start sketchybar 2>/dev/null || /opt/homebrew/bin/sketchybar"']
-
-# Push workspace changes to the bar instead of letting it poll. AeroSpace exports
-# $AEROSPACE_FOCUSED_WORKSPACE, which plugins/aerospace.sh reads as
-# $FOCUSED_WORKSPACE to avoid an extra `aerospace list-workspaces` subprocess.
-exec-on-workspace-change = ['/bin/bash', '-c',
-  '/opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE'
+# Restore layouts and launch the SwiftBar workspace indicator at login.
+# SketchyBar remains disabled. SwiftBar setup: ~/.dotfiles/swiftbar/README.md
+after-startup-command = [
+  'exec-and-forget /usr/bin/open -g -a SwiftBar',
+  'exec-and-forget /opt/homebrew/bin/python3 /Users/tomas.ave/.dotfiles/aerospace/restore-layout.py'
 ]
 
-# Also refresh on focus change. Moving a window to another workspace
-# (alt-shift-<key>) does not change the focused workspace, so
-# exec-on-workspace-change alone would leave a newly occupied workspace hidden
-# in the bar. on-focus-changed does fire for those moves. No env var is passed
-# here, so plugins/aerospace.sh falls back to querying the focused workspace.
-on-focus-changed = ['exec-and-forget /opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change']
+# Keep Clawd's paired overlay windows on the newly focused workspace.
+exec-on-workspace-change = ['/bin/bash', '-c',
+  '/Users/tomas.ave/.dotfiles/aerospace/follow-clawd.sh'
+]
+on-focus-changed = []
 
 # Don't auto-unhide cmd-h hidden apps
 automatically-unhide-macos-hidden-apps = false
 
 # Keep all workspaces alive even when empty
-persistent-workspaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+persistent-workspaces = ['1-💼-Work', '2-📅-Plan', '3-🤖-Agents', '4-🏡-Personal', '5-💬-Comms', '6', '7', '8', '9',
                          'A', 'B', 'C', 'D', 'E', 'F']
 
 focus-follows-mouse.enabled = false
@@ -60,8 +53,8 @@ gaps.inner.horizontal = 20
 gaps.inner.vertical   = 20
 gaps.outer.left       = 20
 gaps.outer.bottom     = 20
-# top: 30px bar + 10px breathing room (was 20 before SketchyBar)
-gaps.outer.top        = 40
+# Native menu bar only; no extra space reserved for SketchyBar.
+gaps.outer.top        = 20
 gaps.outer.right      = 20
 
 # ── App routing rules ──────────────────────────────────────────────
@@ -94,6 +87,73 @@ run = 'layout floating'
 if = 'test %{app-bundle-id} = org.alacritty && test %{window-title} ~= nvim-anywhere'
 run = 'layout floating'
 
+# Five-space app routing. Specific popup exceptions above take precedence.
+# Exact split positions are rebuilt at startup or with Alt+Shift+R.
+# 1 Work: Chrome + Obsidian; time tracker stays floating.
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.google.Chrome'
+run = 'move-node-to-workspace "1-💼-Work"; layout --workspace "1-💼-Work" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = md.obsidian'
+run = 'move-node-to-workspace "1-💼-Work"; layout --workspace "1-💼-Work" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = mac.partl.workinghours'
+run = 'move-node-to-workspace "1-💼-Work"; layout floating'
+
+# 2 Plan: Gmail, Calendar (Safari web apps), Things.
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.apple.Safari.WebApp.F0798CA9-2A28-4659-8C41-EADE3FF65417'
+run = 'move-node-to-workspace "2-📅-Plan"; layout --workspace "2-📅-Plan" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.apple.Safari.WebApp.BD7B59DC-00BE-410C-8F8A-F994A0939955'
+run = 'move-node-to-workspace "2-📅-Plan"; layout --workspace "2-📅-Plan" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.culturedcode.ThingsMac'
+run = 'move-node-to-workspace "2-📅-Plan"; layout --workspace "2-📅-Plan" --root tiles horizontal'
+
+# 3 Agents: Hermes, Pi Desktop, Ollama.
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.nousresearch.hermes-bundled'
+run = 'move-node-to-workspace "3-🤖-Agents"; layout --workspace "3-🤖-Agents" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = dev.pi.desktop-gui'
+run = 'move-node-to-workspace "3-🤖-Agents"; layout --workspace "3-🤖-Agents" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.electron.ollama'
+run = 'layout tiling; move-node-to-workspace "3-🤖-Agents"; layout --workspace "3-🤖-Agents" --root tiles horizontal'
+
+# 4 Personal: Brave, messaging, music, bookmarks. No separate research space.
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.brave.Browser'
+run = 'move-node-to-workspace "4-🏡-Personal"; layout --workspace "4-🏡-Personal" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace "4-🏡-Personal"; layout --workspace "4-🏡-Personal" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = ru.keepcoder.Telegram'
+run = 'move-node-to-workspace "4-🏡-Personal"; layout --workspace "4-🏡-Personal" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.spotify.client'
+run = 'move-node-to-workspace "4-🏡-Personal"; layout --workspace "4-🏡-Personal" --root tiles horizontal'
+
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = io.raindrop.macapp'
+run = 'move-node-to-workspace "4-🏡-Personal"; layout --workspace "4-🏡-Personal" --root tiles horizontal'
+
+# 5 Comms: Slack on the laptop display.
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace "5-💬-Comms"; layout --workspace "5-💬-Comms" --root tiles horizontal'
+
 # ── Main mode keybindings ──────────────────────────────────────────
 # Mirrors skhdrc mappings, adapted to AeroSpace command syntax
 
@@ -102,6 +162,9 @@ run = 'layout floating'
     # Layout toggles
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
+
+    # Restore app destinations and the exact Work/Plan splits without launching apps.
+    alt-shift-r = 'exec-and-forget /opt/homebrew/bin/python3 /Users/tomas.ave/.dotfiles/aerospace/restore-layout.py'
 
     # Focus — same as skhd: alt+hjkl
     # --ignore-floating: directional focus stays in the tiling tree; floating
@@ -153,11 +216,11 @@ run = 'layout floating'
 
     # Workspace switching — alt+number/letter
     # alt-f is taken by fullscreen; workspace F accessible via alt-g below
-    alt-1 = 'workspace 1'
-    alt-2 = 'workspace 2'
-    alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
-    alt-5 = 'workspace 5'
+    alt-1 = 'workspace "1-💼-Work"'
+    alt-2 = 'workspace "2-📅-Plan"'
+    alt-3 = 'workspace "3-🤖-Agents"'
+    alt-4 = 'workspace "4-🏡-Personal"'
+    alt-5 = 'workspace "5-💬-Comms"'
     alt-6 = 'workspace 6'
     alt-7 = 'workspace 7'
     alt-8 = 'workspace 8'
@@ -170,11 +233,11 @@ run = 'layout floating'
     alt-g = 'workspace F'
 
     # Move window to workspace — alt+shift+number/letter
-    alt-shift-1 = 'move-node-to-workspace 1'
-    alt-shift-2 = 'move-node-to-workspace 2'
-    alt-shift-3 = 'move-node-to-workspace 3'
-    alt-shift-4 = 'move-node-to-workspace 4'
-    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-1 = 'move-node-to-workspace "1-💼-Work"'
+    alt-shift-2 = 'move-node-to-workspace "2-📅-Plan"'
+    alt-shift-3 = 'move-node-to-workspace "3-🤖-Agents"'
+    alt-shift-4 = 'move-node-to-workspace "4-🏡-Personal"'
+    alt-shift-5 = 'move-node-to-workspace "5-💬-Comms"'
     alt-shift-6 = 'move-node-to-workspace 6'
     alt-shift-7 = 'move-node-to-workspace 7'
     alt-shift-8 = 'move-node-to-workspace 8'
@@ -199,6 +262,9 @@ run = 'layout floating'
 
     # Open default browser
     cmd-ctrl-alt-shift-b = '''exec-and-forget open -b "$(defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers | awk '/LSHandlerRoleAll/{gsub(/.*= "/,""); gsub(/".*$/,""); bundle=$0} /LSHandlerURLScheme = https;/{print bundle; exit}')"'''
+
+    # Launch or focus Hermes
+    cmd-ctrl-alt-shift-h = 'exec-and-forget open -b com.nousresearch.hermes-bundled'
 
     # Open Slack
     cmd-ctrl-alt-shift-s = '''exec-and-forget open '/Applications/Slack.app' '''
@@ -232,3 +298,12 @@ run = 'layout floating'
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+# Match display names, not unstable monitor sequence numbers.
+# Fall back to the laptop when the LG is disconnected.
+[workspace-to-monitor-force-assignment]
+    "1-💼-Work" = ['LG HDR WQHD', 'built-in']
+    "2-📅-Plan" = ['LG HDR WQHD', 'built-in']
+    "3-🤖-Agents" = ['LG HDR WQHD', 'built-in']
+    "4-🏡-Personal" = ['LG HDR WQHD', 'built-in']
+    "5-💬-Comms" = 'built-in'

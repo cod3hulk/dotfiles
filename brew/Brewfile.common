@@ -34,8 +34,10 @@ cask "obsidian"
 cask "claude"
 cask "claude-code"
 cask "nikitabobko/tap/aerospace"
-# AeroSpace workspace indicator — lives here rather than in a profile Brewfile
-# because AeroSpace itself is common. See sketchybar/README.md.
-brew "FelixKratz/formulae/sketchybar", postinstall: "#{ENV["HOME"]}/.dotfiles/sketchybar/init.sh"
+# Native menu-bar workspace indicator. See swiftbar/README.md.
+brew "python"
+cask "swiftbar", postinstall: "/bin/bash #{ENV["HOME"]}/.dotfiles/swiftbar/setup.sh --no-launch"
+# SketchyBar is optional/disabled; never start it during package bootstrap.
+brew "FelixKratz/formulae/sketchybar"
 # Feeds sketchybar's next-meeting item from EventKit.
 brew "ical-buddy"
